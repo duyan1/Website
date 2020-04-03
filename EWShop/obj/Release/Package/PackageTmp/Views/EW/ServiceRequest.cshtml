@@ -1,0 +1,346 @@
+﻿@model EWShop.Models.ServiceRequest
+@{
+    ViewBag.Title = "Yêu cầu bảo hành/bảo trì sản phẩm Aqua";
+    Layout = "~/Views/Layout/_LayoutDashboard.cshtml";
+    IEnumerable<EWShop.Models.DataReturn> listPlants = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.PLANTS_INFO];
+    EWShop.Models.User user = (EWShop.Models.User)HttpContext.Current.Session[EWShop.Models.CommonConstants.USER_INFO];
+}
+
+
+@section Styles {
+    <style>
+        .wrapper {min-height: 10px;}
+        h4 { font-size: 18px!important; line-height: 10px!important; }
+        textarea { resize: vertical; }
+        .table { width: 100%; margin-bottom:0!important; }
+        .block-heading h3 { font-size: 20px; margin-bottom: 0; line-height: 1.2; text-align: center; background: #337ab7; border-radius: 5px; color: white; padding: 7px; }
+        .container-form { max-width: 950px; width: 100%; margin: 0 auto; }
+        .dvError{ float:left; width: 100%; text-align:center; }
+        .dvShopInfo { float:left; width: 100%; padding:0 10px; }
+        .dvCustomerInfo, .dvProductInfo{ float:left; width: 50%; padding:10px 10px 0; }
+        .table>tbody>tr>td{ border: 0px!important; padding: 3px; }
+        .col-label { width: 100px; padding: 10px 5px!important; }
+        .required { color: red; margin-left: 1px; }
+        .wrapper { padding: 5px 10px; font-size: 16px; border: 0; }
+        .table-part { width: 50%; float:left;padding: 0 10px; }
+        @@media only screen and (max-width : 750px) {
+            .dvCustomerInfo, .dvProductInfo,.dvShopInfo { width: 100%; padding:10px 10px 0; }
+            .block-heading h2 { font-size: 24px; line-height: 1.3; }
+            .block-heading p { font-size: 17px; }
+            .table-part { width: 100%; }
+        }
+        .form-control {
+            padding: 4px 9px;
+            font-size: 16px;
+        }
+    </style>
+}
+<section class="main-support">
+    <div class="block-item">
+        <div class="block-heading">
+            <h3>YÊU CẦU BẢO HÀNH/BẢO TRÌ SẢN PHẨM AQUA</h3>
+        </div>
+        <div class="block-body">
+        @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBegin", UpdateTargetId = "dvResults", OnSuccess = "OnSuccess(data, status, xhr)" }))
+        {
+            <div class="container-form">
+                <div class="dvError">
+                    <p style="color:red;padding: 0;margin:0;font-size: 18px;font-weight:600;" class="lbError"></p>
+                    <p style="color:forestgreen;padding: 0;margin:0;font-size: 18px;font-weight:600;" class="lbSuccess"></p>
+                </div>
+                <div class="dvCustomerInfo">
+                    <div class="wrapper">
+                        <div class="address">
+                            <h4 style="font-weight: 600;color:currentColor;"><i class="fa fa-tags" aria-hidden="true"></i> Thông tin khách hàng</h4>
+                            <div class="row">
+                                <table class="table">
+                                    <tr>
+                                        <td class="col-label">Họ tên KH<span class="required">*</span></td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.cusName, new { @class = "form-control form-name", @placeholder = "Nhập tên khách hàng", required = "required" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Tỉnh thành<span class="required">*</span></td>
+                                        <td>
+                                            @Html.DropDownList("cusProvince", (IEnumerable<SelectListItem>)ViewBag.Provinces, new { @class = "form-control select-province form-select", @style = "width:100%;" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Quận huyện<span class="required">*</span></td>
+                                        <td>
+                                            <select class="select-district form-control form-select" style="width:100%" name="cusDistrict" id="cusDistrict">
+                                                <option value="0">Vui lòng chọn tỉnh/thành phố</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Phường xã<span class="required">*</span></td>
+                                        <td>
+                                            <select class="select-ward form-control form-select" style="width:100%" name="cusWard" id="cusWard">
+                                                <option value="0">Vui lòng chọn quận huyện</option>
+                                            </select>
+                                            <input type="hidden" class="form-model" value="@Model.model" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Địa chỉ<span class="required">*</span></td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.cusAddress, new { @class = "form-control form-address", @placeholder = "Nhập địa chỉ khách hàng...", required = "required" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">ĐT liên hệ<span class="required">*</span></td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.cusPhone, new { @class = "form-control form-phone", @placeholder = "Nhập sđt khách hàng...", required = "required" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">ĐT khác</td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.cusOtherPhone, new { @class = "form-control form-other-phone", @placeholder = "Nhập sđt khác..." })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dvProductInfo">
+                    <div class="wrapper">
+                        <div class="address">
+                            <h4 style="font-weight: 600;color:currentColor;"><i class="fa fa-tags" aria-hidden="true"></i> Thông tin sản phẩm</h4>
+                            <div class="row">
+                                <table class="table">
+                                    <tr>
+                                        <td class="col-label" title="Loại sản phẩm">Loại SP<span class="required">*</span></td>
+                                        <td colspan="3">
+                                            @Html.DropDownList("plant", (IEnumerable<SelectListItem>)ViewBag.Plants, new { @class = "form-control select-plant form-select", @style = "width:100%;" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Kiểu máy<span class="required">*</span></td>
+                                        <td colspan="3">
+                                            <select class="form-control select-model form-select" name="model" style="width: 100%;">
+                                                <option value="0">Vui lòng chọn loại sản phẩm</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Số máy</td>
+                                        <td colspan="3">
+                                            @Html.TextBoxFor(N => N.barcode, new { @class = "form-control form-barcode", @placeholder = "Nhập số máy..." })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Ngày mua</td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.purchaseDate, new { @class = "form-control form-date", @placeholder = "Nhập ngày mua..." })
+                                        </td>
+                                        <td class="col-label" title="Ngày hết hạn bảo hành">Hạn BH</td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.expiredDate, new { @class = "form-control form-date", @placeholder = "Nhập hạn bảo hành..." })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label" title="Lỗi sản phẩm">Lỗi SP<span class="required">*</span></td>
+                                        <td colspan="3">
+                                            @Html.TextAreaFor(N => N.contentError,3,3, new { @class = "form-control form-contentError", @placeholder = "Nhập nội dung..." })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Ghi chú</td>
+                                        <td colspan="3">
+                                            @Html.TextBoxFor(N => N.description, new { @class = "form-control form-description", @placeholder = "Nhập ghi chú..." })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dvShopInfo">
+                    <div class="wrapper" style="padding: 5px 0;">
+                        <div class="address">
+                            <h4 style="font-weight: 600;color:currentColor;"><i class="fa fa-tags" aria-hidden="true"></i> Thông tin cửa hàng</h4>
+                            <div class="row">
+                                <div class="table-part">
+                                    <table class="table">
+                                        <tr>
+                                            <td class="col-label" title="Tên cửa hàng">Tên CH<span class="required">*</span></td>
+                                            <td>
+                                                <input class="form-control" value="@user.fullName" disabled="disabled" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-label" title="Người liên hệ">Người LH</td>
+                                            <td>
+                                                @Html.TextBoxFor(N => N.shopContact, new { @class = "form-control form-name", @placeholder = "Nhập người liên hệ" })
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="table-part">
+                                    <table class="table">
+                                        <tr>
+                                            <td class="col-label">Số ĐT</td>
+                                            <td>
+                                                @Html.TextBoxFor(N => N.shopPhone, new { @class = "form-control form-sphone", @placeholder = "Nhập số điện thoại cửa hàng..." })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-label">Email</td>
+                                            <td>
+                                                @Html.TextBoxFor(N => N.shopEmail, new { @class = "form-control form-email", @placeholder = "Nhập địa chỉ email..." })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div style="float:left; padding: 6px 0;">(<span class="required">*</span>) Bắt buộc nhập</div>
+                                                <input type="submit" value="Gửi thông tin" class="btn btn-primary btn-send" style="float:right;" />
+                                                <button type="button" class="btn btn-default btn-clear" style="float:right;margin-right: 5px;"><i class="fa fa-refresh" aria-hidden="true"></i> Làm mới</button>
+                                                <img src="~/Libraries/dist/img/loading.gif" class="btn-loading" style="width: 100px;float: right; margin-right: 5px;height: 34px;display:none;" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script type="text/javascript">
+        var dateFormat = "dd/mm/yy";
+        $(document).ready(function () {
+            loadCombobox($('.form-select'));
+            $('.form-date').mask('00/00/0000');
+            $('.form-date').datepicker({
+                dateFormat: dateFormat
+            });
+            loadListDistrict($('.select-province').val());
+            loadListModel($('.select-plant').val(), $('.form-model').val());
+            $('.select-province').on('change', function () {
+                loadListDistrict($(this).val());
+            });
+            $('.select-district').on('change', function () {
+                loadListWard($(this).val());
+            });
+            $('.select-plant').on('change', function () {
+                loadListModel($(this).val());
+            });
+            $('.btn-clear').click(function () {
+                location.reload();
+            });
+        });
+        function loadListWard(districtId) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("loadListWard", "Home")' + '?districtId=' + districtId,
+                success: function (data) {
+                    var html = '';
+                    $.each(data, function (key, value) {
+                        html += '<option value="' + value.value + '">' + value.text + '</option>';
+                    });
+                    $('.select-ward').html(html);
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+
+                }
+            });
+        }
+        function loadListDistrict(provinceId) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("loadListDistrict", "Home")' + '?provinceId=' + provinceId,
+                success: function (data) {
+                    var html = '';
+                    $.each(data, function (key, value) {
+                        html += '<option value="' + value.value + '">' + value.text + '</option>';
+                    });
+                    $('.select-district').html(html);
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    loadListWard($('.select-district').val());
+                }
+            });
+        }
+        function loadListModel(plantId, model) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("loadListModel", "Home")' + '?plantId=' + plantId,
+                success: function (data) {
+                    var html = '';
+                    $.each(data, function (key, value) {
+                        html += '<option value="' + value.value + '">' + value.text + '</option>';
+                    });
+                    $('.select-model').html(html);
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    $('.select-model').val(model);
+                }
+            });
+        }
+        function OnBegin() {
+            BlockUi();
+            $('.btn-send').hide();
+            $('.btn-clear').hide();
+            $('.btn-loading').show();
+        }
+        function OnSuccess(data, status, xhr) {
+            closeBlock();
+            $('.lbSuccess').html('');
+            $('.lbError').html('');
+            $('.form-captcha').val('');
+            var unique = $.now();
+            if (data.code == "1") {
+                $('.lbSuccess').html(data.msg);
+            } else {
+                $('.lbError').html(data.msg);
+            }
+            $('.btn-send').show();
+            $('.btn-clear').show();
+            $('.btn-loading').hide();
+        }
+        function loadCombobox($control) {
+            $.fn.select2.amd.require(["select2/data/array", "select2/utils"], function (e, t) {
+                function a(e, t) {
+                    a.__super__.constructor.call(this, e, t)
+                }
+
+                function r(e, t) {
+                    return new RegExp(t, "i").test(e)
+                }
+                t.Extend(a, e), a.prototype.query = function (e, t) {
+                    "page" in e || (e.page = 1);
+                    var a = 10,
+                        n = this.$element.children().map(function (t, a) {
+                            return r(a.innerText, e.term) ? {
+                                id: a.value,
+                                text: a.innerText
+                            } : void 0
+                        });
+                    t({
+                        results: n.slice((e.page - 1) * a, e.page * a),
+                        pagination: {
+                            more: n.length >= e.page * a
+                        }
+                    })
+                }, $selectGroup = $control.select2({
+                    ajax: {},
+                    allowClear: false,
+                    dataAdapter: a
+                })
+            })
+        }
+    </script>
+    
+}

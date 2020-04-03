@@ -1,0 +1,52 @@
+﻿@model EWShop.Models.UserLogin
+@{
+    Layout = "~/Views/Layout/_LayoutLogin.cshtml";
+    ViewBag.Title = "Trang quản trị PSI";
+}
+
+<div class="container-login100">
+    <div class="wrap-login100 p-b-20">
+        @using (Html.BeginForm(null, null, new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login100-form validate-form" }))
+        {
+            @Html.AntiForgeryToken()
+            <span class="login100-form-avatar">
+                <img src="@Url.Content("~/Libraries/dist/img/logo_login.png")" alt="AVATAR">
+            </span>
+            <span class="login100-form-title p-b-20 p-t-10">
+                BẢO HÀNH ĐIỆN TỬ AQUA
+            </span>
+            <div class="wrap-input100 validate-input m-t-30 m-b-30" data-validate="Tên đăng nhập không được rỗng">
+                @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "input100" } })
+                <span class="focus-input100" data-placeholder="Tên đăng nhập"></span>
+                @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+            </div>
+            <div class="wrap-input100 validate-input m-b-30" data-validate="Mật khẩu không được rỗng">
+                @Html.PasswordFor(model => model.userPass, new { @class = "input100" })
+                <span class="focus-input100" data-placeholder="Mật khẩu"></span>
+                @Html.ValidationMessageFor(model => model.userPass, "", new { @class = "text-danger" })
+            </div>
+            <span style="font-size:16px;text-align:center;">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </span>
+            <div class="container-login100-form-btn m-t-10">
+                <button class="login100-form-btn" type="submit">
+                    ĐĂNG NHẬP
+                </button>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.input100').each(function () {
+                if ($(this).val().trim() != "") {
+                    $(this).addClass('has-val');
+                }
+                else {
+                    $(this).removeClass('has-val');
+                }
+            })
+        });
+    </script>
+}

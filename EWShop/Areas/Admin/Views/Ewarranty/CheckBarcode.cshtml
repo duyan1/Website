@@ -1,0 +1,262 @@
+﻿
+@{
+    ViewBag.Title = "Kiểm tra số máy";
+    Layout = "~/Views/Layout/_LayoutAdminDashboard.cshtml";
+}
+@section Styles {
+    <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <style>
+        p{
+            margin:0;
+        }
+        hr{
+            margin: 5px 0;
+        }
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .label-title{
+            float:left;
+            margin: 7px;
+            min-width: 150px;
+        }
+        .label-title-filter{
+            float:left;
+            margin: 7px;
+            min-width: 50px;
+        }
+        .div-title{
+            float:left;
+            min-width: 150px;
+            margin-right: 5px;
+        }
+        .div-button{
+            float:left;
+            margin-left: 5px;
+        }
+        .div-form{
+            float:left;
+            margin-bottom: 5px;
+        }
+        .col-title{
+            width: 125px!important;
+        }
+        .row-register,.row-production{
+            display: none;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1>
+        Kiểm tra số máy
+        <small>Check barcode</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active">Kiểm tra số máy</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div class="div-form">
+                        <label class="label-title-filter">Barcode</label>
+                        <div class="div-title">
+                            <input class="form-control form-barcode" type="text" />
+                        </div>
+                    </div>
+                    <div class="div-form">
+                        <label class="label-title-filter">Model</label>
+                        <div class="div-title">
+                            <input class="form-control form-model" type="text" />
+                            <input type="hidden" class="form-matid" name="matId" value="0" />
+                        </div>
+                    </div>
+                    
+                    <div class="div-button">
+                        <button class="btn btn-primary btn-filter">Lọc thông tin</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12" style="padding: 0 10px;float:left;width:100%;">
+                            <label class="label-title" style="min-width: 50px;">
+                                <strong><i class="fa fa-tags margin-r-5"></i> Status: </strong>
+                            </label>
+                            <div class="col-md-9" style="padding: 7px;">
+                                <p class="text-muted text-msg"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-register">
+                        <div class="col-md-12" style="padding: 0 10px;float:left;width:100%;">
+                            <label class="label-title">
+                                <strong><i class="fa fa-pencil margin-r-5"></i> Register Info</strong>
+                            </label>
+                        </div>
+                        <div class="col-md-12" style="padding: 0 35px;float:left;width:100%;">
+                            <label class="label-title">
+                                <i class="fa fa-user margin-r-5"></i> Customer Info
+                            </label>
+                            <div class="col-md-9">
+                                <table class="table table-condensed table-responsive">
+                                    <tr>
+                                        <td class="col-title">Customer Name </td>
+                                        <td class="col-cusName">Nguyễn Trần Trung Hậu</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-title">Customer Phone </td>
+                                        <td class="col-cusPhone">0366617801</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-title">Customer Address </td>
+                                        <td class="col-cusAddress">53/30 đường 30/4, KP3, P.Thanh Bình, TP.Biên Hòa, Tỉnh Đồng Nai</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding: 0 35px;float:left;width:100%;">
+                            <label class="label-title">
+                                <i class="fa fa-building margin-r-5"></i> Shop Info
+                            </label>
+                            <div class="col-md-9">
+                                <table class="table table-condensed table-responsive">
+                                    <tr>
+                                        <td class="col-title">Shop Code </td>
+                                        <td class="col-shopCode">000000</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-title">Shop Name </td>
+                                        <td class="col-shopName">Cửa hàng TNHH ABC</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-title">Shop Address </td>
+                                        <td class="col-shopAddress">53/30 đường 30/4, KP3, P.Thanh Bình, TP.Biên Hòa, Tỉnh Đồng Nai</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding: 0 35px;float:left;width:100%;">
+                            <label class="label-title">
+                                <i class="fa fa-suitcase margin-r-5"></i> Production Info
+                            </label>
+                            <div class="col-md-9">
+                                <table class="table table-condensed table-responsive">
+                                    <tr>
+                                        <td class="col-title">ModelType </td>
+                                        <td class="col-model">AQW-D900AT</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-title">Pur. Date </td>
+                                        <td class="col-pod">03-JUN-2019</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-title">Exp. Date </td>
+                                        <td class="col-exp">03-JUN-2021</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-production">
+                        <div class="col-md-12" style="padding: 0 10px;float:left;width:100%;">
+                            <label class="label-title">
+                                <i class="fa fa-calendar margin-r-5"></i> Production Date
+                            </label>
+                            <div class="col-md-9" style="padding: 7px;">
+                                <label class="col-prod-date">03-MAY-2019</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+<script src="@Url.Content("~/Libraries/dist/js/jquery.autocomplete.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.form-barcode').focusout(function () {
+                if ($(this).val().length == 16 || $(this).val().length == 20) {
+                    BlockUi();
+                    checkBarcodeInSystem($(this).val());
+                } else if ($(this).val().length > 0) {
+                    $('.form-model').val('');
+                    $('.form-matid').val('0');
+                }
+            });
+            $('.form-model').autocomplete({
+                source: '@Url.Action("searchModel", "EW", new { area = "" })',
+                minLength: 1,
+                select: function (event, ui) {
+                    $('.form-matid').val(ui.item.id);
+                }
+            });
+            $('.btn-filter').click(function () {
+                BlockUi();
+                GetInfoBarcode();
+            });
+        });
+        function checkBarcodeInSystem(barcode) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("checkBarcode", "EW", new { area = "" })' + '?barcode=' + barcode,
+                success: function (data) {
+                    if (data.code == "1") {
+                        $('.form-model').val(data.model);
+                        $('.form-matid').val(data.matId);
+                    } else {
+                        $('.form-model').val('');
+                        $('.form-matid').val('0');
+                    }
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+        function GetInfoBarcode() {
+            var barcode = $('.form-barcode').val();
+            var model = $('.form-model').val();
+            var matid = $('.form-matid').val();
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("getInfoBarcode", "Ewarranty")' + '?barcode=' + barcode + '&model=' + model + '&matid=' + matid,
+                success: function (data) {
+                    $('.text-msg').html(data.message);
+                    if (data.code == "1") {
+                        $('.row-register').show();
+                        $('.row-production').hide();
+                        $('.col-cusName').html(data.data.cusName);
+                        $('.col-cusPhone').html(data.data.cusPhone);
+                        $('.col-cusAddress').html(data.data.cusAddress);
+                        $('.col-shopCode').html(data.data.channelCode);
+                        $('.col-shopName').html(data.data.channelName);
+                        $('.col-shopAddress').html(data.data.channelAddress);
+                        $('.col-model').html(data.data.model);
+                        $('.col-pod').html(data.data.purchaseDate);
+                        $('.col-exp').html(data.data.status);
+                    } else if (data.code == "2") {
+                        $('.row-register').hide();
+                        $('.row-production').hide();
+                    } else {
+                        $('.row-register').hide();
+                        $('.row-production').show();
+                        $('.col-prod-date').html(data.data);
+                    }
+                }, error: function (e) {
+                    alert(e);
+                    $('.row-register').hide();
+                    $('.row-production').hide();
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+    </script>
+}

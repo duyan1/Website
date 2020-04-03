@@ -1,0 +1,663 @@
+﻿@model EWShop.Models.ItemSellOut
+@{
+    ViewBag.Title = "Đăng ký bảo hành sản phẩm";
+    Layout = "~/Views/Layout/_LayoutCustomerDashboard.cshtml";
+}
+@section Styles {
+<link href="~/Libraries/dist/css/StyleImage.css" rel="stylesheet" />
+    <style>
+        .ui-autocomplete {
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 200px;
+        }
+        .no-padding{
+            padding: 0!important;
+        }
+        textarea {
+            resize: vertical;
+        }
+        .table {
+            width: 100%;
+            margin-bottom: 0 !important;
+        }
+        .block-heading {
+            margin: 10px 0 0;
+        }
+            .block-heading h2 {
+                font-size: 35px;
+                margin-bottom: 15px;
+                line-height: 1.2;
+            }
+            .block-heading p {
+                font-size: 19px;
+            }
+        .contact-slider {
+            margin-bottom: 10px;
+        }
+        .dv-content {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .container-form {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .dvError {
+            float: left;
+            width: 100%;
+            text-align: center;
+        }
+        .dvCustomerInfo, .dvProductInfo {
+            float: left;
+            width: 50%;
+            padding: 5px 10px;
+        }
+        .table > tbody > tr > td {
+            border: 0px !important;
+            padding: 5px;
+        }
+        .col-label {
+            width: 120px;
+            padding: 10px 5px !important;
+        }
+        .required {
+            color: red;
+            margin-left: 1px;
+        }
+        .box{
+            width: 100%;
+            margin: 0!important;
+            min-width: 10px!important;
+            height: 100%;
+        }
+        .js--image-preview{
+            height: 165px;
+        }
+        .js--image-preview::after {
+            top: calc(50% - 4rem);
+            left: calc(50% - 2.5rem);
+        }
+        .upload-options{
+            height: 34px;
+        }
+        .upload-options label::after{
+            font-size: 30px;
+        }
+        .col-label{
+            width: 150px;
+        }
+        .form-control {
+            height: calc(1.2em + .75rem + 2px);
+            padding: 7px;
+            font-size: 17px;
+        }
+        .about .about-header{
+            margin-top: 20px;
+        }
+        .about .about-header h2{
+            font-size: 40px;
+            text-align: center;
+            font-weight: 600;
+        }
+        @@media only screen and (max-width : 750px) {
+            .dvCustomerInfo, .dvProductInfo {
+                width: 100%;
+                padding: 0 10px;
+            }
+            .block-heading h2 {
+                font-size: 24px;
+                line-height: 1.3;
+            }
+            .block-heading p {
+                font-size: 17px;
+            }
+        }
+        .dvModel,.dvImage,.dvMsgError{
+            display: none;
+        }
+        .ui-dialog .ui-dialog-content{
+            overflow: hidden;
+        }
+        .ui-widget .ui-widget{
+            display: none;
+        }
+        .center-block {
+            text-align: center;
+            margin: 5px 0;
+        }
+        .ui-autocomplete {
+            max-height: 150px;
+            overflow-y: auto; /* prevent horizontal scrollbar */
+            overflow-x: hidden; /* add padding to account for vertical scrollbar */
+            z-index: 1000 !important;
+        }
+        .btn {
+            padding: 5px 15px;
+            font-size: 15px;
+            border: 1px solid #ddd;
+        }
+    </style>
+}
+<div class="breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/">
+    <span><span><a href="https://aquavietnam.com.vn/">Trang chủ</a> &gt; <span class="breadcrumb_last" aria-current="page">Tra cứu bảo hành</span></span></span>
+</div>
+<div class="about-header">
+    <h2>ĐĂNG KÝ BẢO HÀNH SẢN PHẨM</h2>
+</div>
+<div class="row">
+    <div style="width: 100%;float:left;">
+        <form class="form-horizontal form-register">
+            <div class="container-form">
+                <div class="dvError">
+                    <p style="color:red;padding: 0;margin:0;font-size: 18px;font-weight:600;" class="lbError"></p>
+                    <p style="color:forestgreen;padding: 0;margin:0;font-size: 18px;font-weight:600;" class="lbSuccess"></p>
+                </div>
+                <div class="dvCustomerInfo">
+                    <div class="wrapper" style="padding: 6px 12px; font-size: 16px; border: 0;">
+                        <div class="address">
+                            <h5 style="font-weight: 600;"><i class="fa fa-tags" aria-hidden="true"></i> Thông tin khách hàng</h5>
+                            <div class="row">
+                                <table class="table">
+                                    <tr>
+                                        <td class="col-label">Tên khách hàng<span class="required">*</span></td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.cusName, new { @class = "form-control form-name", @placeholder = "Nhập tên khách hàng", required = "required" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">ĐT liên hệ<span class="required">*</span></td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.cusPhone, new { @class = "form-control form-phone", @placeholder = "Nhập sđt khách hàng...", required = "required" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Tỉnh thành<span class="required">*</span></td>
+                                        <td>
+                                            @Html.DropDownList("cusProvinceId", (IEnumerable<SelectListItem>)ViewBag.Provinces, new { @class = "form-control select-province" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Quận huyện<span class="required">*</span></td>
+                                        <td>
+                                            <select class="select-district form-control form-select" style="width:100%" name="cusDistrictId" id="cusDistrict">
+                                                <option value="0">Vui lòng chọn tỉnh/thành phố</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Địa chỉ<span class="required">*</span></td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.cusAddress, new { @class = "form-control form-address", @placeholder = "Nhập địa chỉ khách hàng...", required = "required" })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="address">
+                            <h5 style="font-weight: 600;"><i class="fa fa-tags" aria-hidden="true"></i> Thông tin cửa hàng</h5>
+                            <div class="row">
+                                <table class="table">
+                                    <tr>
+                                        <td class="col-label" title="Tên cửa hàng">Tên cửa hàng</td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.channelName, new { @class = "form-control form-shopname", @placeholder = "Nhập tên cửa hàng...", required = "required" })
+                                            <input type="hidden" class="form-shopid" name="channelId" />
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dvProductInfo">
+                    <div class="wrapper" style="padding: 6px 12px; font-size: 16px; border: 0;">
+                        <div class="address">
+                            <h5 style="font-weight: 600;"><i class="fa fa-tags" aria-hidden="true"></i> Thông tin sản phẩm</h5>
+                            <div class="row">
+                                <table class="table">
+                                    <tr>
+                                        <td class="col-label">Số máy<span class="required">*</span></td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.barcode, new { @class = "form-control form-barcode", @placeholder = "Nhập số máy...", required = "required" })
+                                        </td>
+                                    </tr>
+                                    <tr class="dvMsgError">
+                                        <td colspan="2" style="color:red;padding:0;">
+                                            Không tìm thấy số máy và kiểu máy tương ứng. vui lòng cung cấp hình ảnh hóa đơn và tem gắn trên sản phẩm hoặc vỏ thùng
+                                        </td>
+                                    </tr>
+                                    <tr class="dvModel">
+                                        <td class="col-label">Kiểu máy<span class="required">*</span></td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.model, new { @class = "form-control form-model", @placeholder = "Nhập kiểu máy...", required = "required" })
+                                            <input type="hidden" name="matId" class="form-matid" />
+                                        </td>
+                                    </tr>
+                                    <tr class="dvImage">
+                                        <td colspan="2">
+                                            <div class="col-md-12">
+                                                <p>Chọn hình ảnh hóa đơn và tem gắn trên sản phẩm hoặc vỏ thùng<span class="required">*</span></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="col-sm-12 no-padding">
+                                                    <div class="box">
+                                                        <div class="js--image-preview"></div>
+                                                        <div class="upload-options">
+                                                            <label>
+                                                                <input type="file" class="image-upload" accept="image/*" />
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="col-sm-12 no-padding">
+                                                    <div class="box">
+                                                        <div class="js--image-preview"></div>
+                                                        <div class="upload-options">
+                                                            <label>
+                                                                <input type="file" class="image-upload" accept="image/*" />
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Ngày mua<span class="required">*</span></td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.purchaseDate, new { @class = "form-control form-date", @placeholder = "Nhập ngày mua...", required = "required" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Mã xác nhận<span class="required">*</span></td>
+                                        <td>
+                                            <div style="width: 40%;float:left;max-width: 100px;">
+                                                <img src="/Home/GetCaptchaImage" class="imgCaptcha" id="imgCaptcha" style="width:100%;height: 35px;border: 1px solid #ddd;border-radius: 3px;" title="Captcha" />
+                                            </div>
+                                            <div style="width: 60%;float:right;">
+                                                @Html.TextBoxFor(N => N.captcha, new { @class = "form-control form-captcha", @placeholder = "Nhập mã xác nhận...", required = "required" })
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="float:left; padding: 6px 0;">(<span class="required">*</span>) Bắt buộc nhập</div>
+                                            <input type="button" value="Gửi thông tin" class="btn btn-primary btn-send" style="float:right;" />
+                                            <button type="button" class="btn btn-default btn-clear" style="float:right;margin-right: 5px;"><i class="fa fa-refresh" aria-hidden="true"></i> Làm mới</button>
+                                            <img src="~/Libraries/dist/img/loading.gif" class="btn-loading" style="width: 100px;float: right; margin-right: 5px;height: 34px;display:none;" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="img1" value="" class="form-img1" />
+            <input type="hidden" name="img2" value="" class="form-img2" />
+        </form>
+    </div>
+</div>
+<div id="dialog-message" title="ĐĂNG KÝ BẢO HÀNH ĐIỆN TỬ">
+    <div class="row">
+        <div class="col-md-12 center-block">
+            <a class="btn btn-primary btn-customer" style="min-width: 250px;font-size: 18px; font-weight: 600; color: white;">Dành cho KHÁCH HÀNG</a>
+        </div>
+        <div class="col-md-12 center-block">
+            <a class="btn btn-success btn-shop" style="min-width: 250px;font-size: 18px; font-weight: 600; color: white;">Dành cho CỬA HÀNG</a>
+        </div>
+    </div>
+</div>
+@section Scripts {
+<script src="@Url.Content("~/Libraries/dist/js/jquery.autocomplete.js")"></script>
+    <script type="text/javascript">
+        var dateFormat = "dd/mm/yy";
+        $(window).on('load', function () {
+            $("#dialog-message").dialog({
+                modal: true,
+                closeOnEscape: false,
+                minWidth: 200
+            });
+        });
+        $(document).ready(function () {
+            $('.btn-customer').click(function () {
+                $('#dialog-message').dialog("close");
+            });
+            $('.btn-shop').click(function () {
+                window.location = "http://service.aquavietnam.vn/ewshop/login.aspx";
+                return false;
+            });
+            $('.form-date').mask('00/00/0000');
+            $('.form-date').datepicker({
+                dateFormat: dateFormat,
+                maxDate: new Date()
+            });
+            loadListDistrict($('.select-province').val());
+            $('.select-province').on('change', function () {
+                loadListDistrict($(this).val());
+            });
+            $('.form-model').autocomplete({
+                source: '@Url.Action("searchModel", "Home")',
+                minLength: 3,
+                select: function (event, ui) {
+                    $('.form-matid').val(ui.item.id);
+                }
+            });
+            $('.form-shopname').autocomplete({
+                source: '@Url.Action("searchShop", "Home")',
+                minLength: 3,
+                select: function (event, ui) {
+                    $('.form-shopid').val(ui.item.id);
+                }
+            });
+            $('.form-barcode').focusout(function () {
+                if ($(this).val().length == 16 || $(this).val().length == 20) {
+                    checkBarcodeInSystem($(this).val());
+                } else if ($(this).val().length > 0) {
+                    $('.form-model').val('');
+                    $('.dvMsgError').show()
+                    $('.dvModel').show();
+                    $('.dvImage').show();
+                    $('.form-model').focus();
+                }
+            });
+            $('.btn-clear').click(function () {
+                clearData();
+            });
+            $('.btn-send').click(function () {
+                $('.lbSuccess').html('');
+                $('.lbError').html('');
+                $('.btn-send').hide();
+                $('.btn-clear').hide();
+                $('.btn-loading').show();
+                var barcode = $('.form-barcode').val();
+                var phone = $('.form-phone').val();
+                var model = $('.form-model').val();
+                var name = $('.form-name').val();
+                var date = $('.form-date').val();
+                if (date == "") {
+                    $('.lbError').html("Vui lòng nhập ngày mua !!!");
+                    $('.btn-send').show();
+                    $('.btn-clear').show();
+                    $('.btn-loading').hide();
+                    return false;
+                }
+                if (name == "") {
+                    $('.lbError').html("Vui lòng nhập tên khách hàng !!!");
+                    $('.btn-send').show();
+                    $('.btn-clear').show();
+                    $('.btn-loading').hide();
+                    return false;
+                }
+                if (barcode != "") {
+                    if (phone != "") {
+                        if (barcode.length != 16 && barcode.length != 20) {
+                            if (model != "")
+                                uploadImage();
+                            else {
+                                $('.lbError').html("Vui lòng nhập thông tin kiểu máy !!!");
+                                $('.btn-send').show();
+                                $('.btn-clear').show();
+                                $('.btn-loading').hide();
+                            }
+                        } else {
+                            if (isUpload != 0)
+                                uploadImage();
+                            else
+                                saveInfoRegister();
+                        }
+                    }
+                    else {
+                        $('.lbError').html("Vui lòng nhập số điện thoại khách hàng !!!");
+                        $('.btn-send').show();
+                        $('.btn-clear').show();
+                        $('.btn-loading').hide();
+                    }
+                } else {
+                    $('.lbError').html("Vui lòng nhập số máy !!!");
+                    $('.btn-send').show();
+                    $('.btn-clear').show();
+                    $('.btn-loading').hide();
+                }
+            });
+            // initialize box-scope
+            var boxes = document.querySelectorAll('.box');
+
+            for (let i = 0; i < boxes.length; i++) {
+
+                let box = boxes[i];
+                initDropEffect(box);
+                initImageUpload(box);
+            }
+        });
+        function clearData() {
+            $('.form-phone').val('');
+            $('.form-name').val('');
+            $('.form-address').val('');
+            $('.form-date').val('');
+            $('.form-barcode').val('');
+            $('.form-model').val('');
+            $('.form-matid').val('0');
+            $('.form-shopname').val('');
+            $('.form-shopid').val('');
+            isUpload = 0;
+            $('.form-img1').val('');
+            $('.form-img2').val('');
+            $('.dvImage').hide();
+            $('.dvModel').hide();
+            $('.dvMsgError').hide();
+            $('.lbSuccess').html('');
+            $('.lbError').html('');
+            $(".js--image-preview").css("background-image", "url('')");
+            closeBlock();
+        }
+        function saveInfoRegister() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("RegisterEwarranty", "Home")',
+                data: $('.form-register').serialize(),
+                success: function (data) {
+                    if (data.code == "1" || data.code == "2") {
+                        $('.form-barcode').val('');
+                        $('.form-model').val('');
+                        $('.form-matid').val('0');
+                        $('.dvImage').hide();
+                        $('.dvModel').hide();
+                        $('.form-img1').val('');
+                        $('.form-img2').val('');
+                        $(".js--image-preview").css("background-image", "url('')");
+                        $('.lbSuccess').html(data.message);
+                    } else {
+                        $('.lbError').html(data.message);
+                    }
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    $('.form-captcha').val('');
+                    var unique = $.now();
+                    $(".imgCaptcha").attr("src", "/Home/GetCaptchaImage?" + unique);
+                    $('.btn-send').show();
+                    $('.btn-clear').show();
+                    $('.btn-loading').hide();
+                }
+            });
+        }
+        function uploadImage() {
+            var status = 0;
+            if ($('.form-img1').val() == "" && $('.form-img2').val() == "") {
+                var file1 = $(".image-upload").get(0).files;
+                var file2 = $(".image-upload").get(1).files;
+                var fileData = new FormData();
+                for (var i = 0; i < file1.length; i++) {
+                    fileData.append("fileInput", file1[i]);
+                }
+                for (var i = 0; i < file2.length; i++) {
+                    fileData.append("fileInput", file2[i]);
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("uploadImageFile", "Home")',
+                    dataType: "json",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (data) {
+                        if (data.code == "1") {
+                            status = 1;
+                            var urlImgs = data.msg.split(";");
+                            $.each(urlImgs, function (index, value) {
+                                if (index == 0)
+                                    $('.form-img1').val(value);
+                                else
+                                    $('.form-img2').val(value);
+                            });
+                        } else {
+                            $('.lbError').html(data.msg);
+                            $('.btn-send').show();
+                            $('.btn-clear').show();
+                            $('.btn-loading').hide();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert(error);
+                    },
+                    complete: function () {
+                        if (status == 1)
+                            saveInfoRegister();
+                    }
+                });
+            } else {
+                saveInfoRegister();
+            }
+            
+        }
+        function checkBarcodeInSystem(barcode) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("checkBarcode", "Home")' + '?barcode=' + barcode,
+                success: function (data) {
+                    if (data.code == "1") {
+                        $('.form-model').val(data.model);
+                        $('.form-matid').val(data.matId);
+                        $('.dvModel').show();
+                        $('.dvMsgError').hide();
+                        $('.dvImage').hide();
+                        isUpload = 0;
+                    } else {
+                        $('.form-model').val('');
+                        $('.form-matid').val('');
+                        $('.dvImage').show();
+                        $('.dvModel').show();
+                        $('.dvMsgError').show();
+                        $('.form-model').focus();
+                        isUpload = 1;
+                    }
+                }, error: function (e) {
+                }, complete: function () {
+                }
+            });
+        }
+        function loadListDistrict(provinceId) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("loadListDistrict", "Home")' + '?provinceId=' + provinceId,
+                success: function (data) {
+                    var html = '';
+                    $.each(data, function (key, value) {
+                        html += '<option value="' + value.value + '">' + value.text + '</option>';
+                    });
+                    $('.select-district').html(html);
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+
+                }
+            });
+        }
+        function initImageUpload(box) {
+            let uploadField = box.querySelector('.image-upload');
+            uploadField.addEventListener('change', getFile);
+
+            function getFile(e) {
+                let file = e.currentTarget.files[0];
+                checkType(file);
+            }
+
+            function previewImage(file) {
+                let thumb = box.querySelector('.js--image-preview'),
+                reader = new FileReader();
+
+                reader.onload = function () {
+                    thumb.style.backgroundImage = 'url(' + reader.result + ')';
+                }
+                reader.readAsDataURL(file);
+                thumb.className += ' js--no-default';
+            }
+
+            function checkType(file) {
+                let imageType = /image.*/;
+                if (!file.type.match(imageType)) {
+                    throw 'Nguyễn Trần Trung Hậu';
+                } else if (!file) {
+                    throw 'Nguyễn Đăng Khoa';
+                } else {
+                    previewImage(file);
+                }
+            }
+        }
+        /// drop-effect
+        function initDropEffect(box) {
+            let area, drop, areaWidth, areaHeight, maxDistance, dropWidth, dropHeight, x, y;
+
+            // get clickable area for drop effect
+            area = box.querySelector('.js--image-preview');
+            area.addEventListener('click', fireRipple);
+
+            function fireRipple(e) {
+                area = e.currentTarget
+                // create drop
+                if (!drop) {
+                    drop = document.createElement('span');
+                    drop.className = 'drop';
+                    this.appendChild(drop);
+                }
+                // reset animate class
+                drop.className = 'drop';
+
+                // calculate dimensions of area (longest side)
+                areaWidth = getComputedStyle(this, null).getPropertyValue("width");
+                areaHeight = getComputedStyle(this, null).getPropertyValue("height");
+                maxDistance = Math.max(parseInt(areaWidth, 10), parseInt(areaHeight, 10));
+
+                // set drop dimensions to fill area
+                drop.style.width = maxDistance + 'px';
+                drop.style.height = maxDistance + 'px';
+
+                // calculate dimensions of drop
+                dropWidth = getComputedStyle(this, null).getPropertyValue("width");
+                dropHeight = getComputedStyle(this, null).getPropertyValue("height");
+
+                // calculate relative coordinates of click
+                // logic: click coordinates relative to page - parent's position relative to page - half of self height/width to make it controllable from the center
+                x = e.pageX - this.offsetLeft - (parseInt(dropWidth, 10) / 2);
+                y = e.pageY - this.offsetTop - (parseInt(dropHeight, 10) / 2) - 30;
+
+                // position drop and animate
+                drop.style.top = y + 'px';
+                drop.style.left = x + 'px';
+                drop.className += ' animate';
+                e.stopPropagation();
+
+            }
+        }
+    </script>
+
+}
+

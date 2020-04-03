@@ -1,0 +1,82 @@
+﻿@model IEnumerable<EWShop.Areas.Sales.Models.PurchaseOrderDetail>
+
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-md-12 center">
+            <table class="table table-detail" style="margin-top:0!important;">
+                <thead>
+                    <tr>
+                        <th>MatCode</th>
+                        <th title="Kiểu máy">Model</th>
+                        <th title="Mã SP">Plant</th>
+                        <th title="Số lượng AQUA xác nhận">Qty</th>
+                        <th title="Giá AQUA xác nhận (Chưa VAT)">Price</th>
+                        <th title="Status - Trạng thái">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input checkbox-all" id="checkall" />
+                                <label class="custom-control-label" for="checkall"></label>
+                            </div>
+                        </th>
+                        <th>Remarks</th>
+                        <th>Gift</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count() > 0)
+                    {
+                        var index = 0;
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td title="MWG (Qty: @item.quantity - Price: @item.price)">
+                                    @item.matCode
+                                    <input type="hidden" name="matCode" value="@item.matCode" />
+                                    <input type="hidden" name="numberPO" value="@item.numberPO" />
+                                    <input type="hidden" name="status" value="@item.status" class="form-update-status" />
+                                </td>
+                                <td>@item.modelType</td>
+                                <td style="text-align:center;">@item.plantCode</td>
+                                <td><input type="number" class="form-control form-qty" @if ("1".Equals(item.isLock)) { @("disabled='disabled'")} style="width: 100%;text-align: center;" value="@item.qtyConfirm" name="qtyConfirm" /></td>
+                                <td><input type="text" class="form-control form-money" @if ("1".Equals(item.isLock)) { @("disabled='disabled'")} style="width: 100%;text-align: right;" value="@item.priceConfirm" name="priceConfirm" /></td>
+                                <td class="col-status" @if ("1".Equals(item.status)) { @("title=Confirmed")} else { @("title=Reject")} data-id="@item.isLock">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input checkbox-item" @if ("1".Equals(item.isLock)) { @("disabled='disabled'")} id="check-@index" @if("1".Equals(item.status)) { @("checked='checked'")} />
+                                        <label class="custom-control-label" for="check-@index"></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control form-remarks" @if ("1".Equals(item.isLock)) { @("disabled='disabled'")} placeholder="Enter content confirm ..." value="@item.remarks" style="width: 100%;" />
+                                </td>
+                                <td style="text-align: center;">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input checkbox-item-gift" disabled="disabled" id="gift-@index" @if ("Y".Equals(item.giftFlag)) { @("checked='checked'") } />
+                                        <label class="custom-control-label" style="cursor: not-allowed;" for="gift-@index"></label>
+                                    </div>
+                                    <input type="hidden" value="@(index = index + 1)" />
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8" style="text-align: center">
+                                NO DATA
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12 center">
+            <label style="color: red;">NO DATA</label>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,504 @@
+﻿
+@{
+    ViewBag.Title = "Đăng ký cho một khách hàng";
+    Layout = "~/Views/Layout/_LayoutDashboard.cshtml";
+    IEnumerable<EWShop.Models.DataReturn> listProvinces = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.PROVINCES_INFO];
+}
+@section Styles {
+    <link href="~/Libraries/dist/css/StyleImage.css" rel="stylesheet" />
+    <style>
+        .bootstrap-tagsinput {
+            width: 100%;
+            padding: 5px 6px;
+        }
+
+        .label {
+            padding: 6px;
+            font-weight: 500;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .form-image {
+            display: none;
+        }
+
+        .select2-selection__rendered {
+            padding: 3px 8px;
+        }
+
+        .form-control {
+            padding: 4px 12px;
+            font-size: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+    </style>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <form class="form-horizontal form-register" method="POST">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading custom-header-panel">
+                            <h3 class="panel-title roboto center">THÔNG TIN ĐĂNG KÝ BẢO HÀNH SẢN PHẨM</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6 ">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="name">Tên khách hàng <span class="requerido" title="Bắt buộc nhập thông tin"> *</span></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control cusName" placeholder="Nhập tên khách hàng ..." name="cusName" required="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="name">Số điện thoại <span class="requerido" title="Bắt buộc nhập thông tin"> *</span></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control cusPhone" placeholder="Số điện thoại khách hàng ..." name="cusPhone" required="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 ">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="name">Tỉnh thành <span class="requerido" title="Bắt buộc chọn thông tin"> *</span></label>
+                                        <div class="col-sm-8">
+                                            <select class="select-province form-control form-select" style="width:100%" name="cusProvinceId" id="selProvinceId">
+                                                <option value="0"></option>
+                                                @foreach (var item in listProvinces)
+                                                {
+                                                    <option value="@item.value">@item.text</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="name">Quận huyện <span class="requerido" title="Bắt buộc chọn thông tin"> *</span></label>
+                                        <div class="col-sm-8">
+                                            <select class="select-district form-control form-select" style="width:100%" name="cusDistrictId" id="selDistrictId">
+                                                <option value="0">Vui lòng chọn tỉnh/thành phố</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 ">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="name">Số nhà, phường xã </label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control cusAddress" name="cusAddress">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 ">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="name">Email liên lạc</label>
+                                        <div class="col-sm-8">
+                                            <input type="email" class="form-control cusEmail" placeholder="Email khách hàng ..." name="cusEmail">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="name">Ngày mua <span class="requerido" title="Bắt buộc điền thông tin"> *</span></label>
+                                        <div class="col-sm-8">
+                                            <input type='text' class="form-control form-date" name="purchaseDate" style="width:110px;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="name">Số máy <span class="requerido" title="Bắt buộc điền thông tin"> *</span></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-barcode" name="barcode">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="name">Kiểu máy <span class="requerido" title="Bắt buộc điền thông tin"> *</span></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control form-model" name="model">
+                                            <input type="hidden" class="form-matid" name="matId" value="0" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-image">
+                                <div class="col-md-12 center">
+                                    <p style="margin:0;color:red;font-size: 17px;">Không tìm thấy số máy và kiểu máy tương ứng. vui lòng cung cấp hình ảnh hóa đơn và tem gắn trên sản phẩm hoặc vỏ thùng.<span class="required">*</span></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-sm-8 col-md-offset-4">
+                                        <div class="box">
+                                            <div class="js--image-preview"></div>
+                                            <div class="upload-options">
+                                                <label>
+                                                    <input type="file" class="image-upload" accept="image/*" />
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-sm-8 col-md-offset-4">
+                                        <div class="box">
+                                            <div class="js--image-preview"></div>
+                                            <div class="upload-options">
+                                                <label>
+                                                    <input type="file" class="image-upload" accept="image/*" />
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="img1" value="" class="form-img1" />
+                            <input type="hidden" name="img2" value="" class="form-img2" />
+                            <div class="form-group text-center">
+                                <button type="button" class="btn btn-default btn-reset"><i class="fa fa-refresh" aria-hidden="true"></i> Làm mới</button>
+                                <button type="button" class="btn btn-primary btn-register"><i class="fa fa-save" aria-hidden="true"></i> Đăng ký</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <script src="@Url.Content("~/Libraries/dist/js/jquery.autocomplete.js")"></script>
+    <script type="text/javascript">
+        var dateFormat = "dd/mm/yy";
+        var isUpload = 0;
+        $(document).ready(function () {
+            loadCombobox($('.select-province'));
+            loadCombobox($('.select-district'));
+            $('.form-date').mask('00/00/0000');
+            $('.form-date').datepicker({
+                dateFormat: dateFormat,
+                maxDate: new Date()
+            });
+            $('.select-province').on('change', function () {
+                loadListDistrict($(this).val());
+            });
+            $('.btn-register').click(function () {
+                BlockUi();
+                /*Check conditions*/
+                var barcode = $('.form-barcode').val();
+                var phone = $('.cusPhone').val();
+                var model = $('.form-model').val();
+                if (barcode != "") {
+                    if (phone != "") {
+                        if (barcode.length != 16 && barcode.length != 20) {
+                            if(model != "")
+                                uploadImage();
+                            else {
+                                closeBlock();
+                                toastr.error("Vui lòng nhập thông tin kiểu máy !!!");
+                            }
+                        } else {
+                            if (isUpload != 0)
+                                uploadImage();
+                            else
+                                saveInfoRegister();
+                        }
+                    }
+                    else {
+                        closeBlock();
+                        toastr.error("Vui lòng nhập số điện thoại khách hàng !!!");
+                    }
+                } else {
+                    toastr.error("Vui lòng nhập số máy !!!");
+                    closeBlock();
+                }
+            });
+            $('.form-model').autocomplete({
+                source: '@Url.Action("searchModel", "EW")',
+                minLength: 1,
+                select: function (event, ui) {
+                    $('.form-matid').val(ui.item.id);
+                }
+            });
+            $('.form-barcode').focusout(function () {
+                if ($(this).val().length == 16 || $(this).val().length == 20) {
+                    BlockUi();
+                    checkBarcodeInSystem($(this).val());
+                } else if ($(this).val().length > 0) {
+                    $('.form-model').val('');
+                    $('.form-image').show();
+                }
+            });
+            $('.btn-reset').click(function () {
+                BlockUi();
+                clearData();
+            });
+        });
+        function checkBarcodeInSystem(barcode) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("checkBarcode", "EW")' + '?barcode=' + barcode,
+                success: function (data) {
+                    if (data.code == "1") {
+                        $('.select-plant').val(data.plantId).trigger('change');
+                        $('.form-model').val(data.model);
+                        $('.form-matid').val(data.matId);
+                        $('.form-image').hide();
+                        isUpload = 0;
+                    } else {
+                        $('.select-plant').val('0').trigger('change');
+                        $('.form-model').val('');
+                        $('.form-image').show();
+                        isUpload = 1;
+                    }
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+        function uploadImage() {
+            var status = 0;
+            var file1 = $(".image-upload").get(0).files;
+            var file2 = $(".image-upload").get(1).files;
+            var fileData = new FormData();
+            for (var i = 0; i < file1.length; i++) {
+                fileData.append("fileInput", file1[i]);
+            }
+            for (var i = 0; i < file2.length; i++) {
+                fileData.append("fileInput", file2[i]);
+            }
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("uploadImageFile", "EW")',
+                dataType: "json",
+                contentType: false, // Not to set any content header
+                processData: false, // Not to process data
+                data: fileData,
+                success: function (data) {
+                    if (data.code == "1") {
+                        status = 1;
+                        var urlImgs = data.msg.split(";");
+                        $.each(urlImgs, function (index, value) {
+                            if (index == 0)
+                                $('.form-img1').val(value);
+                            else
+                                $('.form-img2').val(value);
+                        });
+                    } else {
+                        $('.lbError').html(data.msg);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert(error);
+                },
+                complete: function () {
+                    if(status == 1)
+                        saveInfoRegister();
+                    else
+                        closeBlock();
+                }
+            });
+        }
+        function saveInfoRegister() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("registerEWByZalo", "EW")',
+                data: $('.form-register').serialize(),
+                success: function (data) {
+                    if (data.code == "1" || data.code == "3") {
+                        $('.form-barcode').val('');
+                        $('.form-model').val('');
+                        $('.form-matid').val('0');
+                        $('.form-image').hide();
+                        $('.form-img1').val('');
+                        $('.form-img2').val('');
+                        $(".js--image-preview").css("background-image", "url('')");
+                        toastr.success(data.msg);
+                    } else {
+                        toastr.error(data.msg);
+                    }
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+        function clearData() {
+            $('.cusPhone').val('');
+            $('.cusName').val('');
+            $('.select-province').val('0').trigger('change');
+            $('.cusAddress').val('');
+            $('.cusEmail').val('');
+            $('.form-date').val('');
+            $('.form-barcode').val('');
+            $('.form-model').val('');
+            $('.form-matid').val('0');
+            isUpload = 0;
+            $('.form-img1').val('');
+            $('.form-img2').val('');
+            $('.form-image').hide();
+            $(".js--image-preview").css("background-image", "url('')");
+            closeBlock();
+        }
+        function loadCombobox($control) {
+            $.fn.select2.amd.require(["select2/data/array", "select2/utils"], function (e, t) {
+                function a(e, t) {
+                    a.__super__.constructor.call(this, e, t)
+                }
+
+                function r(e, t) {
+                    return new RegExp(t, "i").test(e)
+                }
+                t.Extend(a, e), a.prototype.query = function (e, t) {
+                    "page" in e || (e.page = 1);
+                    var a = 10,
+                        n = this.$element.children().map(function (t, a) {
+                            return r(a.innerText, e.term) ? {
+                                id: a.value,
+                                text: a.innerText
+                            } : void 0
+                        });
+                    t({
+                        results: n.slice((e.page - 1) * a, e.page * a),
+                        pagination: {
+                            more: n.length >= e.page * a
+                        }
+                    })
+                }, $selectGroup = $control.select2({
+                    ajax: {},
+                    allowClear: false,
+                    dataAdapter: a
+                })
+            })
+        }
+        function loadListDistrict(provinceId) {
+            BlockUi();
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("loadListDistrict", "EW")' + '?provinceId=' + provinceId,
+                data: $('.form-user').serialize(),
+                success: function (data) {
+                    var html = '';
+                    $.each(data, function (key, value) {
+                        html += '<option value="' + value.value + '">' + value.text + '</option>';
+                    });
+                    $('.select-district').html(html);
+                }, error: function (e) {
+                    alert(e);
+                    closeBlock();
+                }, complete: function () {
+                    loadCombobox($('.select-district'));
+                    closeBlock();
+                }
+            });
+        }
+        function initImageUpload(box) {
+            let uploadField = box.querySelector('.image-upload');
+            uploadField.addEventListener('change', getFile);
+
+            function getFile(e) {
+                let file = e.currentTarget.files[0];
+                checkType(file);
+            }
+
+            function previewImage(file) {
+                let thumb = box.querySelector('.js--image-preview'),
+                reader = new FileReader();
+
+                reader.onload = function () {
+                    thumb.style.backgroundImage = 'url(' + reader.result + ')';
+                }
+                reader.readAsDataURL(file);
+                thumb.className += ' js--no-default';
+            }
+
+            function checkType(file) {
+                let imageType = /image.*/;
+                if (!file.type.match(imageType)) {
+                    throw 'Nguyễn Trần Trung Hậu';
+                } else if (!file) {
+                    throw 'Nguyễn Đăng Khoa';
+                } else {
+                    previewImage(file);
+                }
+            }
+        }
+
+        // initialize box-scope
+        var boxes = document.querySelectorAll('.box');
+
+        for (let i = 0; i < boxes.length; i++) {
+
+            let box = boxes[i];
+            initDropEffect(box);
+            initImageUpload(box);
+        }
+
+        /// drop-effect
+        function initDropEffect(box) {
+            let area, drop, areaWidth, areaHeight, maxDistance, dropWidth, dropHeight, x, y;
+
+            // get clickable area for drop effect
+            area = box.querySelector('.js--image-preview');
+            area.addEventListener('click', fireRipple);
+
+            function fireRipple(e) {
+                area = e.currentTarget
+                // create drop
+                if (!drop) {
+                    drop = document.createElement('span');
+                    drop.className = 'drop';
+                    this.appendChild(drop);
+                }
+                // reset animate class
+                drop.className = 'drop';
+
+                // calculate dimensions of area (longest side)
+                areaWidth = getComputedStyle(this, null).getPropertyValue("width");
+                areaHeight = getComputedStyle(this, null).getPropertyValue("height");
+                maxDistance = Math.max(parseInt(areaWidth, 10), parseInt(areaHeight, 10));
+
+                // set drop dimensions to fill area
+                drop.style.width = maxDistance + 'px';
+                drop.style.height = maxDistance + 'px';
+
+                // calculate dimensions of drop
+                dropWidth = getComputedStyle(this, null).getPropertyValue("width");
+                dropHeight = getComputedStyle(this, null).getPropertyValue("height");
+
+                // calculate relative coordinates of click
+                // logic: click coordinates relative to page - parent's position relative to page - half of self height/width to make it controllable from the center
+                x = e.pageX - this.offsetLeft - (parseInt(dropWidth, 10) / 2);
+                y = e.pageY - this.offsetTop - (parseInt(dropHeight, 10) / 2) - 30;
+
+                // position drop and animate
+                drop.style.top = y + 'px';
+                drop.style.left = x + 'px';
+                drop.className += ' animate';
+                e.stopPropagation();
+
+            }
+        }
+    </script>
+}
+

@@ -1,0 +1,455 @@
+﻿
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+    <link rel="profile" href="https://gmpg.org/xfn/11">
+    <link rel="icon" type="image/png" href="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/favicon.png" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link href="~/Libraries/dist/css/StyleAutoComplete.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+    <link href="~/Libraries/dist/css/7de6a.css" rel="stylesheet" />
+    <link href="~/Libraries/dist/css/8b37e.css" rel="stylesheet" />
+    <link rel="stylesheet" id="roboto-font-css" href="https://fonts.googleapis.com/css?family=Roboto%3A400%2C700%2C900&display=swap&ver=5.2.2" type="text/css" media="all">
+    <link type="text/css" rel="stylesheet" charset="UTF-8" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+
+    <script src="@Url.Content("~/Libraries/vendor/jquery/jquery-3.3.1.js")"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="@Url.Content("~/Libraries/dist/js/jquery.mask.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/dist/js/b16c2.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Libraries/dist/js/6719c.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Libraries/dist/js/6180d.js")" type="text/javascript"></script>
+    <script type="text/javascript" charset="UTF-8" src="https://translate.googleapis.com/translate_static/js/element/main_vi.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="https://translate.googleapis.com/element/TE_20190724_00/e/js/element/element_main.js"></script>
+
+    @RenderSection("Styles", false)
+</head>
+<body class="page-template page-template-about page-template-about-php page" style="position: relative; min-height: 100%; top: 0px;">
+    <header class="header">
+        <div class="navbar-header">
+            <div class="container">
+                <ul class="list-unstyled">
+                    <li>
+                        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </li>
+                    <li>
+                        <a class="navbar-brand" href="https://aquavietnam.com.vn">
+                            <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/logo-while.png" alt="AQUA Việt Nam" class="img-fluid">
+                        </a>
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                <form method="get" id="searchform" action="https://aquavietnam.com.vn">
+                                    <input type="text" placeholder="Tìm kiếm" class="form-control" name="s" id="s" value="" autocomplete="off">
+                                    <input type="hidden" name="post_type" value="product">
+                                    <button class="search-button" type="submit"><span class="fa fa-search"></span></button>
+                                </form>                            <span class="search-mobile"><i class="fa fa-search"></i></span>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com/user/aquavietnam" rel="nofollow">
+                                    <img class="img-responsive" src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/youtube-icon.png">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/aquavietnam/" rel="nofollow">
+                                    <img class="img-responsive" src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/facebook-icon.png">
+                                </a>
+                            </li>
+                            <!--                        <li>
+                                                        <a href="http://aquavn.custhelp.com/app/chat/chat_launch_aqua" rel="nofollow">
+                                                            <img class="img-responsive" src="img/mail-icon.png">
+                                                        </a>
+                                                    </li>-->
+                            <li>
+                                <a href="javascript:void(0);" class="lang " data-lang="en">
+                                    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/lang-en.png">
+                                </a>
+                                <a href="javascript:void(0);" class="lang notranslate active" data-lang="vi">
+                                    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/lang-vi.png">
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg">
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav">
+                    <li class="mega-li dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sản phẩm AQUA</a>
+                        <div class="mega-wrap dropdown-menu">
+                            <div class="container">
+                                <div class="mega-image">
+                                    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/menu/1.png" class="img-fluid">
+                                </div>
+                                <div class="mega-tab">
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#megatab1" aria-controls="megatab1">Thiết bị gia dụng</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#megatab2" aria-controls="megatab2">Kinh doanh dự án</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="megatab1">
+                                            <h3 class="menu-header">Thiết bị gia dụng</h3>
+                                            <ul class="sub-menu">
+                                                <li><a href="https://aquavietnam.com.vn/danh-muc-san-pham/tu-lanh" data-src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/mega/tu-lanh.png"><img src="https://aquavietnam.com.vn/wp-content/uploads/2019/07/Tu-lanh-1.png"><h4>Tủ lạnh</h4></a></li>
+                                                <li><a href="https://aquavietnam.com.vn/danh-muc-san-pham/may-giat" data-src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/mega/may-giat.png"><img src="https://aquavietnam.com.vn/wp-content/uploads/2019/07/May-giat.png"><h4>Máy giặt</h4></a></li>
+                                                <li><a href="https://aquavietnam.com.vn/danh-muc-san-pham/may-dieu-hoa" data-src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/mega/may-dieu-hoa.png"><img src="https://aquavietnam.com.vn/wp-content/uploads/2019/07/May-dieu-hoa.png"><h4>Máy điều hòa</h4></a></li>
+                                                <li><a href="https://aquavietnam.com.vn/danh-muc-san-pham/may-nuoc-nong" data-src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/mega/may-nuoc-nong.png"><img src="https://aquavietnam.com.vn/wp-content/uploads/2019/07/May-nuoc-nong.png"><h4>Máy nước nóng</h4></a></li>
+                                                <li><a href="https://aquavietnam.com.vn/danh-muc-san-pham/tu-dong" data-src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/mega/tu-dong.png"><img src="https://aquavietnam.com.vn/wp-content/uploads/2019/07/Tu-dong.png"><h4>Tủ đông</h4></a></li>
+                                                <li><a href="https://aquavietnam.com.vn/danh-muc-san-pham/hang-gia-dung" data-src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/mega/hang-gia-dung.png"><img src="https://aquavietnam.com.vn/wp-content/uploads/2019/07/SP-gia-dung.png"><h4>Hàng gia dụng</h4></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-pane fade" id="megatab2">
+                                            <h3 class="menu-header">Kinh doanh dự án</h3>
+                                            <ul class="sub-menu">
+                                                <li><a href="https://aquavietnam.com.vn/danh-muc-san-pham/dieu-hoa-thuong-mai"><img src="https://aquavietnam.com.vn/wp-content/uploads/2019/07/Dieu-hoa-thuong-mai.png"><h4>Điều hòa thương mại</h4></a></li>
+                                                <li><a href="https://aquavietnam.com.vn/danh-muc-san-pham/tu-mat"><img src="https://aquavietnam.com.vn/wp-content/uploads/2019/07/Tu-mat-1.png"><h4>Tủ mát</h4></a></li>
+                                                <li><a href="https://aquavietnam.com.vn/danh-muc-san-pham/tu-kem"><img src="https://aquavietnam.com.vn/wp-content/uploads/2019/07/Tu-kem.png"><h4>Tủ kem</h4></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mega-li dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hỗ trợ &amp; Bảo hành</a>
+                        <div class="mega-wrap dropdown-menu">
+                            <div class="container">
+                                <div class="mega-image">
+                                    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/menu/2.png" class="img-fluid">
+                                </div>
+                                <div class="mega-tab">
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#megatab3" aria-controls="megatab1">Hỗ trợ kỹ thuật</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#megatab4" aria-controls="megatab2">Bảo hành &amp; Bảo trì</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="megatab3">
+                                            <h3 class="menu-header">Hỗ trợ kỹ thuật</h3>
+                                            <ul class="sub-menu">
+                                                <li>
+                                                    <a href="http://aquavn.custhelp.com/app/chat/chat_launch_aqua" rel="nofollow">
+                                                        <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/ho-tro-truc-tuyen.png">
+                                                        <h4>Hỗ trợ trực tuyến</h4>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://m.me/aquavietnam" rel="nofollow">
+                                                        <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/ho-tro-facebook.png">
+                                                        <h4>Hỗ trợ từ Facebook</h4>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="http://ew.aquavietnam.com.vn/Home/SupportRequest" rel="nofollow">
+                                                        <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/lien-he-gop-y.png">
+                                                        <h4>Liên hệ góp ý</h4>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://aquavietnam.com.vn/cau-hoi-thuong-gap">
+                                                        <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/cau-hoi-thuong-gap.png">
+                                                        <h4>Câu hỏi thường gặp</h4>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-pane fade" id="megatab4">
+                                            <h3 class="menu-header">Bảo hành &amp; bảo trì</h3>
+                                            <ul class="sub-menu">
+                                                <li>
+                                                    <a href="http://ew.aquavietnam.com.vn/bao-hanh-san-pham" rel="nofollow">
+                                                        <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/bao-hanh-dien-tu.png">
+                                                        <h4>Đăng ký bảo hành điện tử</h4>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="http://ew.aquavietnam.com.vn/yeu-cau-bao-hanh" rel="nofollow">
+                                                        <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/yeu-cau-bao-hanh.png">
+                                                        <h4>Yêu cầu bảo hành</h4>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="http://ew.aquavietnam.com.vn/kiem-tra-bao-hanh" rel="nofollow">
+                                                        <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/tra-cuu-bao-hanh.png">
+                                                        <h4>Tra cứu bảo hành</h4>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://aquavietnam.com.vn/tram-bao-hanh">
+                                                        <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/tram-bao-hanh.png">
+                                                        <h4>Trạm bảo hành</h4>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://ew.aquavietnam.com.vn/tra-cuu-trang-thai-ycbh" rel="nofollow">
+                                                        <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/trang-thai-yeu-cau-bao-hanh.png">
+                                                        <h4>Tra cứu trạng thái YCBH</h4>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://aquavietnam.com.vn/huong-dan-dkbh">
+                                                        <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/huong-dan-dang-ky-bao-hanh.png">
+                                                        <h4>Hướng dẫn ĐKBH</h4>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mega-li dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Thông tin AQUA</a>
+                        <div class="mega-wrap dropdown-menu">
+                            <div class="container">
+                                <div class="mega-image">
+                                    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/menu/3.png" class="img-fluid">
+                                </div>
+                                <div class="mega-tab">
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="https://aquavietnam.com.vn/aqua-viet-nam">
+                                                <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/aquavn.png" class="img-scale-7">
+                                                <h4>AQUA Việt Nam</h4>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://aquavietnam.com.vn/tuyen-dung">
+                                                <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/tuyen-dung.png">
+                                                <h4>Tuyển dụng</h4>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://aquavietnam.com.vn/lien-he">
+                                                <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/lien-he.png">
+                                                <h4>Liên hệ</h4>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mega-li dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tin tức &amp; sự kiện</a>
+                        <div class="mega-wrap dropdown-menu">
+                            <div class="container">
+                                <div class="mega-image">
+                                    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/menu/3.png" class="img-fluid">
+                                </div>
+                                <div class="mega-tab">
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="https://aquavietnam.com.vn/goc-trai-nghiem">
+                                                <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/goc-trai-nghiem.png">
+                                                <h4>Góc trải nghiệm</h4>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://aquavietnam.com.vn/truyen-thong-su-kien">
+                                                <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/truyen-thong-su-kien.png">
+                                                <h4>Truyền thông - sự kiện</h4>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://aquavietnam.com.vn/tvc">
+                                                <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/Icons/tvc.png">
+                                                <h4>TVC</h4>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mega-li dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mua trực tuyến</a>
+                        <div class="mega-wrap dropdown-menu">
+                            <div class="container">
+                                <div class="mega-image">
+                                    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/menu/4.png" class="img-fluid">
+                                </div>
+                                <div class="mega-tab mega-full">
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a class="partners-menu" href="https://aquavietnam.com.vn/sieu-thi-dien-may">
+                                                Siêu thị điện máy
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://aquavietnam.com.vn/mua-truc-tuyen">
+                                                Mua trực tuyến
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="sub-menu-partners">
+                                        <ul>
+                                            <li>
+                                                <a href="https://www.dienmayxanh.com/tag/aqua">
+                                                    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/partners/1.png" class="img-fluid">
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://dienmaycholon.vn/tu-khoa/aqua">
+                                                    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/partners/2.png" class="img-fluid">
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://hc.com.vn/catalogsearch/result/?category=&amp;q=aqua">
+                                                    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/partners/3.png" class="img-fluid">
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://www.nguyenkim.com/tim-kiem.html?cid=&amp;q=aqua">
+                                                    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/partners/4.png" class="img-fluid">
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://mediamart.vn/tim-kiem?kw=aqua">
+                                                    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/partners/5.png" class="img-fluid">
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://pico.vn/tim-kiem?keyword=aqua">
+                                                    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/partners/6.png" class="img-fluid">
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://vinpro.net/san-pham/tim-kiem?keyword=aqua">
+                                                    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/partners/7.png" class="img-fluid">
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://tiki.vn/search?q=aqua">
+                                                    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/img/partners/8.png" class="img-fluid">
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <section class="content-area page about" >
+        <main class="site-main">
+            <div class="page-slider">
+                <img src="https://aquavietnam.com.vn/aquavn-v2/public_html/img/services/slider.jpg" class="img-fluid">
+            </div>
+            <div class="container">
+                @RenderBody()
+            </div>
+        </main>
+    </section>
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-widget" role="complementary">
+                <aside id="text-3" class="widget widget_text">
+                    <div class="textwidget">
+                        <ul class="widget-about">
+                            <li><img src="https://aquavietnam.com.vn/wp-content/uploads/2019/06/logo-footer.png"></li>
+                            <li class="hotline">HOTLINE: <a href="tel:1800585832">1800 585832</a></li>
+                            <li>Giờ làm việc: Thứ 2 – Thứ 7 (8am – 6pm)</li>
+                        </ul>
+                    </div>
+                </aside><aside id="nav_menu-8" class="widget widget_nav_menu">
+                    <h2 class="widget-title">Thiết bị gia dụng</h2><div class="menu-thiet-bi-gia-dung-container">
+                        <ul id="menu-thiet-bi-gia-dung" class="menu">
+                            <li id="menu-item-1575" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1575"><a href="https://aquavietnam.com.vn/danh-muc-san-pham/tu-lanh">Tủ lạnh</a></li>
+                            <li id="menu-item-1572" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1572"><a href="https://aquavietnam.com.vn/danh-muc-san-pham/may-giat">Máy giặt</a></li>
+                            <li id="menu-item-1571" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1571"><a href="https://aquavietnam.com.vn/danh-muc-san-pham/may-dieu-hoa">Máy điều hòa</a></li>
+                            <li id="menu-item-1573" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-1573"><a href="https://aquavietnam.com.vn/danh-muc-san-pham/may-nuoc-nong">Máy nước nóng</a></li>
+                        </ul>
+                    </div>
+                </aside><aside id="nav_menu-9" class="widget widget_nav_menu">
+                    <h2 class="widget-title">Kinh doanh dự án</h2><div class="menu-kinh-doanh-du-an-container">
+                        <ul id="menu-kinh-doanh-du-an" class="menu">
+                            <li id="menu-item-6677" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-6677"><a href="https://aquavietnam.com.vn/danh-muc-san-pham/dieu-hoa-thuong-mai">Điều hòa thương mại</a></li>
+                            <li id="menu-item-4444" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-4444"><a href="https://aquavietnam.com.vn/danh-muc-san-pham/tu-mat">Tủ mát</a></li>
+                            <li id="menu-item-6678" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-6678"><a href="https://aquavietnam.com.vn/danh-muc-san-pham/tu-kem">Tủ kem</a></li>
+                        </ul>
+                    </div>
+                </aside><aside id="nav_menu-4" class="widget widget_nav_menu">
+                    <h2 class="widget-title">Thông tin AQUA</h2><div class="menu-footer-blog-container">
+                        <ul id="menu-footer-blog" class="menu">
+                            <li id="menu-item-2244" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2244"><a href="https://aquavietnam.com.vn/san-pham-moi">Tin tức sự kiện</a></li>
+                            <li id="menu-item-1577" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1577"><a href="https://aquavietnam.com.vn/truyen-thong-su-kien">Truyền thông sự kiện</a></li>
+                            <li id="menu-item-1579" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1579"><a href="https://aquavietnam.com.vn/goc-aqua">Góc AQUA</a></li>
+                            <li id="menu-item-1578" class="menu-item menu-item-type-taxonomy menu-item-object-category current-menu-item menu-item-1578"><a href="https://aquavietnam.com.vn/tvc" aria-current="page">TVC</a></li>
+                        </ul>
+                    </div>
+                </aside><aside id="text-4" class="widget widget_text">
+                    <div class="textwidget">
+                        <h2 class="widget-title">Dịch vụ &amp; hỗ trợ</h2>
+                        <div class="menu-footer-about-container">
+                            <ul class="menu">
+                                <li><a href="/ho-tro-khach-hang">Hỗ trợ khách hàng</a></li>
+                                <li><a href="/tram-bao-hanh">Trạm bảo hành</a></li>
+                            </ul>
+                        </div>
+                        <h2 class="widget-title">Mua trực tuyến</h2>
+                        <div class="menu-footer-blog-container">
+                            <ul class="menu">
+                                <li><a href="/sieu-thi-dien-may">Siêu thị điện máy</a></li>
+                                <li><a href="/mua-truc-tuyen">Mua trực tuyến</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>                <div class="clearfix"></div>
+            </div><!-- .widget-area -->
+            <div class="footer-text">
+                <ul class="list-unstyled">
+                    <li>CÔNG TY TNHH ĐIỆN MÁY AQUA VIỆT NAM</li>
+                    <li>Số Giấy chứng nhận Đăng ký Đầu tư số 4316637173 do Ban Quản lý Các khu Công nghiệp Đồng Nai cấp ngày 29/12/1995 (lần đầu) (cấp thay đổi lần thứ tám ngày 22/5/2019)</li>
+                    <li>Địa chỉ đăng ký: Số 8, Đường 17A, Khu công nghiệp Biên Hòa II, Phường An Bình, Thành phố Biên Hòa, Tỉnh Đồng Nai</li>
+                    <li>Địa chỉ Văn phòng đại diện tại HCM: L8-16, Lầu 8 Tòa nhà Vincom Đồng Khởi, Số 72 Lê Thánh Tôn, Quận 1, TP.HCM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <!--            <ul>
+                                <li><a href="#">Điều khoản & Điều kiện bảo hành</a></li>
+                                <li><a href="#">Bảo mật thông tin</a></li>
+                                <li><a href="#">Pháp lý</a></li>
+                            </ul>-->
+                <div class="copyright">Bản quyền thuộc sở hữu © 2019 AQUA Việt Nam</div>
+            </div>
+        </div>
+    </footer>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142865147-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-142865147-1');
+    </script>
+
+    @RenderSection("Scripts", false)
+</body>
+</html>
+
+

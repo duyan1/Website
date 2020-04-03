@@ -1,0 +1,284 @@
+﻿@model IEnumerable<EWShop.Areas.Sales.Models.PurchaseOrder>
+@{
+    ViewBag.Title = "Inventory Data of Aqua";
+    Layout = "~/Views/Layout/_LayoutAdminDashboard.cshtml";
+}
+@section Styles {
+    <style>
+        .center {
+            text-align: center;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .btn {
+            font-size: 14px !important;
+            padding: 1px 10px;
+            height: 25px;
+            border: 1px solid #fff !important;
+        }
+
+        .box {
+            margin-bottom: 5px !important;
+        }
+
+        .box-title {
+            font-weight: 600;
+        }
+
+        .box-header > .box-tools {
+            top: 8px !important;
+        }
+
+        .box-body {
+            padding: 5px 5px 0;
+        }
+
+        .no-margin {
+            margin: 0 !important;
+        }
+
+        .control-label {
+            float: left;
+            margin-right: 5px;
+            font-size: 13.5px;
+            font-weight: 600;
+            margin-bottom: 0;
+            padding: 2px;
+        }
+
+        .form-control {
+            float: left;
+            font-size: 13.5px;
+            font-weight: 500;
+            height: 25px;
+            border-radius: 3px;
+            padding: 5px 3px;
+        }
+
+        .div-select {
+            float: left;
+        }
+
+        .m-b-5 {
+            margin-bottom: 5px;
+        }
+
+        .table {
+            margin-bottom: 0 !important;
+        }
+
+            .table > tbody > tr > td {
+                border: 0 !important;
+                padding: 3px;
+                vertical-align: middle;
+            }
+
+        .col-label {
+            width: 80px !important;
+            text-align: right;
+            vertical-align: middle !important;
+        }
+
+        table.dataTable {
+            margin: 0 auto;
+            width: 100%;
+            clear: both;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+            table.dataTable thead th {
+                padding: 1px;
+            }
+
+            table.dataTable thead tr:first-child {
+                color: #005996;
+                background-color: #E1EBF4;
+                font-weight: 600;
+            }
+
+                table.dataTable thead tr:first-child th {
+                    padding: 5px 8px;
+                    text-align: center;
+                    font-size: 14px;
+                }
+
+            table.dataTable tbody td {
+                vertical-align: middle;
+                padding: 5px 3px;
+                white-space: nowrap;
+                font-size: 13px;
+                overflow: hidden;
+                border: 1px solid #ddd !important;
+                text-overflow: ellipsis;
+                vertical-align: middle;
+            }
+
+            table.dataTable tbody tr.active td {
+                font-weight: 600;
+                background-color: antiquewhite;
+            }
+
+        table.table-detail thead tr:first-child {
+            color: #005996;
+            background-color: #FFF;
+            font-weight: 600;
+        }
+
+        table.table-detail tbody tr td {
+            padding: 2px !important;
+        }
+
+        table.dataTable tbody tr {
+            cursor: pointer;
+        }
+
+        .form-inline .form-control {
+            width: 100%;
+        }
+
+        .div-dialog-import, .ui-dialog-titlebar-close {
+            display: none;
+        }
+
+        .ui-dialog .ui-dialog-buttonpane {
+            margin-top: 0;
+            padding: 0;
+        }
+
+        .ui-widget.ui-widget-content {
+            z-index: 999 !important;
+        }
+
+        .box-footer {
+            border-top: 1px solid #3c8dbc;
+        }
+
+        .custom-control {
+            position: relative;
+            display: block;
+            min-height: 1.5rem;
+        }
+
+        input[type=checkbox], input[type=radio] {
+            box-sizing: border-box;
+            padding: 0;
+        }
+
+        [type=checkbox]:checked, [type=checkbox]:not(:checked) {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .custom-control-label {
+            position: relative;
+            margin-bottom: 0;
+            vertical-align: top;
+            width: 20px;
+            height: 20px;
+            margin: 0;
+        }
+
+            .custom-control-label::before {
+                transition: none;
+            }
+
+        .custom-checkbox .custom-control-label::before {
+            border-radius: .25rem;
+        }
+
+        .custom-control-label::before {
+            position: absolute;
+            top: 0;
+            display: block;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            content: "";
+            background-color: #fff;
+            border: #adb5bd solid 1px;
+        }
+
+        .custom-control-label::after {
+            position: absolute;
+            left: -1.5rem;
+            display: block;
+            width: 20px;
+            height: 20px;
+            content: "";
+            background: no-repeat 50%/50% 50%;
+        }
+
+        .custom-control-input:checked ~ .custom-control-label::before {
+            color: #fff;
+            border-color: black;
+            background-color: cornflowerblue;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1>
+        Inventory Data of Aqua
+        <small>Dislayed</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home page</a></li>
+        <li class="active">Inventory</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-list-alt"></i>
+                    <h3 class="box-title">LIST</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-default btn-box-tool btn-default" style="float:right;border-color: #ddd!important;"><i class="fa fa-file-excel-o"></i> Export excel</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvResults", OnSuccess = "OnSuccess", OnBegin = "OnBegin" }, new { @class = "form-table" }))
+                            {
+                                <label class="control-label" style="float:left;margin-right:5px;height: 25px; margin-bottom: 0; padding: 4px 0;margin-bottom: 2px;" title="Ngày tạo PO">Ord.Date</label>
+                                <div style="float:left;margin-right:5px;width:85px;">
+                                    <input class="form-control form-date form-update-frm-date" name="frmDate" value="@DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy")" />
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 25px; margin-bottom: 0; padding: 0;">-</label>
+                                <div style="float:left;margin-right:10px;width:85px;">
+                                    <input class="form-control form-date form-update-to-date" name="toDate" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 25px; margin-bottom: 0; padding: 4px 0;margin-bottom: 2px;">Confirm</label>
+                                <div style="float:left;margin-right:5px;width:120px;margin-bottom: 2px;">
+                                    <select class="form-select form-control form-confirm" name="confirm">
+                                        <option value="1">Comfirmed</option>
+                                        <option value="0" selected="selected">Not confirmed</option>
+                                        <option value="2">Rejected</option>
+                                    </select>
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 25px; margin-bottom: 0; padding: 4px 0;margin-bottom: 2px;">PO.No</label>
+                                <div style="float:left;margin-right:10px;width:120px;">
+                                    <input class="form-control" name="poNo" value="" />
+                                </div>
+                                <button type="submit" class="btn btn-default" style="float:left;border-color: #ddd!important;margin-right: 5px;"><i class="fa fa-filter"></i> Filter</button>
+                            }
+                        </div>
+                    </div>
+                    <div id="dvResults">
+                        @Html.Partial("~/Areas/Sales/Views/Shared/_PartialListPurchaseOrders.cshtml", Model)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

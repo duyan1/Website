@@ -1,0 +1,684 @@
+﻿@model IEnumerable<EWShop.Areas.Admin.Models.ShopItem>
+@{
+    IEnumerable<EWShop.Models.DataReturn> listProvinces = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.PROVINCES_INFO];
+    IEnumerable<EWShop.Models.DataReturn> listRegions = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.REGIONS_INFO];
+    IEnumerable<EWShop.Models.DataReturn> listShopTypes = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.CHANNEL_TYPE_INFO];
+    IEnumerable<EWShop.Models.DataReturn> listChannelGroups = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.CHANNEL_GROUP_INFO];
+    IEnumerable<EWShop.Models.DataReturn> listShopGroups = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.SHOP_GROUP_INFO];
+}
+@{
+    ViewBag.Title = "Danh sách cửa hàng";
+    Layout = "~/Views/Layout/_LayoutAdminDashboard.cshtml";
+}
+@section Styles {
+    <style>
+    .select2-container {
+        width: 100% !important;
+    }
+
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            font-size: 14px;
+        }
+
+    .center {
+        text-align: center !important;
+    }
+
+    .form-control {
+        width: 100% !important;
+        font-size: 14px;
+        padding: 5px;
+        height: 25px;
+        border-radius: 3px;
+    }
+
+    table.dataTable {
+        margin: 0 auto;
+        width: 100%;
+        clear: both;
+        border-collapse: collapse;
+        table-layout: fixed;
+    }
+
+        table.dataTable thead th {
+            padding: 2px;
+            white-space: nowrap;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        table.dataTable thead tr:first-child th, table.dataTable tfoot th {
+            padding: 5px;
+            font-weight: 600;
+        }
+
+        table.dataTable tbody td {
+            padding: 3px 4px;
+            white-space: nowrap;
+            vertical-align: middle;
+            font-size: 13px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        table.dataTable tbody tr.active td {
+            font-weight: 600;
+            background-color: #ddd;
+        }
+
+        table.dataTable tbody tr {
+            cursor: pointer;
+        }
+
+    .div-filter {
+        display: none;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .btn {
+        font-size: 13px !important;
+        padding: 3px 10px;
+        height: 25px;
+        border: 1px solid #fff !important;
+    }
+
+    .box {
+        margin-bottom: 10px !important;
+    }
+
+    .box-header {
+        padding: 8px 10px;
+    }
+
+    .box-body {
+        padding: 5px;
+    }
+        .box-header > .box-tools {
+            top: 5px !important;
+        }
+    .col-label {
+        width: 100px;
+        text-align: right;
+        vertical-align: middle;
+    }
+
+    .table {
+        margin-bottom: 0;
+    }
+
+        .table > tbody > tr > td {
+            border-top: 0;
+        }
+
+    .div-filter, .div-dialog, .div-dialog-import,.ui-dialog-titlebar-close {
+        display: none;
+    }
+    .dialog-detail-import{
+        min-height: 45px!important;
+    }
+    .ui-dialog .ui-dialog-buttonpane{
+        margin-top: 0;
+        padding: 0;
+    }
+        .ui-dialog .ui-dialog-buttonpane button {
+            margin: 3px 3px 0;
+            min-width: 100px;
+        }
+</style>
+}
+<section class="content-header">
+    <h1>
+        List shop
+        <small>Displayed</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home page</a></li>
+        <li class="active">Shops</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-list-alt"></i>
+                    <h3 class="box-title">List</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-default btn-box-tool btn-filter"><i class="fa fa-filter"></i> Filter</button>
+                        <button type="button" class="btn btn-warning btn-box-tool btn-import"><i class="fa fa-upload"></i> Import Excel</button>
+                        <button type="button" class="btn btn-success btn-box-tool btn-excel"><i class="fa fa-file-excel-o"></i> Export excel</button>
+                        <button type="button" class="btn btn-default btn-box-tool btn-add"><i class="fa fa-plus-circle"></i> Create new</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row div-filter">
+                        <div class="col-sm-12">
+                            @using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvResults", OnSuccess = "OnSuccess", OnBegin="OnBegin" }, new { @class = "form-table" }))
+                            {
+                                <label class="control-label" style="float:left;margin-right:5px;height: 34px; margin-bottom: 0; padding: 7px;">ShopType</label>
+                                <div style="float:left;margin-right:5px;width:100px;">
+                                    <select class="sel-type form-select form-control" name="type">
+                                        <option value="">-- All --</option>
+                                        @foreach (var item in listShopTypes)
+                                        {
+                                            <option value="@item.value">@item.text</option>
+                                        }
+                                    </select>
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 34px; margin-bottom: 0; padding: 7px;">Group</label>
+                                <div style="float:left;margin-right:5px;width:200px;">
+                                    <select class="sel-group form-select form-control" name="group">
+                                        <option value="">-- All --</option>
+                                        @foreach (var item in listShopGroups)
+                                        {
+                                            <option value="@item.value">@item.text</option>
+                                        }
+                                    </select>
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 34px; margin-bottom: 0; padding: 7px;">Region</label>
+                                <div style="float:left;margin-right:5px;width:100px;">
+                                    <select class="sel-region form-select form-control" name="region">
+                                        <option value="">-- All --</option>
+                                        @foreach (var item in listRegions)
+                                        {
+                                            <option value="@item.value">@item.text</option>
+                                        }
+                                    </select>
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 34px; margin-bottom: 0; padding: 7px;">Area</label>
+                                <div style="float:left;margin-right:5px;width:100px;">
+                                    <select class="sel-area form-select form-control" name="area">
+                                        <option value="">-- All --</option>
+                                        <option value="NORTH">North</option>
+                                        <option value="CENTRAL">Central</option>
+                                        <option value="SOUTH">South</option>
+                                    </select>
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 34px; margin-bottom: 0; padding: 7px;">Active</label>
+                                <div style="float:left;margin-right:5px;width:100px;">
+                                    <select class="sel-active form-select form-control" name="active">
+                                        <option value="2">-- All --</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">InActive</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-default btn-search" style="float:left;">Search</button>
+                            }
+                        </div>
+                    </div>
+                    <div id="dvResults">
+                        @Html.Partial("~/Areas/Admin/Views/Shared/_Partiallistshops.cshtml", Model)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="div-dialog">
+        <div class="dialog-detail" title="Xem chi tiết">
+            <form class="form-user form-horizontal">
+                <input type="hidden" name="shopId" class="form-shopId" />
+                <div class="row">
+                    <div class="col-sm-12 no-padding">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">ShopCode</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-shopCode" name="shopCode" disabled="disabled" placeholder="Enter shopcode ...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">ShopName</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-shopName" name="shopName" placeholder="Enter shopname ...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 no-padding">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">ShopAddress</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-shopAddress" name="shopAddress" placeholder="Enter shopaddress ...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 no-padding">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">ShopType</label>
+                                <div class="col-sm-8">
+                                    <select class="form-shopType form-control form-select" name="shopType">
+                                        <option value="">-- Please choose --</option>
+                                        @foreach (var item in listShopTypes)
+                                        {
+                                            <option value="@item.value">@item.text</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Account</label>
+                                <div class="col-sm-8">
+                                    <select class="form-shopGroup form-control form-select" name="shopGroup">
+                                        <option value="">-- Please choose --</option>
+                                        @foreach (var item in listChannelGroups)
+                                        {
+                                            <option value="@item.value">@item.text</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 no-padding">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Group</label>
+                                <div class="col-sm-8">
+                                    <select class="form-groups form-control form-select" name="groupId">
+                                        <option value="">-- Please choose --</option>
+                                        @foreach (var item in listShopGroups)
+                                        {
+                                            <option value="@item.value">@item.text</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">ShopLevel</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-shopLevel" name="shopLevel" placeholder="Enter shoplevel ...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 no-padding">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Province</label>
+                                <div class="col-sm-8">
+                                    <select class="form-province form-control form-select" name="province">
+                                        <option value="">-- Please choose --</option>
+                                        @foreach (var item in listProvinces)
+                                        {
+                                            <option value="@item.value">@item.text</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">District</label>
+                                <div class="col-sm-8">
+                                    <select class="form-district form-control form-select" name="district">
+                                        <option value="">Please select a province</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 no-padding">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Cus.Code</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control form-customerCode" name="customerCode" placeholder="Enter customerCode ...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group center">
+                                <div class="checkbox">
+                                    <label style="font-weight: 600;"><input class="icheck check-is-active" id="chkIsActive" type="checkbox">Active</label>
+                                    <input type="hidden" class="check-active" name="isActive" value="0" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control form-remarks" name="remarks" placeholder="Enter reason inactive ...">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="div-dialog-import">
+        <div class="dialog-detail-import" title="Import excel">
+            <div class="row">
+                <div class="col-sm-12 no-padding">
+                    <label class="control-label" style="float:left;margin-right:5px;height: 25px; margin-bottom: 0; padding: 4px;">File excel</label>
+                    <div style="float:left;margin-right:5px;width:220px;">
+                        <input type="file" class="form-control fileUpload" style="padding:0;" />
+                    </div>
+                    <button class="btn btn-primary btn-upload" style="float:left; padding: 3px 10px; height: 25px;"><i class="fa fa-upload"></i> Upload file</button>
+                    <a class="control-label" style="float:left;margin-left: 10px;font-size: 20px;" href="@Url.Content("~/Downloads/SHOP_TEMPLATE.xls")" title="Download mẫu nhập giá"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script>
+        var table, dialogView, dialogImport;
+        $(document).ready(function () {
+            loadDataTable();
+            $('.btn-filter').click(function () {
+                $('.div-filter').slideToggle();
+            });
+            $(".check-is-active").click(function () {
+                if ($(this).is(':checked'))
+                    $('.check-active').val("1");
+                else
+                    $('.check-active').val("0");
+            });
+            $(window).on('resize', function () {
+                table.draw();
+            });
+            $('.btn-refresh').click(function () {
+                clearData();
+            });
+            $('.btn-save').click(function () {
+                saveData();
+            });
+            $('.form-province').on('change', function () {
+                loadListDistrict($(this).val() , "");
+            });
+            var width = $(window).width() * 0.8;
+            dialogView = $(".dialog-detail").dialog({
+                autoOpen: false,
+                width: width,
+                modal: true,
+                open: function () {
+                    if ($.ui && $.ui.dialog && !$.ui.dialog.prototype._allowInteractionRemapped && $(this).closest(".ui-dialog").length) {
+                        if ($.ui.dialog.prototype._allowInteraction) {
+                            $.ui.dialog.prototype._allowInteraction = function (e) {
+                                if ($(e.target).closest('.select2-drop').length) return true;
+                                return ui_dialog_interaction.apply(this, arguments);
+                            };
+                            $.ui.dialog.prototype._allowInteractionRemapped = true;
+                        }
+                        else {
+                            $.error("You must upgrade jQuery UI or else.");
+                        }
+                    }
+                },
+                _allowInteraction: function (event) {
+                    return !!$(event.target).is(".select2-input") || this._super(event);
+                },
+                buttons: {
+                    "Save change": saveChannel,
+                    Cancel: function () {
+                        dialogView.dialog("close");
+                    }
+                },
+                close: function () {
+
+                }
+            });
+            dialogImport = $(".dialog-detail-import").dialog({
+                autoOpen: false,
+                width: 450,
+                modal: true,
+                buttons: {
+                    Cancel: function () {
+                        dialogImport.dialog("close");
+                    }
+                }
+            });
+            loadCombobox($('.form-select'));
+            $('.btn-add').click(function () {
+                clearData();
+                dialogView.dialog("open");
+                dialogView.dialog('option', 'title', 'Create a new shop');
+            });
+            $('.btn-import').click(function () {
+                clearData();
+                dialogImport.dialog("open");
+            });
+            $('.btn-excel').click(function () {
+                var type = $('.sel-type').val();
+                var group = $('.sel-group').val();
+                var region = $('.sel-region').val();
+                var area = $('.sel-area').val();
+                var active = $('.sel-active').val();
+                window.open('@Url.Action("DownloadExcelShops", "BasicData")' + '?type=' + type + '&group=' + group + '&region=' + region + '&area=' + area + '&active=' + active, '_blank');
+            });
+            $('.btn-upload').click(function () {
+                BlockUi();
+                var files = $(".fileUpload").get(0).files;
+                var fileData = new FormData();
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append("fileInput", files[i]);
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ImportFileExcelShop", "BasicData")',
+                    dataType: "json",
+                    contentType: false,
+                    processData: false,
+                    data: fileData,
+                    success: function (data) {
+                        if (data.code == "1") {
+                            $('.form-table').submit();
+                            dialogImport.dialog("close");
+                            toastr.success("Save successfully !!!");
+                        } else {
+                            toastr.error(data.msg);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert(error);
+                    }, complete: function () {
+                        closeBlock();
+                    }
+                });
+            });
+        });
+        function OnBegin() {
+            BlockUi();
+        }
+        function OnSuccess() {
+            loadDataTable()
+            closeBlock();
+        }
+        function saveChannel() {
+            BlockUi();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("saveShopInfo", "BasicData")',
+                data: $('.form-user').serialize(),
+                success: function (data) {
+                    if (data.code == "1") {
+                        dialogView.dialog("close");
+                        toastr.success("Save successfully !!!");
+                        clearData();
+                    } else {
+                        toastr.error(data.msg);
+                    }
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    closeBlock();
+                    $('.form-table').submit();
+                }
+            });
+        }
+        function clearData() {
+            $('.form-shopId').val('');
+            $('.form-shopCode').val("");
+            $('.form-shopName').val("");
+            $('.form-shopAddress').val("");
+            $('.form-shopType').val("").trigger('change');
+            $('.form-shopGroup').val("").trigger('change');
+            $('.form-groups').val("").trigger('change');
+            $('.form-shopLevel').val("");
+            $('.form-customerCode').val("");
+            $('.form-province').val("").trigger('change');
+            $('.form-district').val("").trigger('change');
+            $('.check-is-active').prop('checked', true);
+            $('.check-active').val("1");
+        }
+        function loadDetail(shopId) {
+            BlockUi();
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("getShopInfo", "BasicData")' + '?shopId=' + shopId,
+                dataType: "json",
+                success: function (data) {
+                    $('.form-shopId').val(data.shopId);
+                    $('.form-shopCode').val(data.shopCode);
+                    $('.form-shopName').val(data.shopName);
+                    $('.form-shopAddress').val(data.shopAddress);
+                    $('.form-shopType').val(data.shopType).trigger('change');
+                    $('.form-shopGroup').val(data.shopGroup).trigger('change');
+                    $('.form-groups').val(data.groupId).trigger('change');
+                    $('.form-shopLevel').val(data.shopLevel);
+                    $('.form-customerCode').val(data.customerCode);
+                    $('.form-province').val(data.province).trigger('change');
+                    loadListDistrict(data.province, data.district);
+                    if (data.isActive == "True") {
+                        $('.check-is-active').prop('checked', true);
+                        $('.check-active').val("1");
+                    } else {
+                        $('.check-is-active').prop('checked', false);
+                        $('.check-active').val("0");
+                    }
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    dialogView.dialog("open");
+                    dialogView.dialog('option', 'title', 'Display detail shop : ' + $('.form-shopCode').val());
+                    closeBlock();
+                }
+            });
+        }
+        function loadListDistrict(provinceId, districtId) {
+            BlockUi();
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("loadListDistrict", "BasicData")' + '?provinceId=' + provinceId,
+                data: $('.form-user').serialize(),
+                success: function (data) {
+                    var html = '<option value="">-- Please choose --</option>';
+                    $.each(data, function (key, value) {
+                        html += '<option value="' + value.value + '">' + value.text + '</option>';
+                    });
+                    $('.form-district').html(html);
+                }, error: function (e) {
+                    alert(e);
+                    closeBlock();
+                }, complete: function () {
+                    closeBlock();
+                    if (districtId != "") {
+                        $('.form-district').val(districtId).trigger('change');
+                    }
+                }
+            });
+        }
+        function loadDataTable() {
+            table = $('.table-shops').DataTable({
+                'destroy': true,
+                "dom": "rt<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                "orderCellsTop": true,
+                "pageLength": 12,
+                "autoWidth": false,
+                "order": [],
+                'columnDefs': [{
+                    "width": "8%",
+                    "targets": [0],
+                    "class": "center"
+                }, {
+                    "width": "20%",
+                    "targets": [1]
+                }, {
+                    "width": "7%",
+                    "targets": [2]
+                }, {
+                    "width": "12%",
+                    "targets": [3]
+                }, {
+                    "width": "7%",
+                    "targets": [4],
+                    "class": "center"
+                }, {
+                    "width": "10%",
+                    "targets": [5]
+                }, {
+                    "width": "10%",
+                    "targets": [6]
+                }, {
+                    "width": "10%",
+                    "targets": [7],
+                    "class": "center"
+                }, {
+                    "width": "5%",
+                    "targets": [8],
+                    "class": "center"
+                }, {
+                    "width": "5%",
+                    "targets": [9],
+                    "class": "center"
+                }]
+            });
+            $(".table-shops thead tr:eq(1) th input").on('keyup change', function () {
+                table.column($(this).parent().index() + ':visible').search(this.value, false, false, true).draw();
+            });
+            $('.table-shops tbody').on('click', '.btn-view', function () {
+                var data = $(this).data("id");
+                loadDetail(data);
+            });
+        }
+        function loadCombobox($control) {
+            $.fn.select2.amd.require(["select2/data/array", "select2/utils"], function (e, t) {
+                function a(e, t) {
+                    a.__super__.constructor.call(this, e, t)
+                }
+
+                function r(e, t) {
+                    return new RegExp(t, "i").test(e)
+                }
+                t.Extend(a, e), a.prototype.query = function (e, t) {
+                    "page" in e || (e.page = 1);
+                    var a = 10,
+                        n = this.$element.children().map(function (t, a) {
+                            return r(a.innerText, e.term) ? {
+                                id: a.value,
+                                text: a.innerText
+                            } : void 0
+                        });
+                    t({
+                        results: n.slice((e.page - 1) * a, e.page * a),
+                        pagination: {
+                            more: n.length >= e.page * a
+                        }
+                    })
+                }, $selectGroup = $control.select2({
+                    ajax: {},
+                    allowClear: false,
+                    dataAdapter: a
+                })
+            })
+        }
+</script>
+
+}

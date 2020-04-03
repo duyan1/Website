@@ -1,0 +1,276 @@
+﻿@model EWShop.Models.ServiceRequest
+@{
+    ViewBag.Title = "Yêu cầu bảo hành/bảo trì sản phẩm Aqua";
+    Layout = "~/Views/Layout/_LayoutCustomerDashboard.cshtml";
+    IEnumerable<EWShop.Models.DataReturn> listPlants = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.PLANTS_INFO];
+}
+@section Styles {
+    <style>
+        textarea { resize: vertical; }
+        .table { width: 100%; margin-bottom:0!important; }
+        .block-heading { margin: 30px 0 15px; }
+        .block-heading h2{
+            font-size: 35px;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+        .block-heading p{
+            font-size: 19px;
+        }
+        .dv-content{
+            max-width: 900px;
+            width:100%;
+            margin: 0 auto;
+            text-align:left;
+        }
+        .container-form{
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .dvError{
+            float:left;
+            width: 100%;
+            text-align:center;
+        }
+        .dvCustomerInfo, .dvProductInfo{
+            float:left;
+            width: 50%;
+            padding: 5px 10px;
+        }
+        .table>tbody>tr>td{
+            border: 0px!important;
+            padding: 5px;
+        }
+        .col-label{
+            width: 120px;
+            padding: 10px 5px!important;
+        }
+        .required{
+            color: red;
+            margin-left: 1px;
+        }
+        @@media only screen and (max-width : 750px) {
+            .dvCustomerInfo, .dvProductInfo{
+                width: 100%;
+                padding: 0 10px;
+            }
+            .block-heading h2 {
+                font-size: 24px;
+                line-height: 1.3;
+            }
+            .block-heading p {
+                font-size: 17px;
+            }
+        }
+    </style>
+}
+<section class="contact-slider">
+    <img src="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/assets/img/lien-he-banner.png" class="img-responsive">
+</section>
+<section class="container main-support">
+    <div class="block-item">
+        <div class="block-heading">
+            <h2>YÊU CẦU BẢO HÀNH/BẢO TRÌ SẢN PHẨM AQUA</h2>
+            <div class="dv-content">
+                <p><i class="fa fa-check" aria-hidden="true"></i> Quý khách có yêu cầu về Bảo hành/Bảo trì sản phẩm, vui lòng điền đầy đủ thông tin dưới đây và gửi về cho chúng tôi.</p>
+                <p><i class="fa fa-check" aria-hidden="true"></i> Nhân viên chăm sóc khách hàng sẽ liên hệ với quý khách để hỗ trợ trong thời gian sớm nhất.</p>
+                <p><i class="fa fa-check" aria-hidden="true"></i> Nếu cửa hàng đăng ký cho Quý khách hàng, vui lòng chọn Nơi đăng ký là Cửa hàng và điền đầy đủ thông tin.</p>
+            </div>
+        </div>
+        <div class="block-body">
+        @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBegin", UpdateTargetId = "imgCaptcha", OnSuccess = "OnSuccess(data, status, xhr)" }))
+        {
+            <div class="container-form">
+                <div class="dvError">
+                    <p style="color:red;padding: 0;margin:0;font-size: 18px;font-weight:600;" class="lbError"></p>
+                    <p style="color:forestgreen;padding: 0;margin:0;font-size: 18px;font-weight:600;" class="lbSuccess"></p>
+                </div>
+                <div class="dvCustomerInfo">
+                    <div class="wrapper" style="padding: 6px 12px; font-size: 16px; border: 0;">
+                        <div class="address">
+                            <h4 style="font-weight: 600;"><i class="fa fa-tags" aria-hidden="true"></i> Thông tin khách hàng</h4>
+                            <div class="row">
+                                <table class="table">
+                                    <tr>
+                                        <td class="col-label">Tên khách hàng<span class="required">*</span></td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.cusName, new { @class = "form-control form-name", @placeholder = "Nhập tên khách hàng", required = "required" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Tỉnh thành<span class="required">*</span></td>
+                                        <td>
+                                            @Html.DropDownList("cusProvince", (IEnumerable<SelectListItem>)ViewBag.Provinces, new { @class = "form-control select-province" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Quận huyện<span class="required">*</span></td>
+                                        <td>
+                                            <select class="select-district form-control form-select" style="width:100%" name="cusDistrict" id="cusDistrict">
+                                                <option value="0">Vui lòng chọn tỉnh/thành phố</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Địa chỉ<span class="required">*</span></td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.cusAddress, new { @class = "form-control form-address", @placeholder = "Nhập địa chỉ khách hàng...", required = "required" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">ĐT liên hệ<span class="required">*</span></td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.cusPhone, new { @class = "form-control form-phone", @placeholder = "Nhập sđt khách hàng...", required = "required" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">ĐT khác</td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.cusOtherPhone, new { @class = "form-control form-other-phone", @placeholder = "Nhập sđt khác..." })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Địa chỉ email</td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.cusEmail, new { @class = "form-control form-email", @placeholder = "Nhập email..." })
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dvProductInfo">
+                    <div class="wrapper" style="padding: 6px 12px; font-size: 16px; border: 0;">
+                        <div class="address">
+                            <h4 style="font-weight: 600;"><i class="fa fa-tags" aria-hidden="true"></i> Thông tin sản phẩm</h4>
+                            <div class="row">
+                                <table class="table">
+                                    <tr>
+                                        <td class="col-label">Loại sản phẩm<span class="required">*</span></td>
+                                        <td>
+                                            @Html.DropDownList("plant", (IEnumerable<SelectListItem>)ViewBag.Plants, new { @class = "form-control select-plant" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Kiểu máy<span class="required">*</span></td>
+                                        <td>
+                                            <select class="form-control select-model" name="model" style="width: 100%;">
+                                                <option value="0">Vui lòng chọn loại sản phẩm</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Số máy</td>
+                                        <td>
+                                            @Html.TextBoxFor(N => N.barcode, new { @class = "form-control form-barcode", @placeholder = "Nhập số máy...", required = "required" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label"><strong>Lỗi sản phẩm</strong><span class="required">*</span></td>
+                                        <td>
+                                            @Html.TextAreaFor(N => N.contentError, 3, 3, new { @class = "form-control form-error", @placeholder = "Nhập nội dung...", required = "required" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-label">Mã xác nhận<span class="required">*</span></td>
+                                        <td>
+                                            <div style="width: 40%;float:left;max-width: 100px;">
+                                                <img src="/Home/GetCaptchaImage" class="imgCaptcha" id="imgCaptcha" style="width:100%;height: 35px;border: 1px solid #ddd;" title="Captcha" />
+                                            </div>
+                                            <div style="width: 60%;float:right;">
+                                                @Html.TextBoxFor(N => N.captcha, new { @class = "form-control form-captcha", @placeholder = "Nhập mã xác nhận...", required = "required" })
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="float:left; padding: 6px 0;">(<span class="required">*</span>) Bắt buộc nhập</div>
+                                            <input type="submit" value="Gửi thông tin" class="btn btn-primary btn-send" style="float:right;" />
+                                            <button type="button" class="btn btn-default btn-clear" style="float:right;margin-right: 5px;"><i class="fa fa-refresh" aria-hidden="true"></i> Làm mới</button>
+                                            <img src="~/Libraries/dist/img/loading.gif" class="btn-loading" style="width: 100px;float: right; margin-right: 5px;height: 34px;display:none;" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            loadListDistrict($('.select-province').val());
+            loadListModel($('.select-plant').val());
+            $('.select-province').on('change', function () {
+                loadListDistrict($(this).val());
+            });
+            $('.select-plant').on('change', function () {
+                loadListModel($(this).val());
+            });
+            $('.btn-clear').click(function () {
+                location.reload();
+            });
+        });
+        function loadListDistrict(provinceId) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("loadListDistrict", "Home")' + '?provinceId=' + provinceId,
+                success: function (data) {
+                    var html = '';
+                    $.each(data, function (key, value) {
+                        html += '<option value="' + value.value + '">' + value.text + '</option>';
+                    });
+                    $('.select-district').html(html);
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+
+                }
+            });
+        }
+        function loadListModel(plantId) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("loadListModel", "Home")' + '?plantId=' + plantId,
+                success: function (data) {
+                    var html = '';
+                    $.each(data, function (key, value) {
+                        html += '<option value="' + value.value + '">' + value.text + '</option>';
+                    });
+                    $('.select-model').html(html);
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+
+                }
+            });
+        }
+        function OnBegin() {
+            $('.btn-send').hide();
+            $('.btn-clear').hide();
+            $('.btn-loading').show();
+        }
+        function OnSuccess(data, status, xhr) {
+            $('.lbSuccess').html('');
+            $('.lbError').html('');
+            $('.form-captcha').val('');
+            var unique = $.now();
+            $(".imgCaptcha").attr("src", "/Home/GetCaptchaImage?" + unique);
+            if (data.code == "1") {
+                $('.lbSuccess').html(data.msg);
+            } else {
+                $('.lbError').html(data.msg);
+            }
+            $('.btn-send').show();
+            $('.btn-clear').show();
+            $('.btn-loading').hide();
+        }
+    </script>
+    
+}

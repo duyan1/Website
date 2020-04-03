@@ -1,0 +1,54 @@
+﻿@model IEnumerable<EWShop.Areas.CallCenter.Models.EwarrantyItem>
+@if (Model != null)
+{
+    if (Model.Count() > 0)
+    {
+        int index = 1;
+        <div class="col-md-12" style="text-align: center;">
+            <table class="table table-bordered table-striped table-ewarranties">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Barcode</th>
+                        <th>Modeltype</th>
+                        <th>POD</th>
+                        <th>Cus.Name</th>
+                        <th>Cus.Phone</th>
+                        <th>ShopCode</th>
+                        <th>ShopName</th>
+                        <th>Source</th>
+                        <th>PSI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="col-ew" data-id="@item.EWCardId">@index.ToString()</td>
+                            <td>@item.barcode</td>
+                            <td>@item.model</td>
+                            <td>@item.POD</td>
+                            <td>@item.cusName</td>
+                            <td>@item.cusPhone</td>
+                            <td>@item.shopCode</td>
+                            <td>@item.shopName</td>
+                            <td>@item.EWSource</td>
+                            <td>
+                                @item.flag
+                                <input type="hidden" value="@(index++)" />
+                            </td>
+                        </tr>
+                        
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+            <div class="col-md-12" style="text-align: center; padding-top: 5px;">
+                <label style="color: orangered;">NO DATA</label>
+            </div>
+            }
+            }
+

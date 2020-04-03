@@ -1,0 +1,63 @@
+﻿@model EWShop.Areas.Admin.Models.QAItem
+
+<table class="table">
+@if (Model != null)
+{
+    <tbody>
+        <tr>
+            <td class="col-label">Question</td>
+            <td><label class="label-question" data-id="@Model.question.ItemId">@Model.question.ItemContent</label></td>
+        </tr>
+        <tr>
+            <td class="col-label">Answer</td>
+            <td style="padding:0;">
+                <div class="row row-answer no-margin">
+                    <table class="table table-qa" style="margin-bottom: 0;">
+                        @if (Model.answers != null && Model.answers.Count > 0)
+                        {
+                            foreach (var item in Model.answers)
+                            {
+                                <tr>
+                                    <td style="width: 50px;">Content</td>
+                                    <td><label class="col-answer" data-id="@item.QAId">@item.AContent</label></td>
+                                    <td style="width: 50px;">Q.Next</td>
+                                    <td style="width: 300px;">
+                                        <div style="width: 300px;">
+                                            <input type="hidden" class="form-hidden hidden-qNext" name="QIdNext" value="@item.QIdNext" />
+                                            <input class="form-control form-qNext" value="@item.QContentNext" />
+                                        </div>
+                                    </td>
+                                    <td style="width: 50px;">Priority</td>
+                                    <td style="width: 100px;"><input class="form-control form-priority" name="Priority" value="@item.Priority" /></td>
+                                    <td style="width: 150px; text-align: center; padding: 10px;">
+                                        <input type="hidden" name="isCheck" class="form-remarks" value="@item.isCheck" />
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input check-remarks" id="lbCheckQA-1" />
+                                            <label class="custom-control-label" for="lbCheckQA-1" style="padding-left: 10px;">Remarks</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                        
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+}
+else
+{
+    <tbody>
+        <tr>
+            <td class="col-label">Question</td>
+            <td><label class="label-question" data-id="0">No data</label></td>
+        </tr>
+        <tr>
+            <td class="col-label">Answer</td>
+            <td style="padding:0;">No data</td>
+        </tr>
+    </tbody>
+}
+</table>

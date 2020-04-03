@@ -1,0 +1,241 @@
+﻿@{ 
+    EWShop.Models.User user = (EWShop.Models.User)HttpContext.Current.Session[EWShop.Models.CommonConstants.USER_INFO];
+    string strSpacer = "&nbsp;|";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+    <link rel="icon" type="image/png" href="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/favicon.png" />
+
+    <link href="~/Libraries/dist/css/StyleAutoComplete.css" rel="stylesheet" />
+    <link href="~/Libraries/vendor/bootstrap-3.4.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet" />
+    <!-- Bootsnav -->
+    <link href="~/Libraries/dist/css/overwrite.css" rel="stylesheet" />
+    <link href="~/Libraries/dist/css/color.css" rel="stylesheet" />
+    <link href="~/Libraries/dist/css/bootsnav.css" rel="stylesheet" />
+    <link href="~/Libraries/dist/css/MyStyle.css" rel="stylesheet" />
+    <link href="~/Libraries/vendor/select2/select2.css" rel="stylesheet" />
+    <link href="~/Libraries/vendor/toastr-master/build/toastr.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    
+    <style>
+        .div-dialog{
+            display:none;
+        }
+        .input-group-addon{
+            padding: 5px 12px!important;
+        }
+        .container-s {
+            width: 100% !important;
+        }
+        .panel-heading {
+            padding: 1px 15px;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            font-size: 15px;
+        }
+
+        .padding-5 {
+            padding: 5px;
+        }
+
+        .padding-3-10 {
+            padding: 3px 10px;
+        }
+
+        .dataTables_wrapper .dataTables_info {
+            padding-top: 7px;
+            padding-left: 5px;
+        }
+
+        .dataTables_wrapper .dataTables_paginate {
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
+        .requerido{
+            color: red;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow, .select2-container .select2-selection--single, .select2-container--default .select2-selection--single .select2-selection__rendered{
+            height:34px!important;
+        }
+        h1, h2, h3, h4, h5, h6{
+            color: white;
+            margin-bottom: 10px;
+        }
+    </style>
+    
+    <script src="@Url.Content("~/Libraries/vendor/jquery/jquery-3.3.1.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/bootstrap-3.4.1/dist/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/dist/js/bootsnav.js")"></script>
+    <script src="@Url.Content("~/Libraries/dist/js/jquery.blockUI.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/select2/select2.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/toastr-master/build/toastr.min.js")"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="@Url.Content("~/Libraries/dist/js/jquery.mask.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+
+    @RenderSection("Styles", false)
+</head>
+<body>
+    <!-- Start Navigation -->
+    <nav class="navbar navbar-default bootsnav">
+        <div class="container container-s">
+            <!-- Start Header Navigation -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="/"><img src="@Url.Content("~/Libraries/dist/img/logo_login.png")" class="logo" alt=""></a>
+            </div>
+            <!-- End Header Navigation -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
+                    <li><a href="/">Trang chủ</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bảo hành</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/EW/RegisterEWForCustomer">Đăng ký cho một khách hàng</a></li>
+                            <li><a href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/EW/UploadExcel">Đăng ký nhiều khách hàng</a></li>
+                            <li><a href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/EW/FilterServiceRequest" title="Yêu cầu bảo hành/bảo trì">Yêu cầu BH/BT</a></li>
+                            <li><a href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/EW/CheckEwarranty">Tra cứu bảo hành</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Lịch sử</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/EW/History">Lịch sử đăng ký</a></li>
+                            <li><a href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/Payreward">Danh sách trả thưởng</a></li>
+                            <li><a href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/Report">Doanh số bán ra</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div style="float:right;width:425px;padding:1px 0;">
+                    <div style="float:right;">
+                        <a class="label-profile">Thông tin người dùng</a>&nbsp;|
+                        @if(user.roleName == "administrator") {
+                            <a class='label-admin-page' href="~/Admin">Trang quản trị</a>@Html.Raw(strSpacer)
+                        }
+                        <a class="label-changepass">Đổi mật khẩu</a>&nbsp;|
+                        <a href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/Account/Logout">Đăng xuất</a>
+                    </div>
+                    <div style="float:right;width: 100%;text-align:right;">
+                        <a>Xin chào <strong style="font-size: 14px;">@user.fullName</strong></a>
+                    </div>
+                </div>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+    <!-- End Navigation -->
+    <div class="clearfix"></div>
+    <div class="container container-s body-content">
+        @RenderBody()
+    </div>
+    <div class="div-dialog">
+        <div class="dialog-change" title="Thay đổi mật khẩu" style="overflow: hidden;">
+            <form class="form-horizontal form-change">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
+                    <input type="password" class="form-control oldPass" name="oldPass" placeholder="Mật khẩu cũ">
+                </div>
+                <br />
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
+                    <input type="password" class="form-control newPass" name="newPass" placeholder="Mật khẩu mới">
+                </div>
+                <br />
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
+                    <input type="password" class="form-control confirmPass" name="confirmPass" placeholder="Xác nhận mật khẩu mới">
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142865147-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-142865147-1');
+    </script>
+
+    <script type="text/javascript">
+        function BlockUi() {
+            $.blockUI({
+                css: {
+                    border: "none",
+                    padding: "15px",
+                    backgroundColor: "#000",
+                    "-webkit-border-radius": "10px",
+                    "-moz-border-radius": "10px",
+                    opacity: .5,
+                    color: "#fff"
+                }
+            })
+        }
+        function closeBlock() {
+            $.unblockUI();
+        }
+        $(document).ready(function () {
+            var header = $('.navbar-default').height();
+            var win = $(window).height();
+            var bodyHeight = win - header - 10;
+            $('.body-content').css('min-height', bodyHeight + 'px');
+            dialogChange = $(".dialog-change").dialog({
+                autoOpen: false,
+                width: 350,
+                modal: true,
+                buttons: {
+                    "Ghi nhận": changePassUser,
+                    Cancel: function () {
+                        dialogChange.dialog("close");
+                    }
+                },
+                close: function () {
+                }
+            });
+            $('.div-dialog').show();
+            $('.label-changepass').click(function () {
+                dialogChange.dialog("open");
+            });
+            $('.label-profile').click(function () {
+                toastr.warning("Chức năng chưa hoàn thiện !!!");
+            });
+        });
+        function changePassUser() {
+            BlockUi();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("changePass", "Account")',
+                data: $('.form-change').serialize(),
+                success: function (data) {
+                    if (data.code == "1") {
+                        dialogChange.dialog("close");
+                        toastr.success("Ghi nhận hoàn tất !!!");
+                        clearData();
+                    } else {
+                        toastr.error("Ghi nhận thất bại !!!");
+                    }
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+        function clearData() {
+            $('.confirmPass').val('');
+            $('.newPass').val('');
+            $('.oldPass').val('');
+        }
+    </script>
+    @RenderSection("Scripts", false)
+</body>
+</html>

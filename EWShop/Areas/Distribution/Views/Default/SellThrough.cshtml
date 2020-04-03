@@ -1,0 +1,231 @@
+﻿
+@{
+    ViewBag.Title = "Bán hàng";
+    Layout = "~/Views/Layout/_LayoutAdminDashboard.cshtml";
+    IEnumerable<EWShop.Areas.Distribution.Models.SellThrough> sellThrough = (IEnumerable<EWShop.Areas.Distribution.Models.SellThrough>)ViewData["data"];
+    EWShop.Models.User user = (EWShop.Models.User)HttpContext.Current.Session[EWShop.Models.CommonConstants.USER_INFO];
+}
+@section Styles {
+<link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <style>
+        .content-wrapper{
+            background-color: #fff!important;
+        }
+        .row{
+            margin-bottom: 5px;
+        }
+        .col-label, .col-file, .col-button, .col-input{
+            float: left;
+            margin-right: 5px;
+            padding: 3px;
+        }
+        label.col-label {
+            margin: 3px;
+            font-size: 15px;
+            min-width: 160px;
+        }
+        .col-file{
+            min-width: 250px;
+        }
+        button.btn{
+            min-width: 100px;
+            padding: 4px 12px;
+        }
+        .form-control {
+            width: 100%!important;
+            max-width: 500px !important;
+            font-size: 13px;
+            padding: 1px 3px;
+            height: 25px;
+            float: left;
+        }
+        .form-date{
+            width: 80px!important;
+        }
+        table.dataTable {
+            margin: 0 auto;
+            width: 100%;
+            clear: both;
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin-top: 0!important;
+        }
+
+            table.dataTable thead th {
+                padding: 2px;
+                white-space: nowrap;
+                text-align: center;
+                font-weight: 500;
+            }
+
+            table.dataTable thead tr:first-child th, table.dataTable tfoot th {
+                padding: 5px;
+                text-align: center;
+                font-weight: 600;
+            }
+
+            table.dataTable tbody td {
+                padding: 5px 7px;
+                white-space: nowrap;
+                vertical-align: middle;
+                font-size: 13px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            table.dataTable tbody tr.active td {
+                font-weight: 600;
+                background-color: #ddd;
+            }
+
+            table.dataTable tbody tr {
+                cursor: pointer;
+            }
+    </style>
+}
+<section class="content-header">
+    <h1>
+        Tải tập tin bán hàng
+        <small>@user.fullName</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li class="active"><a><i class="fa fa-dashboard"></i> Bán hàng</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <label class="control-label col-label">CHỌN TẬP TIN CẦN TẢI</label>
+            <div class="col-file">
+                <input type="file" class="form-control form-file" />
+            </div>
+            <div class="col-button">
+                <button type="button" class="btn btn-primary btn-upload" style="float: left; font-size: 13px; padding: 3px 10px; height: 25px;"><i class="fa fa-upload" aria-hidden="true"></i> Tải</button>
+                @if ("800000".Equals(User.Identity.Name))
+                {
+                    <a class="control-label" style="float:left;margin-left: 10px;font-size: 20px;" href="@Url.Content("~/Downloads/HUONGTHUY.xls")" title="Download mẫu bán hàng"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+                }
+                else if ("600000".Equals(User.Identity.Name))
+                {
+                    <a class="control-label" style="float:left;margin-left: 10px;font-size: 20px;" href="@Url.Content("~/Downloads/266.xls")" title="Download mẫu bán hàng"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+                }
+                else
+                {
+                    <a class="control-label" style="float:left;margin-left: 10px;font-size: 20px;" href="@Url.Content("~/Downloads/MauBanHangChoCuaHang.xls")" title="Download mẫu bán hàng"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvTable", OnSuccess="OnSuccess" }, new { @class = "form-table" }))
+        {
+            @Html.ValidationSummary(true)
+            <div class="col-xs-12">
+                <div class="box box-primary box-solid">
+                    <div class="box-header with-border" style="padding: 2px 8px;float:left;width:100%">
+                        <i class="fa fa-list-alt" style="padding: 7px 5px;float:left;"></i>
+                        <h3 class="box-title" style="float:left;padding: 7px 0;">DANH SÁCH DỮ LIỆU</h3>
+                        <div class="pull-right">
+                            <label style="float:left; margin: 6px; font-size: 15px;">Ngày bán</label>
+                            <div class="col-input">
+                                <input type="text" class="form-control form-date frm-date" name="frmDate" value="@DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy")" />
+                                <label style="float:left;margin: 2px 3px;">-</label>
+                                <input type="text" class="form-control form-date to-date" name="toDate" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+                            </div>
+                            <button type="submit" class="btn btn-default btn-filter" style="margin-right: 10px; float: left; font-size: 13px; padding: 3px 10px; height: 25px; margin-top: 3px; border-color: #fff;"><i class="fa fa-filter" aria-hidden="true"></i> Tìm kiếm</button>
+                            <button class="btn btn-success btn-excel" style="float: left; font-size: 13px; padding: 3px 10px; height: 25px; margin-top: 3px; border-color: #fff;"><i class="fa fa-file-excel-o"></i> Xuất excel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-xs-12" id="dvTable">
+            @Html.Partial("~/Views/Layout/_PartialViewSellThrough.cshtml", sellThrough)
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script type="text/javascript">
+        var dateFormat = "dd/mm/yy";
+        $(document).ready(function () {
+            $('.form-date').mask('00/00/0000');
+            $('.form-date').datepicker({
+                dateFormat: dateFormat,
+                maxDate: new Date()
+            });
+            loadDataTable();
+            $('.btn-excel').click(function () {
+                var frmDate = $('.frm-date').val();
+                var toDate = $('.to-date').val();
+                window.open('@Url.Action("DownloadExcel", "Default")' + '?frmDate=' + frmDate + '&toDate=' + toDate, '_blank');
+            });
+            $(".btn-upload").click(function () {
+                BlockUi();
+                // --- code for upload resume
+                var files = $(".form-file").get(0).files;
+                var fileData = new FormData();
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append("fileInput", files[i]);
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("UploadFileText", "Default")',
+                    dataType: "json",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (data) {
+                        if (data.code == "1") {
+                            alert("Xử lý hoàn tất");
+                            $('.form-table').submit();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert(status);
+                    },
+                    complete: function () {
+                        closeBlock();
+                    }
+                });
+                $('.form-file').val('');
+            });
+        });
+        function loadDataTable() {
+            table = $('.table-sell').DataTable({
+                'destroy': true,
+                "dom": "rt<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                "orderCellsTop": true,
+                "pageLength": 10,
+                "autoWidth": false,
+                'columnDefs': [{
+                    "width": "18%",
+                    "targets": [0]
+                }, {
+                    "width": "15%",
+                    "targets": [1]
+                }, {
+                    "width": "15%",
+                    "targets": [2]
+                }, {
+                    "width": "10%",
+                    "targets": [3]
+                }, {
+                    "width": "25%",
+                    "targets": [4]
+                }, {
+                    "width": "10%",
+                    "targets": [5]
+                }, {
+                    "width": "10%",
+                    "targets": [6]
+                }, {
+                    "width": "15%",
+                    "targets": [7]
+                }]
+            });
+        }
+        function OnSuccess() {
+            loadDataTable();
+        }
+    </script>
+}

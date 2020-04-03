@@ -1,0 +1,141 @@
+﻿@model IEnumerable<EWShop.Models.DataReturn>
+@{
+    ViewBag.Title = "Danh sách chương trình trả thưởng";
+    Layout = "~/Views/Layout/_LayoutDashboard.cshtml";
+}
+@section Styles {
+    <style>
+        h4 {
+            color: black !important;
+        }
+        .block-heading h3 {
+            font-size: 23px;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            text-align: center;
+            background: #337ab7;
+            border-radius: 5px;
+            color: white;
+            padding: 7px;
+        }
+
+        .block-heading p {
+            font-size: 17px !important;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .container-form {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            float: left;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 0 10px;
+        }
+
+        .table {
+            width: 100%;
+            margin-bottom: 0 !important;
+        }
+
+            .table > tbody > tr > td {
+                padding: 2px;
+                border: 0px;
+            }
+
+        .col-label {
+            font-size: 17px;
+            padding: 7px 10px !important;
+            text-align: right;
+            width: 120px;
+        }
+
+        .list-group-item {
+            border: 0px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .list-group {
+            margin-bottom: 0;
+        }
+        .btn-program{
+            font-size: 20px;
+        }
+        button.truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        @@media only screen and (max-width : 767px) {
+            .block-heading h2 {
+                font-size: 28px;
+            }
+
+            .block-heading:after {
+                top: 19px;
+            }
+
+            .block-heading p {
+                font-size: 19px;
+            }
+            .btn-program {
+                font-size: 18px;
+            }
+        }
+
+        @@media only screen and (max-width : 567px) {
+            .block-heading h2 {
+                font-size: 23px;
+            }
+
+            .block-heading p {
+                font-size: 17px;
+            }
+
+            .block-heading:after {
+                top: 17px;
+            }
+            .btn-program {
+                font-size: 16px;
+            }
+        }
+    </style>
+}
+<section class="main-support">
+    <div class="block-item">
+        <div class="block-heading">
+            <h3>CHƯƠNG TRÌNH TRẢ THƯỞNG CỦA CÔNG TY TNHH AQUA VIỆT NAM</h3>
+            <p>Chọn và nhấn vào chương trình cần xem kết quả</p>
+        </div>
+        <div class="block-body">
+            @using (Html.BeginForm("RewardInfo", "PayReward", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-reward" }))
+            {
+                <input type="hidden" class="form-proid" name="proid" />
+                <div class="container-form">
+                    @foreach (var item in Model)
+                    {
+                        <div style="margin: 5px auto; width: 100%;text-align: center;">
+                            <button type="button" class="btn btn-default btn-program truncate" title="@item.text" style="width: 100%;" data-id="@item.value">@item.text</button>
+                        </div>
+                    }
+                </div>
+            }
+            
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.btn-program').click(function () {
+                $('.form-proid').val($(this).data("id"));
+                $('.form-reward').submit();
+            });
+        });
+    </script>
+}

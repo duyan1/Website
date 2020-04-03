@@ -1,0 +1,42 @@
+﻿@model EWShop.Models.ItemResult
+
+@if (Model != null)
+{
+        EWShop.Models.RegisterEWInfo info = (EWShop.Models.RegisterEWInfo)Model.data;
+        if (Model.code == "0")
+        {
+        <div class="wrapper" style="padding: 6px 12px; font-size: 16px; border: 1px solid #ddd; border-top: 0;">
+            <p style="font-size: 18px;color: red;width: 100%;text-align:center;">@Model.message</p>
+        </div>
+    }
+    else
+    {
+        if (info.code == "0")
+        {
+            <div class="wrapper" style="padding: 6px 12px; font-size: 16px; border: 1px solid #ddd; border-top: 0;">
+                <p style="font-size: 18px;color: red;width: 100%;text-align:center;">@info.msg</p>
+            </div>
+        }
+        else
+        {
+            <div class="wrapper" style="padding: 6px 12px; font-size: 16px; border: 1px solid #ddd; border-top: 0;">
+                <div class="address">
+                    <h4 style="margin-bottom: 15px;font-weight: 600;"><i class="fa fa-tags" aria-hidden="true"></i> @info.msg</h4>
+                    <h4 style="font-weight: 600;"><i class="fa fa-tags" aria-hidden="true"></i> Thông tin đăng ký</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item"><i class="fa fa-user"></i> Họ tên khách hàng: <strong>@info.cusName</strong></li>
+                        <li class="list-group-item"><i class="fa fa-phone"></i> SĐT khách hàng: <strong>@info.cusPhone</strong></li>
+                        <li class="list-group-item"><i class="fa fa-shopping-bag"></i> Số máy: <strong>@info.barcode</strong></li>
+                        <li class="list-group-item"><i class="fa fa-shopping-bag"></i> Kiểu máy: <strong>@info.modeltype</strong></li>
+                        <li class="list-group-item"><i class="fa fa-barcode"></i> Mã bảo hành: <strong>@info.ewCode</strong></li>
+                        <li class="list-group-item"><i class="fa fa-calendar"></i> Ngày mua: <strong>@info.purchaseDate</strong></li>
+                        <li class="list-group-item"><i class="fa fa-calendar-times-o"></i> Hạn bảo hành: <strong>@info.expiredDate</strong></li>
+                        <li class="list-group-item"><i class="fa fa-university"></i> Cửa hàng: <strong>@info.shopName</strong></li>
+                        <li class="list-group-item"><i class="fa fa-university"></i> Địa chỉ: <strong>@info.shopAddress</strong></li>
+                    </ul>
+                </div>
+            </div>
+        }
+    }
+}
+

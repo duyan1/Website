@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsdLocal1="http://www.siebel.com/xml/SPIRightNowInboundObject" xmlns:tns="http://haier.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://haier.com" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.siebel.com/xml/SPIRightNowInboundObject">
+      <xsd:annotation>
+        <xsd:documentation>Copyright (C) 2001-2004 Siebel Systems, Inc. All rights reserved. Siebel XSD Generation</xsd:documentation>
+      </xsd:annotation>
+      <xsd:element name="ListOfserviceRequest" type="xsdLocal1:ListOfserviceRequest" />
+      <xsd:complexType name="ListOfserviceRequestTopElmt">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="ListOfserviceRequest" type="xsdLocal1:ListOfserviceRequest" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ListOfserviceRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="unbounded" name="serviceRequest" type="xsdLocal1:serviceRequest" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="serviceRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="CustomerName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="CustomerDetailAddress" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ListOfRepair" type="xsdLocal1:ListOfRepair" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="CustomerPhone" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Brand" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Category" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ProductModel" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Date" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Status" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ASPName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Remarks" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="serialNumber" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="DOP" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="L3" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SRNum" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ServiceClass" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="PartNmuber" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="OrderDate" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ShipDate" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ReceiveDate" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ListOfRepair">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="unbounded" name="Repair" type="xsdLocal1:Repair" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Repair">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="ChangedNo" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ChangedStatus" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="StatusChangeDate" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns:xsdLocal2="http://www.siebel.com/xml/SPIRightNowInboundObject" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.siebel.com/xml/SPIRightNowInboundObject">
+      <xsd:annotation>
+        <xsd:documentation>Copyright (C) 2001-2004 Siebel Systems, Inc. All rights reserved. Siebel XSD Generation</xsd:documentation>
+      </xsd:annotation>
+      <xsd:element name="ProductRegister" type="xsdLocal2:ProductRegister" />
+      <xsd:complexType name="ProductRegisterTopElmt">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="ProductRegister" type="xsdLocal2:ProductRegister" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ProductRegister">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="id" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="country" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="firstName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="lastName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="gender" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="customerType" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="telPhone" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="mobilePhone" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="officePhone" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="age" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="birthday" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="email" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="fax" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="brand" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="category" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="productModel" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="serialNum" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="purchaseDate" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="expiryDate" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="expiredDate" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="status" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="haveYouPurchasedExtendedWarranty" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="retailerName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="retailerAddress" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="retailerPostcode" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="retailerCity" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="retailerContactFirstName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="retailerContactLastName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="retailerContactPhone" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="retailerEmail" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="address" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="AddressId" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="City" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="State" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Street" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://haier.com">
+      <xsd:import namespace="http://www.siebel.com/xml/SPIRightNowInboundObject" />
+      <xsd:element name="CheckSrStatus_Input">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Status" type="xsd:string" />
+            <xsd:element name="SHOPCODE" type="xsd:string" />
+            <xsd:element name="SRNum" type="xsd:string" />
+            <xsd:element name="RequestDateTo" type="xsd:string" />
+            <xsd:element name="HomePhone" type="xsd:string" />
+            <xsd:element name="RequestCode" type="xsd:string" />
+            <xsd:element name="RequestDateFrom" type="xsd:string" />
+            <xsd:element name="WorkPhone" type="xsd:string" />
+            <xsd:element name="SourceType" type="xsd:string" />
+            <xsd:element name="SourceCode" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CheckSrStatus_Output">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Error_spcCode" type="xsd:string" />
+            <xsd:element name="Error_spcMessage" type="xsd:string" />
+            <xsd:element ref="xsdLocal1:ListOfserviceRequest" />
+            <xsd:element name="requestDateFrom" type="xsd:string" />
+            <xsd:element name="requestDateTo" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="InsertProdReg_Input">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element ref="xsdLocal1:ProductRegister" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="InsertProdReg_Output">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Error_spcCode" type="xsd:string" />
+            <xsd:element name="Error_spcMessage" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="Request_Input">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element ref="xsdLocal1:ServiceRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="Request_Output">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Error_spcCode" type="xsd:string" />
+            <xsd:element name="Error_spcMessage" type="xsd:string" />
+            <xsd:element name="RequestCode" type="xsd:string" />
+            <xsd:element name="SRNum" type="xsd:string" />
+            <xsd:element name="SourceCode" type="xsd:string" />
+            <xsd:element name="SourceType" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+    <xsd:schema xmlns:xsdLocal3="http://www.siebel.com/xml/SPIRightNowInboundObject" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.siebel.com/xml/SPIRightNowInboundObject">
+      <xsd:annotation>
+        <xsd:documentation>Copyright (C) 2001-2004 Siebel Systems, Inc. All rights reserved. Siebel XSD Generation</xsd:documentation>
+      </xsd:annotation>
+      <xsd:element name="ServiceRequest" type="xsdLocal3:ServiceRequest" />
+      <xsd:complexType name="ServiceRequestTopElmt">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="ServiceRequest" type="xsdLocal3:ServiceRequest" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ServiceRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="LastName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="FirstName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="EmailAddress" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="MobilePhone" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="HomePhone" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="DetailAddress" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Category" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Description" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SerialNum" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Country" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="PurchaseDate" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ProductModel" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SourceType" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SourceCode" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ShopContact" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Brand" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="RequestCode" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="AddressId" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="State" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="City" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Street" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </types>
+  <message name="CheckSrStatus_Input">
+    <part name="CheckSrStatus_Input" element="tns:CheckSrStatus_Input" />
+  </message>
+  <message name="CheckSrStatus_Output">
+    <part name="CheckSrStatus_Output" element="tns:CheckSrStatus_Output" />
+  </message>
+  <message name="InsertProdReg_Input">
+    <part name="InsertProdReg_Input" element="tns:InsertProdReg_Input" />
+  </message>
+  <message name="InsertProdReg_Output">
+    <part name="InsertProdReg_Output" element="tns:InsertProdReg_Output" />
+  </message>
+  <message name="Request_Input">
+    <part name="Request_Input" element="tns:Request_Input" />
+  </message>
+  <message name="Request_Output">
+    <part name="Request_Output" element="tns:Request_Output" />
+  </message>
+  <portType name="SPI_spcAEV_spcCCM_spcInterface_spcService">
+    <operation name="CheckSrStatus">
+      <input message="tns:CheckSrStatus_Input" />
+      <output message="tns:CheckSrStatus_Output" />
+    </operation>
+    <operation name="InsertProdReg">
+      <input message="tns:InsertProdReg_Input" />
+      <output message="tns:InsertProdReg_Output" />
+    </operation>
+    <operation name="Request">
+      <input message="tns:Request_Input" />
+      <output message="tns:Request_Output" />
+    </operation>
+  </portType>
+  <binding name="SPI_spcAEV_spcCCM_spcInterface_spcService" type="tns:SPI_spcAEV_spcCCM_spcInterface_spcService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="CheckSrStatus">
+      <soap:operation soapAction="document/http://haier.com:CheckSrStatus" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="InsertProdReg">
+      <soap:operation soapAction="document/http://haier.com:InsertProdReg" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="Request">
+      <soap:operation soapAction="document/http://haier.com:Request" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="SPI_spcAEV_spcCCM_spcInterface_spcService">
+    <port name="SPI_spcAEV_spcCCM_spcInterface_spcService" binding="tns:SPI_spcAEV_spcCCM_spcInterface_spcService">
+      <soap:address location="http://gsis-ha.haier.net/eai_enu/start.swe?SWEExtSource=WebService&amp;SWEExtCmd=Execute&amp;UserName=EAIUSER1&amp;Password=Haier@SPI" />
+    </port>
+  </service>
+</definitions>

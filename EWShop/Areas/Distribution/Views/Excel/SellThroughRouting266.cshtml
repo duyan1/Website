@@ -1,0 +1,50 @@
+﻿@model IEnumerable<EWShop.Areas.Distribution.Models.Shop>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CỬA HÀNG 266</title>
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.shopCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.shopName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.shopPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.shopAddress)
+            </th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.shopCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.shopName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.shopPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.shopAddress)
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

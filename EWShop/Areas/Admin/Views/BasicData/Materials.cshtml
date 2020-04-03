@@ -1,0 +1,354 @@
+﻿@model IEnumerable<EWShop.Areas.Admin.Models.Material>
+@{
+    IEnumerable<EWShop.Models.DataReturn> listPlants = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.PLANTS_INFO];
+    IEnumerable<EWShop.Models.DataReturn> listModels = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.MODELS_INFO];
+}
+@{
+    ViewBag.Title = "Danh sách materials";
+    Layout = "~/Views/Layout/_LayoutAdminDashboard.cshtml";
+}
+@section Styles {
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
+        .select2-container .select2-selection--single .select2-selection__rendered{
+            font-size: 14px;
+        }
+        .center{
+            text-align:center!important;
+        }
+        .form-control {
+            width: 100% !important;
+            font-size: 14px;
+            padding: 5px;
+            height: 25px;
+            border-radius: 3px;
+        }
+        table.dataTable {
+            margin: 0 auto;
+            width: 100%;
+            clear: both;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        table.dataTable thead th {
+            padding: 2px;
+            white-space: nowrap;
+            text-align: center;
+            font-weight: 500;
+        }
+        table.dataTable thead tr:first-child th, table.dataTable tfoot th {
+            padding:5px;
+            font-weight: 600;
+        }
+        table.dataTable tbody td {
+            padding: 5px 7px;
+            white-space: nowrap;
+            vertical-align: middle;
+            font-size: 13px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        table.dataTable tbody tr.active td {
+            font-weight:600;
+            background-color:#ddd;
+        }
+        table.dataTable tbody tr {
+            cursor:pointer;
+        }
+        .div-filter{
+            display:none;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .btn {
+            font-size: 13px !important;
+            padding: 3px 10px;
+            height: 25px;
+            border: 1px solid #fff !important;
+        }
+        .box{
+            margin-bottom: 5px!important;
+        }
+        .box-header{
+            padding : 8px 10px;
+        }
+        .box-body{
+            padding: 5px;
+        }
+        .col-label{
+            width: 100px;
+            text-align: right;
+            vertical-align:middle;
+        }
+        .table{
+            margin-bottom: 0;
+        }
+        .table > tbody > tr > td {
+            border-top: 0;
+        }
+        .table-detail > tbody > tr > td {
+            vertical-align: middle;
+            padding: 5px;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1>
+        Danh sách Materials
+        <small>Hiển thị danh sách</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active">Materials</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-list-alt"></i>
+                    <h3 class="box-title">Danh sách</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-primary btn-create" style="float: left; margin-top: 6px;"><i class="fa fa-plus-circle"></i> Create</button>
+                        <button class="btn btn-success btn-excel" style="float: left; margin-top: 6px;"><i class="fa fa-file-excel-o"></i> Export excel</button>
+                        <button type="button" class="btn btn-primary btn-filter" style="margin-top: 6px;" title="Filter">
+                            <i class="fa fa-filter"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row div-filter">
+                        <div class="col-sm-12 no-padding">
+                            @using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvResults", OnSuccess = "OnSuccess", OnBegin = "OnBegin" }, new { @class = "form-table" }))
+                            {
+                                <label class="control-label" style="float:left; padding: 2px; margin-bottom: 0; margin-right: 5px;">Product</label>
+                                <div style="float:left;margin-right:5px;width:150px;">
+                                    <select class="sel-product form-control form-select" name="plantId">
+                                        <option value="" selected="selected"></option>
+                                        @foreach (var item in listPlants)
+                                        {
+                                            <option value="@item.value">@item.text</option>
+                                        }
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-default btn-search" style="float:left; border-color: gray!important;">Lọc thông tin</button>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-sm-12 no-padding">
+                        <div id="dvResults">
+                            @Html.Partial("~/Areas/Admin/Views/Shared/_PartialListMaterials.cshtml", Model)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            @using (Ajax.BeginForm("saveMaterial", "BasicData", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccessDetail", OnBegin = "OnBegin" }, new { @class = "form-details" }))
+            {
+                <div class="box box-primary box-solid">
+                    <div class="box-header with-border">
+                        <i class="fa fa-pencil"></i>
+                        <h3 class="box-title">Chi tiết</h3>
+                        <div class="box-tools pull-right">
+                            <button type="submit" class="btn btn-primary" style="float: left; margin-top: 6px;"><i class="fa fa-save"></i> Save change</button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <input type="hidden" name="materialId" class="form-matid" />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-2 no-padding">
+                                    <table class="table table-detail">
+                                        <tr>
+                                            <td class="col-label" title="Material code" style="width: 50px;">MatCode</td>
+                                            <td>
+                                                <input type="text" class="form-control form-material-code" name="materialCode" placeholder="Material Code">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-sm-4 no-padding">
+                                    <table class="table table-detail">
+                                        <tr>
+                                            <td class="col-label" title="Material description" style="width: 70px;">Description</td>
+                                            <td><input type="text" class="form-control form-material-description" name="materialDescription" placeholder="Material description"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-sm-3 no-padding">
+                                    <table class="table table-detail">
+                                        <tr>
+                                            <td class="col-label" style="width: 50px;">Plant</td>
+                                            <td>
+                                                <select class="select-plant form-control form-select" name="plantID">
+                                                    @foreach (var item in listPlants)
+                                                    {
+                                                        <option value="@item.value">@item.text</option>
+                                                    }
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-sm-3 no-padding">
+                                    <table class="table table-detail">
+                                        <tr>
+                                            <td class="col-label" style="width: 50px;">Model</td>
+                                            <td>
+                                                <select class="select-model form-control form-select" name="model">
+                                                    <option value=""></option>
+                                                    @foreach (var item in listModels)
+                                                    {
+                                                        <option value="@item.value">@item.text</option>
+                                                    }
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+@section Scripts {
+<script>
+    var table;
+    var urlDownloadExcel = '@Url.Action("DownloadExcelMaterials", "BasicData")';
+    var urlMaterialInfo = '@Url.Action("getMaterialInfo", "BasicData")';
+    $(document).ready(function () {
+        loadCombobox($('.form-select'));
+        loadDataTable($('.sel-product').val());
+        $(window).on('resize', function () {
+            table.draw();
+        });
+        $('.btn-filter').click(function () {
+            $('.div-filter').slideToggle();
+        });
+        $('.btn-create').click(function () {
+            clearData();
+        });
+        $('.btn-excel').click(function () {
+            var plantId = $('.sel-product').val();
+            window.open(urlDownloadExcel + '?plantId=' + plantId, '_blank');
+        });
+    })
+    function OnBegin() {
+        BlockUi();
+    }
+    function OnSuccess() {
+        loadDataTable();
+        closeBlock();
+    }
+    function OnSuccessDetail(data) {
+        if (data.code == "1") {
+            $('.form-table').submit();
+        } else {
+            toastr.warning(data.msg);
+        }
+    }
+    function loadDataTable() {
+        table = $('.table-materials').DataTable({
+            'destroy': true,
+            "dom": "rt<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            "orderCellsTop": true,
+            "pageLength": 10,
+            "autoWidth": false,
+            'columnDefs': [{
+                "width": "10%",
+                "targets": [0]
+            }, {
+                "width": "20%",
+                "targets": [1]
+            }, {
+                "width": "15%",
+                "targets": [2]
+            }, {
+                "width": "10%",
+                "targets": [3],
+                "class": "center"
+            }, {
+                "width": "15%",
+                "targets": [4]
+            }]
+        });
+        $(".table-materials thead tr:eq(1) th input").on('keyup change', function () {
+            table.column($(this).parent().index() + ':visible').search(this.value, false, false, true).draw();
+        });
+        $('.table-materials tbody').on('click', 'tr', function () {
+            var matId = $(this).find('.col-id').data("id");
+            table.rows().every(function () {
+                this.nodes().to$().removeClass('active')
+            })
+            $(this).addClass('active');
+            loadDetail(matId);
+        });
+    }
+    function loadDetail(matId) {
+        $.ajax({
+            type: "GET",
+            url: urlMaterialInfo + '?matId=' + matId,
+            dataType: "json",
+            success: function (data) {
+                $('.form-matid').val(data.materialId);
+                $('.form-material-code').val(data.materialCode);
+                $('.form-material-description').val(data.materialDescription);
+                $('.select-plant').val(data.plantID).trigger('change');
+                $('.select-model').val(data.model).trigger('change');
+            }, error: function (e) {
+                alert(e);
+            }, complete: function () {
+
+            }
+        });
+    }
+    function clearData() {
+        $('.form-matid').val("");
+        $('.form-material-code').val("");
+        $('.form-material-description').val("");
+        $('.select-plant').val("0").trigger('change');
+        $('.select-model').val("0").trigger('change');
+    }
+    function loadCombobox($control) {
+        $.fn.select2.amd.require(["select2/data/array", "select2/utils"], function (e, t) {
+            function a(e, t) {
+                a.__super__.constructor.call(this, e, t)
+            }
+
+            function r(e, t) {
+                return new RegExp(t, "i").test(e)
+            }
+            t.Extend(a, e), a.prototype.query = function (e, t) {
+                "page" in e || (e.page = 1);
+                var a = 10,
+                    n = this.$element.children().map(function (t, a) {
+                        return r(a.innerText, e.term) ? {
+                            id: a.value,
+                            text: a.innerText
+                        } : void 0
+                    });
+                t({
+                    results: n.slice((e.page - 1) * a, e.page * a),
+                    pagination: {
+                        more: n.length >= e.page * a
+                    }
+                })
+            }, $selectGroup = $control.select2({
+                ajax: {},
+                allowClear: false,
+                dataAdapter: a
+            })
+        })
+    }
+</script>
+
+}

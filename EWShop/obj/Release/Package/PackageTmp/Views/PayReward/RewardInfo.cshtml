@@ -1,0 +1,272 @@
+﻿@model EWShop.Models.RewardInfo
+@{
+    ViewBag.Title = "Trả thưởng";
+    Layout = "~/Views/Layout/_LayoutDashboard.cshtml";
+}
+@section Styles {
+    <style>
+        h4 {
+            color: black !important;
+        }
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+            /* Style the buttons inside the tab */
+            .tab button {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 15px 10px;
+                transition: 0.3s;
+                font-size: 17px;
+                width: 33.333333333333%;
+                border-right: 1px solid #ccc;
+            }
+
+                .tab button:last-child {
+                    border-right: 0px;
+                }
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                    background-color: #ddd;
+                }
+
+                /* Create an active/current tablink class */
+                .tab button.active {
+                    background-color: #ccc;
+                }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        .center-block {
+            text-align: center;
+        }
+
+        .tabcontent.active {
+            display: block;
+        }
+
+        .block-heading h3 {
+            font-size: 23px;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            text-align: center;
+            background: #337ab7;
+            border-radius: 5px;
+            color: white;
+            padding: 7px;
+        }
+
+        .block-heading p {
+            font-size: 18px !important;
+            margin-bottom: 10px;
+            text-align: center;
+			color: black;
+        }
+
+        .container-form {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            float: left;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 0 10px;
+        }
+
+        .table {
+            width: 100%;
+            margin-bottom: 0 !important;
+        }
+
+            .table > tbody > tr > td {
+                padding: 10px;
+                border: 0px;
+                font-size: 20px;
+                border-bottom: 1px solid #ddd;
+            }
+
+        .col-label {
+            font-size: 17px;
+            padding: 7px 10px !important;
+            text-align: right;
+            width: 120px;
+        }
+
+        .list-group-item {
+            border: 0px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .list-group {
+            margin-bottom: 0;
+        }
+        .col-value{
+            font-weight: 600;
+            color: blue;
+        }
+        @@media only screen and (max-width : 767px) {
+            .block-heading h2 {
+                font-size: 28px;
+            }
+
+            .block-heading:after {
+                top: 19px;
+            }
+
+            .block-heading p {
+                font-size: 16px;
+            }
+
+            .tab button {
+                font-size: 16px;
+                padding: 15px 5px;
+            }
+        }
+
+        @@media only screen and (max-width : 567px) {
+            .block-heading h2 {
+                font-size: 23px;
+            }
+
+            .block-heading p {
+                font-size: 15px;
+            }
+
+            .block-heading:after {
+                top: 17px;
+            }
+        }
+        tr.success_1 {
+            color: #fff;
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+        }
+        tr.danger_1 {
+            color: #fff;
+            background-color: #d9534f;
+            border-color: #d43f3a;
+        }
+        tr.warning_1 {
+            color: #fff;
+            background-color: #f0ad4e;
+            border-color: #eea236;
+        }
+    </style>
+}
+<section class="main-support">
+    <div class="block-item">
+        <div class="block-heading">
+            <h3>KẾT QUẢ GHI NHẬN BÁO CÁO BÁN RA @Model.title</h3>
+            @if (ViewBag.proid == "1")
+            {
+                <p>Khách hàng vui lòng cung cấp các chứng từ cho các trường hợp sai phạm trước ngày 18/8/2019. Sau thời gian này, Công ty AQUA sẽ đưa kết quả cuối cùng để trả thưởng.</p>
+            }
+            else if(ViewBag.proid == "2")
+            {
+                <p>Khách hàng vui lòng cung cấp các chứng từ cho các trường hợp sai phạm trước ngày 23/8/2019. Sau thời gian này, Công ty AQUA sẽ đưa kết quả cuối cùng để trả thưởng.</p>
+            }
+            else if (ViewBag.proid == "3")
+            {
+                <p>Khách hàng vui lòng cung cấp các chứng từ cho các trường hợp sai phạm trước ngày 06/10/2019. Sau thời gian này, Công ty AQUA sẽ đưa kết quả cuối cùng để trả thưởng.</p>
+            }
+            else
+            {
+                <p>Khách hàng vui lòng cung cấp các chứng từ cho các trường hợp sai phạm trước ngày 16/10/2019. Sau thời gian này, Công ty AQUA sẽ đưa kết quả cuối cùng để trả thưởng.</p>
+            }
+        </div>
+        <div class="block-body">
+            <div class="container-form">
+                <table class="table table-responsive">
+                    <tr>
+                        <td>Tổng số ghi nhận bán ra</td>
+                        <td class="col-value">@Model.total</td>
+                        <td style="text-align:right;"><button class="btn btn-default col-total">Xem chi tiết</button></td>
+                    </tr>
+                    <tr>
+                        <td>Tỉ lệ kiểm tra</td>
+                        <td class="col-value">@Model.ratio</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Số lượng kiểm tra</td>
+                        <td class="col-value">@Model.check</td>
+                        <td style="text-align:right;"><button class="btn btn-default col-check">Xem chi tiết</button></td>
+                    </tr>
+                    <tr>
+                        <td>Hợp lệ trả thưởng</td>
+                        <td class="col-value">@Model.valid</td>
+                        <td style="text-align:right;"><button class="btn btn-default col-valid">Xem chi tiết</button></td>
+                    </tr>
+                    <tr>
+                        <td>AQUA không hỗ trợ thanh toán</td>
+                        <td class="col-value">@Model.inValid</td>
+                        <td style="text-align:right;"><button class="btn btn-default col-invalid">Xem chi tiết</button></td>
+                    </tr>
+                    <tr>
+                        <td>Trường hợp sai phạm cần cung cấp thông tin</td>
+                        <td class="col-value">@Model.provide</td>
+                        <td style="text-align:right;"><button class="btn btn-default col-provide">Xem chi tiết</button></td>
+                    </tr>
+                    <tr>
+                        <td>Tỉ lệ phần trăm sai phạm</td>
+                        <td class="col-mistakes">@Model.perMistakes</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Tỉ lệ trả thưởng</td>
+                        <td class="col-reward">@Model.perReward</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.col-total').click(function () {
+                window.location = '@Url.Action("RewardDetail", "PayReward")' + '?status=' + 0 + '&proid=' + '@ViewBag.proid';
+            });
+            $('.col-check').click(function () {
+                window.location = '@Url.Action("RewardDetail", "PayReward")' + '?status=' + 5 + '&proid=' + '@ViewBag.proid';
+            });
+            $('.col-valid').click(function () {
+                window.location = '@Url.Action("RewardDetail", "PayReward")' + '?status=' + 2 + '&proid=' + '@ViewBag.proid';
+            });
+            $('.col-invalid').click(function () {
+                window.location = '@Url.Action("RewardDetail", "PayReward")' + '?status=' + 3 + '&proid=' + '@ViewBag.proid';
+            });
+            $('.col-provide').click(function () {
+                window.location = '@Url.Action("RewardDetail", "PayReward")' + '?status=' + 4 + '&proid=' + '@ViewBag.proid';
+            });
+            var reward = $('.col-reward').html().replace('%', '');
+            if (parseInt(reward) == 100) {
+                $('.col-reward').closest('tr').addClass('success_1');
+                $('.col-mistakes').closest('tr').addClass('success_1');
+            } else if (parseInt(reward) == 0) {
+                $('.col-reward').closest('tr').addClass('danger_1');
+                $('.col-mistakes').closest('tr').addClass('danger_1');
+            } else {
+                $('.col-reward').closest('tr').addClass('warning_1');
+                $('.col-mistakes').closest('tr').addClass('warning_1');
+            }
+        });
+    </script>
+}

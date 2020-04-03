@@ -1,0 +1,47 @@
+﻿@model IEnumerable<EWShop.Models.ItemSellOutExcel>
+
+@if (Model != null)
+{
+    <table class="table table-bordered table-data">
+        <thead>
+            <tr>
+                <th title="Tên khách hàng" style="width:170px!important;">Tên KH</th>
+                <th title="SĐT khách hàng">SĐT KH</th>
+                <th title="Địa chỉ" style="width:250px;">Địa chỉ</th>
+                <th title="Số máy">Số máy</th>
+                <th title="Kiểu máy" style="width:130px!important;">Kiểu máy</th>
+                <th title="Ngày mua">Ngày mua</th>
+                <th title="Mã của hàng">Mã cửa hàng</th>
+                <th title="Trạng thái" style="width:220px!important;">Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="col-name" title="@item.cusName" style="width:170px!important;display: inline-block;">@(item.cusName == "" ? "(No data)" : item.cusName)</td>
+                        <td class="col-phone" data-id="@item.id">@item.cusPhone</td>
+                        <td class="col-address" title="@item.cusAddress" data-id="@item.cusEmail" style="width:250px;display: inline-block;">@(item.cusAddress == "" ? "(No data)" : item.cusAddress)</td>
+                        <td class="col-barcode">@item.barcode</td>
+                        <td class="col-model" data-id="@item.matid" title="@item.model" style="width:130px!important;display: inline-block;">@(item.model == "" ? "(No data)" : item.model)</td>
+                        <td class="col-purchase" data-id="@item.img1" data-name="@item.img2">@item.pod</td>
+                        <td class="col-brandcode">@item.brandCode</td>
+                        <td class="col-status" title="@item.status" style="width:220px!important;display: inline-block;">@item.status</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="8" style="text-align:center;">Không có dữ liệu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Tệp tin không hợp lệ</p>
+}

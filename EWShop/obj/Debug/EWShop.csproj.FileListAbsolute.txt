@@ -1,0 +1,475 @@
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.AI.DependencyCollector.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\ApplicationInsights.config
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\roslyn\csc.exe
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\roslyn\System.Collections.Immutable.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\roslyn\System.Reflection.Metadata.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\roslyn\vbc.exe
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\roslyn\VBCSCompiler.exe
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\roslyn\VBCSCompiler.exe.config
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\EWShop.dll.config
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\EWShop.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\EWShop.pdb
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.AI.Agent.Intercept.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.AI.Web.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.AI.WindowsServer.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.ApplicationInsights.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.Web.Infrastructure.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Newtonsoft.Json.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Net.Http.Formatting.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Helpers.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Http.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Http.WebHost.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Mvc.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Razor.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Webpages.Deployment.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Webpages.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Webpages.Razor.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.AI.DependencyCollector.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.AI.Web.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.AI.WindowsServer.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.ApplicationInsights.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Newtonsoft.Json.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Net.Http.Formatting.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Http.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Http.WebHost.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Razor.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Webpages.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Webpages.Deployment.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Webpages.Razor.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Helpers.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Mvc.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\obj\Debug\EWShop.csproj.ResolveComReference.cache
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\obj\Debug\EWShop.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\obj\Debug\EWShop.pdb
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Microsoft.Azure.AppService.ApiApps.Service.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\Swashbuckle.Core.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.IdentityModel.Tokens.Jwt.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\WebActivatorEx.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.IdentityModel.Tokens.Jwt.xml
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\bin\System.Web.Cors.dll
+D:\AQUA_PROJECT\Website\External\EWShop\EWShop\obj\Debug\EWShop.csprojResolveAssemblyReference.cache
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\ApplicationInsights.config
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\roslyn\csc.exe
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\roslyn\vbc.exe
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\roslyn\VBCSCompiler.exe
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\EWShop.dll.config
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\EWShop.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\EWShop.pdb
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.AI.Web.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.ApplicationInsights.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.Azure.AppService.ApiApps.Service.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Newtonsoft.Json.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Swashbuckle.Core.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Net.Http.Formatting.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Cors.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Helpers.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Http.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Http.WebHost.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Mvc.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Razor.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Webpages.Deployment.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Webpages.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Webpages.Razor.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\WebActivatorEx.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.AI.Web.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.ApplicationInsights.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\Newtonsoft.Json.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Net.Http.Formatting.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Http.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Http.WebHost.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Razor.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Webpages.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Webpages.Deployment.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Webpages.Razor.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Helpers.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\bin\System.Web.Mvc.xml
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\obj\Debug\EWShop.csproj.ResolveComReference.cache
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\obj\Debug\EWShop.dll
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\obj\Debug\EWShop.pdb
+C:\Users\TrungHau\Documents\GitHub\EWShop\EWShop\obj\Debug\EWShop.csprojResolveAssemblyReference.cache
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\ApplicationInsights.config
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\roslyn\csc.exe
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\roslyn\System.Collections.Immutable.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\roslyn\System.Reflection.Metadata.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\roslyn\vbc.exe
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\roslyn\VBCSCompiler.exe
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\roslyn\VBCSCompiler.exe.config
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\EWShop.dll.config
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\EWShop.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\EWShop.pdb
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\EPPlus.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.AI.Agent.Intercept.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.AI.DependencyCollector.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.AI.Web.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.AI.WindowsServer.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.ApplicationInsights.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.Azure.AppService.ApiApps.Service.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.Web.Infrastructure.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Newtonsoft.Json.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Swashbuckle.Core.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.IdentityModel.Tokens.Jwt.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Net.Http.Formatting.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Cors.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Helpers.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Http.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Http.WebHost.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Mvc.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Razor.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Webpages.Deployment.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Webpages.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Webpages.Razor.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\WebActivatorEx.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\EPPlus.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.AI.DependencyCollector.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.AI.Web.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.AI.WindowsServer.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.ApplicationInsights.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\Newtonsoft.Json.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.IdentityModel.Tokens.Jwt.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Net.Http.Formatting.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Http.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Http.WebHost.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Razor.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Webpages.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Webpages.Deployment.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Webpages.Razor.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Helpers.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\System.Web.Mvc.xml
+D:\Project\EWanrranty\E-Warranty\EWShop\obj\Debug\EWShop.csprojResolveAssemblyReference.cache
+D:\Project\EWanrranty\E-Warranty\EWShop\obj\Debug\EWShop.csproj.ResolveComReference.cache
+D:\Project\EWanrranty\E-Warranty\EWShop\obj\Debug\EWShop.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\obj\Debug\EWShop.pdb
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\ICSharpCode.SharpZipLib.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\NPOI.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\NPOI.OOXML.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\NPOI.OpenXml4Net.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\NPOI.OpenXmlFormats.dll
+D:\Project\EWanrranty\E-Warranty\EWShop\bin\ICSharpCode.SharpZipLib.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\ApplicationInsights.config
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\roslyn\csc.exe
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\roslyn\System.Collections.Immutable.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\roslyn\System.Reflection.Metadata.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\roslyn\vbc.exe
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\roslyn\VBCSCompiler.exe
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\roslyn\VBCSCompiler.exe.config
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\EWShop.dll.config
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\EWShop.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\EWShop.pdb
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\DocumentFormat.OpenXml.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\EPPlus.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\ICSharpCode.SharpZipLib.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.AI.Agent.Intercept.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.AI.DependencyCollector.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.AI.Web.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.AI.WindowsServer.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.ApplicationInsights.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.Azure.AppService.ApiApps.Service.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.Web.Administration.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.Web.Infrastructure.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Newtonsoft.Json.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\NPOI.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\NPOI.OOXML.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\NPOI.OpenXml4Net.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\NPOI.OpenXmlFormats.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Swashbuckle.Core.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.IdentityModel.Tokens.Jwt.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Net.Http.Formatting.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Cors.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Helpers.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Http.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Http.WebHost.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Mvc.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Razor.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Webpages.Deployment.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Webpages.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Webpages.Razor.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\WebActivatorEx.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\DocumentFormat.OpenXml.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\EPPlus.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\ICSharpCode.SharpZipLib.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.AI.DependencyCollector.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.AI.Web.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.AI.WindowsServer.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.ApplicationInsights.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\Newtonsoft.Json.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.IdentityModel.Tokens.Jwt.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Net.Http.Formatting.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Http.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Http.WebHost.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Razor.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Webpages.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Webpages.Deployment.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Webpages.Razor.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Helpers.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\bin\System.Web.Mvc.xml
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\obj\Debug\EWShop.csproj.ResolveComReference.cache
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\obj\Debug\EWShop.dll
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\obj\Debug\EWShop.pdb
+D:\AQUA_PROJECT\Website\SVN\Website\EWShop\obj\Debug\EWShop.csprojResolveAssemblyReference.cache
+D:\projects\website\SVN\Website\EWShop\bin\ApplicationInsights.config
+D:\projects\website\SVN\Website\EWShop\bin\roslyn\csc.exe
+D:\projects\website\SVN\Website\EWShop\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\projects\website\SVN\Website\EWShop\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\projects\website\SVN\Website\EWShop\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\projects\website\SVN\Website\EWShop\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\projects\website\SVN\Website\EWShop\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\projects\website\SVN\Website\EWShop\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\projects\website\SVN\Website\EWShop\bin\roslyn\System.Collections.Immutable.dll
+D:\projects\website\SVN\Website\EWShop\bin\roslyn\System.Reflection.Metadata.dll
+D:\projects\website\SVN\Website\EWShop\bin\roslyn\vbc.exe
+D:\projects\website\SVN\Website\EWShop\bin\roslyn\VBCSCompiler.exe
+D:\projects\website\SVN\Website\EWShop\bin\roslyn\VBCSCompiler.exe.config
+D:\projects\website\SVN\Website\EWShop\bin\EWShop.dll.config
+D:\projects\website\SVN\Website\EWShop\bin\EWShop.dll
+D:\projects\website\SVN\Website\EWShop\bin\EWShop.pdb
+D:\projects\website\SVN\Website\EWShop\bin\DocumentFormat.OpenXml.dll
+D:\projects\website\SVN\Website\EWShop\bin\EPPlus.dll
+D:\projects\website\SVN\Website\EWShop\bin\ICSharpCode.SharpZipLib.dll
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.AI.Agent.Intercept.dll
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.AI.DependencyCollector.dll
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.AI.Web.dll
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.AI.WindowsServer.dll
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.ApplicationInsights.dll
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.Azure.AppService.ApiApps.Service.dll
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.Web.Administration.dll
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.Web.Infrastructure.dll
+D:\projects\website\SVN\Website\EWShop\bin\Newtonsoft.Json.dll
+D:\projects\website\SVN\Website\EWShop\bin\NPOI.dll
+D:\projects\website\SVN\Website\EWShop\bin\NPOI.OOXML.dll
+D:\projects\website\SVN\Website\EWShop\bin\NPOI.OpenXml4Net.dll
+D:\projects\website\SVN\Website\EWShop\bin\NPOI.OpenXmlFormats.dll
+D:\projects\website\SVN\Website\EWShop\bin\Swashbuckle.Core.dll
+D:\projects\website\SVN\Website\EWShop\bin\System.IdentityModel.Tokens.Jwt.dll
+D:\projects\website\SVN\Website\EWShop\bin\System.Net.Http.Formatting.dll
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Cors.dll
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Helpers.dll
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Http.dll
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Http.WebHost.dll
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Mvc.dll
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Razor.dll
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Webpages.Deployment.dll
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Webpages.dll
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Webpages.Razor.dll
+D:\projects\website\SVN\Website\EWShop\bin\WebActivatorEx.dll
+D:\projects\website\SVN\Website\EWShop\bin\DocumentFormat.OpenXml.xml
+D:\projects\website\SVN\Website\EWShop\bin\EPPlus.xml
+D:\projects\website\SVN\Website\EWShop\bin\ICSharpCode.SharpZipLib.xml
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.AI.DependencyCollector.xml
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.AI.Web.xml
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.AI.WindowsServer.xml
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.ApplicationInsights.xml
+D:\projects\website\SVN\Website\EWShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\projects\website\SVN\Website\EWShop\bin\Newtonsoft.Json.xml
+D:\projects\website\SVN\Website\EWShop\bin\System.IdentityModel.Tokens.Jwt.xml
+D:\projects\website\SVN\Website\EWShop\bin\System.Net.Http.Formatting.xml
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Http.xml
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Http.WebHost.xml
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Razor.xml
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Webpages.xml
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Webpages.Deployment.xml
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Webpages.Razor.xml
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Helpers.xml
+D:\projects\website\SVN\Website\EWShop\bin\System.Web.Mvc.xml
+D:\projects\website\SVN\Website\EWShop\obj\Debug\EWShop.csproj.ResolveComReference.cache
+D:\projects\website\SVN\Website\EWShop\obj\Debug\EWShop.dll
+D:\projects\website\SVN\Website\EWShop\obj\Debug\EWShop.pdb
+D:\projects\website\live\Website\EWShop\bin\ApplicationInsights.config
+D:\projects\website\live\Website\EWShop\bin\roslyn\csc.exe
+D:\projects\website\live\Website\EWShop\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\projects\website\live\Website\EWShop\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\projects\website\live\Website\EWShop\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\projects\website\live\Website\EWShop\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\projects\website\live\Website\EWShop\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\projects\website\live\Website\EWShop\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\projects\website\live\Website\EWShop\bin\roslyn\System.Collections.Immutable.dll
+D:\projects\website\live\Website\EWShop\bin\roslyn\System.Reflection.Metadata.dll
+D:\projects\website\live\Website\EWShop\bin\roslyn\vbc.exe
+D:\projects\website\live\Website\EWShop\bin\roslyn\VBCSCompiler.exe
+D:\projects\website\live\Website\EWShop\bin\roslyn\VBCSCompiler.exe.config
+D:\projects\website\live\Website\EWShop\bin\EWShop.dll.config
+D:\projects\website\live\Website\EWShop\bin\EWShop.dll
+D:\projects\website\live\Website\EWShop\bin\EWShop.pdb
+D:\projects\website\live\Website\EWShop\bin\DocumentFormat.OpenXml.dll
+D:\projects\website\live\Website\EWShop\bin\EPPlus.dll
+D:\projects\website\live\Website\EWShop\bin\ICSharpCode.SharpZipLib.dll
+D:\projects\website\live\Website\EWShop\bin\Microsoft.AI.Agent.Intercept.dll
+D:\projects\website\live\Website\EWShop\bin\Microsoft.AI.DependencyCollector.dll
+D:\projects\website\live\Website\EWShop\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\projects\website\live\Website\EWShop\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\projects\website\live\Website\EWShop\bin\Microsoft.AI.Web.dll
+D:\projects\website\live\Website\EWShop\bin\Microsoft.AI.WindowsServer.dll
+D:\projects\website\live\Website\EWShop\bin\Microsoft.ApplicationInsights.dll
+D:\projects\website\live\Website\EWShop\bin\Microsoft.Azure.AppService.ApiApps.Service.dll
+D:\projects\website\live\Website\EWShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\projects\website\live\Website\EWShop\bin\Microsoft.Web.Administration.dll
+D:\projects\website\live\Website\EWShop\bin\Microsoft.Web.Infrastructure.dll
+D:\projects\website\live\Website\EWShop\bin\Newtonsoft.Json.dll
+D:\projects\website\live\Website\EWShop\bin\NPOI.dll
+D:\projects\website\live\Website\EWShop\bin\NPOI.OOXML.dll
+D:\projects\website\live\Website\EWShop\bin\NPOI.OpenXml4Net.dll
+D:\projects\website\live\Website\EWShop\bin\NPOI.OpenXmlFormats.dll
+D:\projects\website\live\Website\EWShop\bin\Swashbuckle.Core.dll
+D:\projects\website\live\Website\EWShop\bin\System.IdentityModel.Tokens.Jwt.dll
+D:\projects\website\live\Website\EWShop\bin\System.Net.Http.Formatting.dll
+D:\projects\website\live\Website\EWShop\bin\System.Web.Cors.dll
+D:\projects\website\live\Website\EWShop\bin\System.Web.Helpers.dll
+D:\projects\website\live\Website\EWShop\bin\System.Web.Http.dll
+D:\projects\website\live\Website\EWShop\bin\System.Web.Http.WebHost.dll
+D:\projects\website\live\Website\EWShop\bin\System.Web.Mvc.dll
+D:\projects\website\live\Website\EWShop\bin\System.Web.Razor.dll
+D:\projects\website\live\Website\EWShop\bin\System.Web.Webpages.Deployment.dll
+D:\projects\website\live\Website\EWShop\bin\System.Web.Webpages.dll
+D:\projects\website\live\Website\EWShop\bin\System.Web.Webpages.Razor.dll
+D:\projects\website\live\Website\EWShop\bin\WebActivatorEx.dll
+D:\projects\website\live\Website\EWShop\bin\DocumentFormat.OpenXml.xml
+D:\projects\website\live\Website\EWShop\bin\EPPlus.xml
+D:\projects\website\live\Website\EWShop\bin\ICSharpCode.SharpZipLib.xml
+D:\projects\website\live\Website\EWShop\bin\Microsoft.AI.DependencyCollector.xml
+D:\projects\website\live\Website\EWShop\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\projects\website\live\Website\EWShop\bin\Microsoft.AI.Web.xml
+D:\projects\website\live\Website\EWShop\bin\Microsoft.AI.WindowsServer.xml
+D:\projects\website\live\Website\EWShop\bin\Microsoft.ApplicationInsights.xml
+D:\projects\website\live\Website\EWShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\projects\website\live\Website\EWShop\bin\Newtonsoft.Json.xml
+D:\projects\website\live\Website\EWShop\bin\System.IdentityModel.Tokens.Jwt.xml
+D:\projects\website\live\Website\EWShop\bin\System.Net.Http.Formatting.xml
+D:\projects\website\live\Website\EWShop\bin\System.Web.Http.xml
+D:\projects\website\live\Website\EWShop\bin\System.Web.Http.WebHost.xml
+D:\projects\website\live\Website\EWShop\bin\System.Web.Razor.xml
+D:\projects\website\live\Website\EWShop\bin\System.Web.Webpages.xml
+D:\projects\website\live\Website\EWShop\bin\System.Web.Webpages.Deployment.xml
+D:\projects\website\live\Website\EWShop\bin\System.Web.Webpages.Razor.xml
+D:\projects\website\live\Website\EWShop\bin\System.Web.Helpers.xml
+D:\projects\website\live\Website\EWShop\bin\System.Web.Mvc.xml
+D:\projects\website\live\Website\EWShop\obj\Debug\EWShop.csproj.ResolveComReference.cache
+D:\projects\website\live\Website\EWShop\obj\Debug\EWShop.dll
+D:\projects\website\live\Website\EWShop\obj\Debug\EWShop.pdb
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\ApplicationInsights.config
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\roslyn\csc.exe
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\roslyn\vbc.exe
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\roslyn\VBCSCompiler.exe
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\EWShop.dll.config
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\EWShop.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\EWShop.pdb
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\EPPlus.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\ICSharpCode.SharpZipLib.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.AI.Web.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.ApplicationInsights.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.Azure.AppService.ApiApps.Service.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Newtonsoft.Json.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\NPOI.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\NPOI.OOXML.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\NPOI.OpenXml4Net.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\NPOI.OpenXmlFormats.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Swashbuckle.Core.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Net.Http.Formatting.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Cors.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Helpers.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Http.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Http.WebHost.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Mvc.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Razor.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Webpages.Deployment.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Webpages.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Webpages.Razor.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\WebActivatorEx.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\DocumentFormat.OpenXml.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\EPPlus.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\ICSharpCode.SharpZipLib.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.AI.Web.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.ApplicationInsights.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\Newtonsoft.Json.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Net.Http.Formatting.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Http.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Http.WebHost.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Razor.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Webpages.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Webpages.Deployment.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Webpages.Razor.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Helpers.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\bin\System.Web.Mvc.xml
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\obj\Debug\EWShop.csprojResolveAssemblyReference.cache
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\obj\Debug\EWShop.csproj.ResolveComReference.cache
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\obj\Debug\EWShop.dll
+C:\Users\nguyendangkhoa\OneDrive - haiergroup\Sourcode\PSI_Source\Website_EW_Live\Website\EWShop\obj\Debug\EWShop.pdb

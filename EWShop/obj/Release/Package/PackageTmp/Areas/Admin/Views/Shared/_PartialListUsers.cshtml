@@ -1,0 +1,59 @@
+﻿@model IEnumerable<EWShop.Models.User>
+@if (Model != null)
+{
+    <table class="table table-bordered table-striped table-users">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Fullname</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>ShopName</th>
+                <th>Active</th>
+                <th>InActive</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th><input class="form-control form-filter" placeholder="Search ..." /></th>
+                <th><input class="form-control form-filter" placeholder="Search ..." /></th>
+                <th><input class="form-control form-filter" placeholder="Search ..." /></th>
+                <th style="text-align:left!important;font-weight: 500!important;"><select class="form-control form-role"></select></th>
+                <th><input class="form-control form-filter" placeholder="Search ..." /></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() > 0)
+            {
+                var index = 0;
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="col-user" data-id="@item.userId">@item.userName</td>
+                        <td title="@item.fullName">@item.fullName</td>
+                        <td>@item.userPhone</td>
+                        <td>@item.roleName</td>
+                        <td title="@item.shopName">@item.shopName</td>
+                        <td>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input checkbox-item-active" id="active-@index" @if ("True".Equals(item.active)) { @("checked=checked")  } />
+                                <label class="custom-control-label" for="active-@index"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input checkbox-item-inactive" id="inactive-@index" @if (!"True".Equals(item.active)) { @("checked=checked")  } />
+                                <label class="custom-control-label" for="inactive-@index"></label>
+                            </div>
+                        </td>
+                        <td class="center">
+                        <input type="hidden" value="@(index = index + 1)" />
+                        <button class="btn btn-default btn-table btn-change" data-id="@item.userId" title="Lấy lại mật khẩu"><i class="fa fa-lock"></i></button></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}

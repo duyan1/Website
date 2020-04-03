@@ -1,0 +1,676 @@
+﻿@model IEnumerable<EWShop.Areas.Sales.Models.PurchaseOrder>
+@{
+    ViewBag.Title = "Purchase-Change Orders";
+    Layout = "~/Views/Layout/_LayoutAdminDashboard.cshtml";
+    IEnumerable<EWShop.Areas.Sales.Models.PurchaseOrderDetail> listDetails = (IEnumerable<EWShop.Areas.Sales.Models.PurchaseOrderDetail>)ViewData["DETAILS"];
+}
+@section Styles {
+    <style>
+        .center {
+            text-align: center;
+        }
+        .left{
+            text-align: left;
+        }
+        .right {
+            text-align: right;
+        }
+
+        .btn {
+            font-size: 14px !important;
+            padding: 1px 10px;
+            height: 25px;
+            border: 1px solid #fff !important;
+        }
+
+        .box {
+            margin-bottom: 5px !important;
+        }
+        .box-title{
+            font-weight: 600;
+        }
+        .box-header > .box-tools {
+            top: 8px !important;
+        }
+
+        .box-body {
+            padding: 5px 5px 0;
+        }
+
+        .no-margin {
+            margin: 0 !important;
+        }
+
+        .control-label {
+            float: left;
+            margin-right: 5px;
+            font-size: 13.5px;
+            font-weight: 600;
+            margin-bottom: 0;
+            padding: 2px;
+        }
+
+        .form-control {
+            float: left;
+            font-size: 13.5px;
+            font-weight: 500;
+            height: 25px;
+            border-radius: 3px;
+            padding: 5px 3px;
+        }
+
+        .div-select {
+            float: left;
+        }
+
+        .m-b-5 {
+            margin-bottom: 5px;
+        }
+
+        .table {
+            margin-bottom: 0 !important;
+        }
+
+            .table > tbody > tr > td {
+                border: 0 !important;
+                padding: 3px;
+                vertical-align: middle;
+            }
+
+        .col-label {
+            width: 80px !important;
+            text-align: right;
+            vertical-align: middle !important;
+        }
+
+        table.dataTable {
+            margin: 0 auto;
+            width: 100%;
+            clear: both;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+            table.dataTable thead th {
+                padding: 1px;
+            }
+
+            table.dataTable thead tr:first-child {
+                color: #005996;
+                background-color: #E1EBF4;
+                font-weight: 600;
+            }
+
+                table.dataTable thead tr:first-child th {
+                    padding: 5px 8px;
+                    text-align: center;
+                    font-size: 14px;
+                }
+
+            table.dataTable tbody td {
+                vertical-align: middle;
+                padding: 5px 3px;
+                white-space: nowrap;
+                font-size: 13px;
+                overflow: hidden;
+                border: 1px solid #ddd !important;
+                text-overflow: ellipsis;
+                vertical-align: middle;
+            }
+            table.dataTable tbody tr.active td {
+                font-weight: 600;
+                background-color: antiquewhite;
+            }
+            table.table-detail thead tr:first-child {
+                color: #005996;
+                background-color: #FFF;
+                font-weight: 600;
+            }
+            table.table-detail tbody tr td{
+                padding: 2px!important;
+            }
+            table.dataTable tbody tr {
+                cursor: pointer;
+            }
+
+        .form-inline .form-control {
+            width: 100%;
+        }
+
+        .div-dialog-import, .ui-dialog-titlebar-close {
+            display: none;
+        }
+
+        .ui-dialog .ui-dialog-buttonpane {
+            margin-top: 0;
+            padding: 0;
+        }
+        .ui-widget.ui-widget-content {
+            z-index: 999 !important;
+        }
+        .box-footer{
+            border-top: 1px solid #3c8dbc;
+        }
+        .custom-control {
+            position: relative;
+            display: block;
+            min-height: 1.5rem;
+        }
+        input[type=checkbox], input[type=radio] {
+            box-sizing: border-box;
+            padding: 0;
+        }
+        [type=checkbox]:checked, [type=checkbox]:not(:checked) {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .custom-control-label {
+            position: relative;
+            margin-bottom: 0;
+            vertical-align: top;
+            width: 20px;
+            height: 20px;
+            margin: 0;
+        }
+    .custom-control-label::before{
+            transition: none;
+        }
+        .custom-checkbox .custom-control-label::before {
+            border-radius: .25rem;
+        }
+        .custom-control-label::before {
+            position: absolute;
+            top: 0;
+            display: block;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            content: "";
+            background-color: #fff;
+            border: #adb5bd solid 1px;
+        }
+        .custom-control-label::after {
+            position: absolute;
+            left: -1.5rem;
+            display: block;
+            width: 20px;
+            height: 20px;
+            content: "";
+            background: no-repeat 50%/50% 50%;
+        }
+        .custom-control-input:checked ~ .custom-control-label::before {
+            color: #fff;
+            border-color: black;
+            background-color: cornflowerblue;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1>
+        Purchase-Change Orders
+        <small>Dislayed</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home page</a></li>
+        <li class="active">Purchase Order</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-list-alt"></i>
+                    <h3 class="box-title">LIST</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-default btn-box-tool btn-default" style="float:right;border-color: #ddd!important;"><i class="fa fa-file-excel-o"></i> Export excel</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvResults", OnSuccess = "OnSuccess", OnBegin = "OnBegin" }, new { @class = "form-table" }))
+                            {
+                                <label class="control-label" style="float:left;margin-right:5px;height: 25px; margin-bottom: 0; padding: 4px 0;margin-bottom: 2px;" title="Ngày tạo PO">Ord.Date</label>
+                                <div style="float:left;margin-right:5px;width:85px;">
+                                    <input class="form-control form-date form-update-frm-date" name="frmDate" value="@DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy")" />
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 25px; margin-bottom: 0; padding: 0;">-</label>
+                                <div style="float:left;margin-right:10px;width:85px;">
+                                    <input class="form-control form-date form-update-to-date" name="toDate" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 25px; margin-bottom: 0; padding: 4px 0;margin-bottom: 2px;">Confirm</label>
+                                <div style="float:left;margin-right:5px;width:120px;margin-bottom: 2px;">
+                                    <select class="form-select form-control form-confirm" name="confirm">
+                                        <option value="1">Comfirmed</option>
+                                        <option value="0" selected="selected">Not confirmed</option>
+                                        <option value="2">Rejected</option>
+                                    </select>
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 25px; margin-bottom: 0; padding: 4px 0;margin-bottom: 2px;">PO.No</label>
+                                <div style="float:left;margin-right:10px;width:120px;">
+                                    <input class="form-control" name="poNo" value="" />
+                                </div>
+                                <button type="submit" class="btn btn-default" style="float:left;border-color: #ddd!important;margin-right: 5px;"><i class="fa fa-filter"></i> Filter</button>
+                            }
+                        </div>
+                    </div>
+                    <div id="dvResults">
+                        @Html.Partial("~/Areas/Sales/Views/Shared/_PartialListPurchaseOrders.cshtml", Model)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border">
+                    <div class="pull-left">
+                        <i class="fa fa-pencil" style="float:left;padding: 5px;"></i>
+                        <h3 class="box-title" style="float:left;padding: 2px 10px 2px 2px;">DETAIL</h3>
+                        <label class="control-label" style="float:left;margin-right: 5px;font-weight: 500;">PO No: </label>
+                        <label class="control-label label-PONumber" style="float:left;font-weight: 600;margin-right: 10px;">(NO DATA)</label>
+                        <label class="control-label" style="float:left;margin-right: 5px;font-weight: 500;">Ord.Date: </label>
+                        <label class="control-label label-ordDate" style="float:left;font-weight: 600;">(NO DATA)</label>
+                    </div>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool btn-primary btn-confirm" style="float:left; display: none;"><i class="fa fa-check"></i> Confirm</button>
+                    </div>
+                </div>
+                <div class="box-body body-detail" style="padding: 5px;display: none;">
+                    <div class="row">
+                        <div class="col-md-4 no-padding-right">
+                            <label class="control-label" style="float:left;min-width: 65px;" title="Requested Date">Req.Date</label>
+                            <label class="control-label label-reqDate" style="float:left;font-weight: 500;">NO DATA</label>
+                        </div>
+                        <div class="col-md-4 no-padding">
+                            <label class="control-label" style="float:left;min-width: 65px;" title="Contact">Contact</label>
+                            <label class="control-label label-contact" style="float:left;font-weight: 500;">NO DATA</label>
+                        </div>
+                        <div class="col-md-4 no-padding">
+                            <label class="control-label" style="float:left;min-width: 65px;" title="Other Contact">O.Contact</label>
+                            <label class="control-label label-other-contact" style="float:left;font-weight: 500;">NO DATA</label>
+                        </div>
+                    </div>
+                    @using (Ajax.BeginForm("getListDetailRecord", "MWG", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvDetail", OnSuccess = "OnSuccessDetail", OnBegin = "OnBeginDetail" }, new { @class = "form-details" }))
+                    {
+                        <input type="hidden" name="purchaseOrder" class="form-po" />
+                        <div class="row">
+                            <div class="col-md-8">
+                                <table class="table">
+                                    <tr>
+                                        <td style="width: 65px;padding: 0;"><label class="control-label" style="float:left;min-width: 65px;" title="Remarks">Remarks</label></td>
+                                        <td style="padding: 0;">
+                                            <input type="text" class="form-control form-remark" style="border: 0; border-bottom: 1px solid #ddd; border-radius: 2px; padding-bottom: 1px;" name="remarks" placeholder="Please input content confirm..." />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-4 no-padding">
+                                <button class="btn btn-box-tool btn-danger btn-reject" style="float:left; display: none;border-color: #d73925!important; color: #fff;"><i class="fa fa-times"></i> Rejected</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div id="dvDetail" class="box-footer" style="padding: 0;display: none;">
+                    @Html.Partial("~/Areas/Sales/Views/Shared/_PartialPurchaseOrderDetail.cshtml", listDetails)
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script type="text/javascript">
+        var dateFormat = "dd/mm/yy";
+        var urlGetDetail = '@Url.Action("getInfoDetail", "MWG")';
+        var urlSaveRecord = '@Url.Action("saveRecord", "MWG")';
+        var urlRejectRecord = '@Url.Action("rejectRecord", "MWG")';
+        var urlConfirmRecord = '@Url.Action("confirmRecord", "MWG")';
+
+        $(document).ready(function () {
+            loadCombobox($('.form-select'));
+            $('.form-date').mask('00/00/0000');
+            $('.form-date').datepicker({
+                dateFormat: dateFormat
+            });
+            loadDataTable();
+            $('#dvDetail').on('change', '.form-money', function () {
+                var tr = $(this).closest('tr');
+                var lock = tr.find('.col-status').data("id");
+                if (lock == "0") {
+                    var data = tr.find('input').serialize();
+                    saveUpdate(data);
+                }
+
+            });
+            $('#dvDetail').on('change', '.form-qty', function () {
+                var tr = $(this).closest('tr');
+                var lock = tr.find('.col-status').data("id");
+                if (lock == "0") {
+                    var data = tr.find('input').serialize();
+                    saveUpdate(data);
+                }
+            });
+            $('#dvDetail').on('change','.checkbox-all',function () {
+                if (this.checked) {
+                    $('.table-detail').find('.checkbox-item').prop('checked', true).trigger("change");
+                    $('.table-detail').find('.col-status').prop('title', 'Confirmed');
+                } else {
+                    $('.table-detail').find('.checkbox-item').prop('checked', false).trigger("change");
+                    $('.table-detail').find('.col-status').prop('title', 'Reject');
+                }
+            });
+            $('#dvDetail').on('change', '.checkbox-item', function () {
+                var tr = $(this).closest('tr');
+                var td = $(this).closest('td');
+                if (this.checked) {
+                    tr.find('.form-update-status').val("1");
+                    tr.find('.col-status').prop('title', 'Confirmed');
+                } else {
+                    tr.find('.form-update-status').val("2");
+                    tr.find('.col-status').prop('title', 'Reject');
+                }
+                var lock = tr.find('.col-status').data("id");
+                if (lock == "0") {
+                    var data = tr.find('input').serialize();
+                    saveUpdate(data);
+                }
+            });
+            $('#dvDetail').on('change', '.form-remarks', function () {
+                var tr = $(this).closest('tr');
+                var lock = tr.find('.col-status').data("id");
+                if (lock == "0") {
+                    var data = tr.find('input').serialize();
+                    saveUpdate(data);
+                }
+            });
+            $('.btn-reject').click(function () {
+                if ($('.form-remark').val() != "") {
+                    if (confirm("Are you sure?")) {
+                        var data = $('.form-details').serialize();
+                        rejectRecord(data);
+                    }
+                } else {
+                    toastr.warning("Please input field remarks to reject !!!");
+                }
+
+            });
+            $('.btn-confirm').click(function () {
+                if (confirm("Are you sure?")) {
+                    var po = $('.form-po').val();
+                    confirmRecord(po);
+                }
+            });
+        });
+        function loadDataTable() {
+            table = $('.table-purchase').DataTable({
+                'destroy': true,
+                "dom": "rt<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                "orderCellsTop": true,
+                "pageLength": 5,
+                "autoWidth": false,
+                "order": [],
+                'columnDefs': [{
+                    "width": "12%",
+                    "targets": [0]
+                }, {
+                    "width": "10%",
+                    "targets": [1],
+                    "orderable": false,
+                    "class": "center"
+                }, {
+                    "width": "7%",
+                    "targets": [2],
+                    "orderable": false,
+                    "class": "center"
+                }, {
+                    "width": "17%",
+                    "targets": [3],
+                    "orderable": false
+                }, {
+                    "width": "10%",
+                    "targets": [4]
+                }, {
+                    "width": "10%",
+                    "targets": [5]
+                }, {
+                    "width": "10%",
+                    "targets": [6]
+                }, {
+                    "width": "10%",
+                    "targets": [7],
+                    "class": "center",
+                    "orderable": false
+                }, {
+                    "width": "10%",
+                    "targets": [8],
+                    "class": "center",
+                    "orderable": false
+                }]
+            });
+            $(".table-purchase thead tr:eq(1) th input").on('keyup change', function () {
+                table.column($(this).parent().index() + ':visible').search(this.value, false, false, true).draw();
+            });
+            $('.table-purchase').on('click', 'tbody tr.row-item td', function () {
+                var tr = $(this).closest('tr');
+                clearData();
+                tr.addClass('active');
+
+                var po = tr.find('.col-pono').html();
+                loadDetail(po);
+            });
+            closeBlock();
+        }
+        function loadDataTableDetail() {
+            $('.table-detail').DataTable({
+                'destroy': true,
+                "dom": "rt",
+                "orderCellsTop": true,
+                "paging": false,
+                "autoWidth": false,
+                "order": [],
+                'columnDefs': [{
+                    "width": "8%",
+                    "targets": [0],
+                    "class": "left",
+                    "orderable": false
+                }, {
+                    "width": "9%",
+                    "targets": [1],
+                    "class": "left",
+                    "orderable": false
+                }, {
+                    "width": "6%",
+                    "targets": [2],
+                    "class": "center",
+                    "orderable": false
+                }, {
+                    "width": "4%",
+                    "targets": [3],
+                    "orderable": false
+                }, {
+                    "width": "6%",
+                    "targets": [4],
+                    "orderable": false
+                }, {
+                    "width": "4%",
+                    "targets": [5],
+                    "orderable": false
+                }, {
+                    "width": "15%",
+                    "targets": [6],
+                    "orderable": false
+                }, {
+                    "width": "3%",
+                    "targets": [7],
+                    "class": "center",
+                    "orderable": false
+                }]
+            });
+        }
+        function clearData() {
+            $('.table-purchase').find('tr').removeClass('active');
+            $('.form-po').val('');
+            $('.label-ordDate').html('NO DATA');
+            $('.label-reqDate').html('NO DATA');
+            $('.label-expDate').html('NO DATA');
+            $('.label-contact').html('NO DATA');
+            $('.label-phone').html('NO DATA');
+            $('.label-other-contact').html('NO DATA');
+            $('.label-other-phone').html('NO DATA');
+            $('.form-remark').val('');
+            $('#dvDetail').hide();
+            $('.body-detail').hide();
+            $('.btn-confirm').hide();
+            $('.btn-reject').hide();
+        }
+        function OnSuccess() {
+            loadDataTable();
+            $('.body-detail').hide();
+            $('#dvDetail').hide();
+            $('.label-PONumber').html('(NO DATA)');
+            $('.form-po').val('');
+            $('.label-ordDate').html('(NO DATA)');
+            closeBlock();
+        }
+        function OnBegin() {
+            BlockUi();
+        }
+        function OnSuccessDetail() {
+            loadCombobox($('.form-select'));
+            $('#dvDetail').show();
+            $('.form-money').mask("#,##0", { reverse: true });
+            closeBlock();
+            loadDataTableDetail();
+        }
+        function OnBeginDetail() {
+            BlockUi();
+        }
+        function loadCombobox($control) {
+            $.fn.select2.amd.require(["select2/data/array", "select2/utils"], function (e, t) {
+                function a(e, t) {
+                    a.__super__.constructor.call(this, e, t)
+                }
+
+                function r(e, t) {
+                    return new RegExp(t, "i").test(e)
+                }
+                t.Extend(a, e), a.prototype.query = function (e, t) {
+                    "page" in e || (e.page = 1);
+                    var a = 10,
+                        n = this.$element.children().map(function (t, a) {
+                            return r(a.innerText, e.term) ? {
+                                id: a.value,
+                                text: a.innerText
+                            } : void 0
+                        });
+                    t({
+                        results: n.slice((e.page - 1) * a, e.page * a),
+                        pagination: {
+                            more: n.length >= e.page * a
+                        }
+                    })
+                }, $selectGroup = $control.select2({
+                    ajax: {},
+                    allowClear: false,
+                    dataAdapter: a
+                })
+            })
+        }
+        function loadDetail(purchaseOrder) {
+            BlockUi();
+            $.ajax({
+                type: "GET",
+                url: urlGetDetail + '?purchaseOrder=' + purchaseOrder,
+                dataType: "json",
+                success: function (data) {
+                    $('.label-PONumber').html(data.numberPO);
+                    $('.form-po').val(data.numberPO);
+                    $('.label-ordDate').html(data.orderDate);
+                    $('.label-reqDate').html(data.requestedDate);
+                    $('.label-contact').html(data.contactUser);
+                    $('.label-other-contact').html(data.contactOtherUser);
+                    $('.form-remark').val(data.remarks);
+                    if (data.confirmed == "0") {
+                        $('.btn-confirm').show();
+                        $('.btn-reject').show();
+                    }
+                    $('.body-detail').show();
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    $('.form-details').submit();
+                    closeBlock();
+                }
+            });
+        }
+        function saveUpdate(data) {
+            BlockUi();
+            $.ajax({
+                type: "POST",
+                url: urlSaveRecord,
+                dataType: "json",
+                data: data,
+                success: function (data) {
+                    if (data.code == "1") {
+                        toastr.success("Save change successful !!!", "", { "preventDuplicates": true });
+                    } else {
+                        toastr.error(data.msg)
+                    }
+                }, error: function (e) {
+                    alert(e);
+                    closeBlock();
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+        function rejectRecord(data) {
+            BlockUi();
+            $.ajax({
+                type: "POST",
+                url: urlRejectRecord,
+                dataType: "json",
+                data: data,
+                success: function (data) {
+                    if (data.code == "1") {
+                        toastr.success("Rejected successful !!!");
+                        clearData();
+                        $('.form-table').submit();
+                    } else {
+                        toastr.error(data.msg);
+                    }
+                }, error: function (e) {
+                    alert(e);
+                    closeBlock();
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+        function confirmRecord(po) {
+            BlockUi();
+            $.ajax({
+                type: "GET",
+                url: urlConfirmRecord + '?poNo=' + po,
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == "1") {
+                        toastr.success("Confirm successful !!!");
+                        clearData();
+                        $('.form-table').submit();
+                    } else {
+                        toastr.error(data.msg);
+                    }
+                }, error: function (e) {
+                    alert(e);
+                    closeBlock();
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+    </script>
+}

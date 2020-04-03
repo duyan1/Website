@@ -1,0 +1,447 @@
+﻿@model IEnumerable<EWShop.Models.ProductPayWard>
+@{
+    ViewBag.Title = "Lịch sử đăng ký bảo hành";
+    Layout = "~/Views/Layout/_LayoutAdminDashboard.cshtml";
+    string firstDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("dd/MM/yyyy");
+    IEnumerable<EWShop.Models.DataReturn> listShops = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.SHOP_INFO];
+    IEnumerable<EWShop.Models.DataReturn> listRewardStatus = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.STATUS_INFO];
+    IEnumerable<EWShop.Models.DataReturn> listPrograms = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.PROGRAM_INFO];
+}
+@section Styles {
+    <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <style>
+        table.dataTable.table-condensed > thead > tr > th{
+            padding-right: 1px;
+        }
+        .select2-container {
+            width: 100% !important;
+        }
+        .select2-container .select2-selection--single .select2-selection__rendered{
+            font-size: 13px;
+        }
+        .center {
+            text-align: center !important;
+        }
+
+        .form-control {
+            width: 100% !important;
+            font-size: 12.5px;
+            padding: 5px;
+            height: 25px;
+        }
+
+        table.dataTable {
+            margin: 0 auto;
+            width: 100%;
+            clear: both;
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin-top: 0!important;
+        }
+
+            table.dataTable thead th {
+                padding: 2px;
+                white-space: nowrap;
+                text-align: center;
+                font-weight: 500;
+            }
+
+            table.dataTable thead tr:first-child th, table.dataTable tfoot th {
+                padding: 5px;
+                text-align: center;
+                font-weight: 600;
+            }
+
+            table.dataTable tbody td {
+                padding: 5px 7px;
+                white-space: nowrap;
+                vertical-align: middle;
+                font-size: 13px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            table.dataTable tbody tr.active td {
+                font-weight: 600;
+                background-color: #ddd;
+            }
+
+            table.dataTable tbody tr {
+                cursor: pointer;
+            }
+
+        .div-dialog {
+            display: none;
+        }
+
+        td.details-control {
+            background: url('../../Libraries/dist/img/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+
+        tr.shown td.details-control {
+            background: url('../../Libraries/dist/img/details_close.png') no-repeat center center;
+        }
+
+        button.dt-button {
+            padding: 5px 15px;
+            font-size: 14px;
+        }
+
+        .div-table {
+            margin: 0 !important;
+            display: none;
+        }
+        table > tr.active > td{
+            font-weight: 600;
+        }
+        .btn-search {
+            padding: 4px 10px;
+            height: 25px;
+            min-width: 80px;
+            margin-top: 3px;
+        }
+        .box{
+            margin-bottom: 10px;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1>
+        Manage reward list
+        <small>Show list</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home page</a></li>
+        <li class="active">Reward list</li>
+    </ol>
+</section>
+<section class="content">
+@using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvTable", OnSuccess = "OnSuccess" }, new { @class = "form-filter" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- interactive chart -->
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border" style="padding: 2px 8px;float:left;width:100%">
+                    <i class="fa fa-list-alt" style="padding: 6px 5px;float:left;"></i>
+                    <h3 class="box-title" style="float:left;padding: 5px 0;">List</h3>
+                    <label style="margin-left: 10px; font-weight: 500; float: left; padding: 0 10px; margin-top: 5px;">Program</label>
+                    <div style="width: 500px;float:left;margin-top: 3px;">
+                        <select class="sel-program form-control" name="proid">
+                            @foreach (var item in listPrograms)
+                            {
+                                <option value="@item.value">@item.text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn btn-success btn-excel" style="float: left; font-size: 13px; padding: 3px 10px; height: 25px; margin-top: 3px; border-color: #fff;"><i class="fa fa-file-excel-o"></i> Export excel</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row div-filter">
+                            <div class="col-sm-12">
+                                <label class="control-label" style="float:left;margin-right:5px;height: 34px; margin-bottom: 0; padding: 5px;">Status</label>
+                                <div style="float:left; margin-right:5px; width:280px; padding: 3px 0;">
+                                    <select class="sel-status form-control" name="status">
+                                        <option value="">-- TẤT CẢ --</option>
+                                        @foreach (var item in listRewardStatus)
+                                        {
+                                            if (item.value == "4")
+                                            {
+                                                <option value="@item.value" selected="selected">@item.text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.value">@item.text</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 34px; margin-bottom: 0; padding: 5px;">Shop</label>
+                                <div style="float:left;margin-right:5px;width:300px; padding: 3px 0;">
+                                    <select class="sel-channel form-control" name="shop">
+                                        <option value="">-- TẤT CẢ --</option>
+                                        @foreach (var item in listShops)
+                                        {
+                                            <option value="@item.value">@item.text</option>
+                                        }
+                                    </select>
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 34px; margin-bottom: 0; padding: 5px;">Cus.Handing</label>
+                                <div style="float:left;margin-right:5px;width:150px; padding: 3px 0;">
+                                    <select class="sel-flat form-control" name="flat">
+                                        <option value="">-- ALL --</option>
+                                        <option value="1">UPDATED INFO</option>
+                                        <option value="0" selected="selected">NOT UPDATED INFO</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-default btn-search" style="float:left;margin-right: 5px;"><i class="fa fa-filter"></i> Filter</button>
+                            </div>
+                    </div>
+                    <div class="div-loading" style="text-align:center;">
+                        <img src="~/Libraries/dist/img/loading-animation.gif" style="width:200px;height:200px;" />
+                    </div>
+                    <div class="row div-table" id="dvTable">
+                        @Html.Partial("~/Views/Layout/_PartialListEWRegistersForPayReward.cshtml", Model)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border" style="padding: 4px 10px;">
+                    <i class="fa fa-list-alt" style="padding: 5px;margin-right:0;"></i>
+                    <h3 class="box-title">Detail</h3>
+                    <label style="margin-right: 5px; margin-left: 10px; font-weight: 500;">Ghi chú khách hàng:</label>
+                    <label style="margin-right: 5px; font-weight: 600;" class="lb-cmt-cus"></label>
+                    <div class="pull-right" style="margin-top: 3px;">
+                        <div style="float:left;margin-right:5px;width:155px;">
+                            <select class="sel-status form-control select-status-update" name="status">
+                                <option value="0" selected="selected">TỪ CHỐI CHỨNG TỪ</option>
+                                <option value="1">CHẤP NHẬN HỢP LỆ</option>
+                            </select>
+
+                        </div>
+                        <div style="float:left;margin-right:5px;width:300px;">
+                            <input class="form-control form-comment" placeholder="Enter remarks" />
+                        </div>
+                        <button class="btn btn-default btn-save" style="float:left; font-size: 13px; padding: 2px 10px;height: 25px;"><i class="fa fa-save"></i> Save</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <input type="hidden" class="form-id" />
+                    <table class="table table-bordered">
+                        <tr>
+                            <td style="text-align:center;">
+                                <img class="img1" style="width: 200px;height: 200px;" src="@Url.Content("~/Libraries/dist/img/no-image.png")" />
+                                <br />
+                                <a target="_blank" href="#" class="lb-img1">View detail</a>
+                            </td>
+                            <td style="text-align:center;">
+                                <img class="img2" style="width: 200px;height: 200px;" src="@Url.Content("~/Libraries/dist/img/no-image.png")" />
+                                <br />
+                                <a target="_blank" href="#" class="lb-img2">View detail</a>
+                            </td>
+                            <td style="text-align:center;">
+                                <img class="img3" style="width: 200px;height: 200px;" src="@Url.Content("~/Libraries/dist/img/no-image.png")" />
+                                <br />
+                                <a target="_blank" href="#" class="lb-img3">View detail</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script>
+        var table, index = 0;
+        $(document).ready(function () {
+            $('.div-table').show();
+            $('.div-loading').hide();
+            BlockUi();
+            loadDataTable();
+            loadCombobox($('.sel-channel'));
+            loadCombobox($('.sel-status'));
+            loadCombobox($('.sel-program'));
+            loadCombobox($('.sel-flat'));
+            $(window).on('resize', function () {
+                table.draw();
+            });
+            //$('.btn-search').click(function () {
+            //    BlockUi();
+            //    $('.form-filter').submit();
+            //});
+            $('.btn-excel').click(function () {
+                var proid = $('.sel-program').val();
+                var shop = $('.sel-channel').val();
+                var status = $('.sel-status').val();
+                var frmDate = $('.form-frm-date').val();
+                var toDate = $('.form-to-date').val();
+                window.open('@Url.Action("DownloadExcel", "Reward")' + '?shop=' + shop + '&status=' + status + '&frmDate=' + frmDate + '&toDate=' + toDate + '&proid=' + proid, '_blank');
+            });
+            $('.btn-save').click(function () {
+                var ewCardNo = $('.form-id').val();
+                var status = $('.select-status-update').val();
+                var comment = $('.form-comment').val();
+                var proid = $('.sel-program').val();
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("saveEWPayReward", "Reward")' + '?ewCardNo=' + ewCardNo + '&status=' + status + '&comment=' + comment + '&proid=' + proid,
+                    success: function (data) {
+                        if (data.code == "1") {
+                            toastr.success("Save successful !!!");
+                            $('.form-filter').submit();
+                        } else {
+                            toastr.danger(data.msg);
+                        }
+                    }, error: function (e) {
+                        alert(e);
+                    }, complete: function () {
+                    }
+                });
+            });
+        });
+        function loadDataTable() {
+                table = $('.table-payreward').DataTable({
+                    'destroy': true,
+                    "dom": "rt<'row'<'col-sm-6'i><'col-sm-6 pull-right'p>>",
+                    "orderCellsTop": true,
+                    "pageLength": 8,
+                    "autoWidth": false,
+                    'columnDefs': [{
+                        "width": "7%",
+                        "targets": [0],
+                        "class": "center"
+                    }, {
+                        "width": "7%",
+                        "targets": [1],
+                        "class": "center"
+                    }, {
+                        "width": "13%",
+                        "targets": [2]
+                    }, {
+                        "width": "9%",
+                        "targets": [3]
+                    }, {
+                        "width": "8%",
+                        "targets": [4]
+                    }, {
+                        "width": "12%",
+                        "targets": [5]
+                    }, {
+                        "width": "8%",
+                        "targets": [6]
+                    }, {
+                        "width": "10%",
+                        "targets": [7],
+                        "visible": false
+                    }, {
+                        "width": "7%",
+                        "targets": [8]
+                    }, {
+                        "width": "7%",
+                        "targets": [9],
+                        "class": "center",
+                        "visible": false
+                    }, {
+                        "width": "10%",
+                        "targets": [10],
+                        "visible": false
+                    }, {
+                        "width": "17%",
+                        "targets": [11]
+                    }, {
+                        "width": "13%",
+                        "targets": [12]
+                    }]
+                });
+                $(".table-payreward thead tr:eq(1) th input").on('keyup change', function () {
+                    table.column($(this).parent().index() + ':visible').search(this.value, false, false, true).draw();
+                });
+                $('.table-payreward').on('click', 'tbody tr', function () {
+                    var id = $(this).find('.col-card').html();
+                    var flat = $(this).find('.col-flat').data("id");
+                    var cmt = $(this).find('.col-flat').html();
+                    var cmtCus = $(this).find('.col-flat').data("name");
+                    $('.table-payreward').find('tr').removeClass('active');
+                    $(this).addClass('active');
+                    $('.form-id').val(id);
+                    $('.form-comment').val(cmt);
+                    $('.lb-cmt-cus').html(cmtCus);
+                    loadImage(id);
+                });
+                closeBlock();
+        }
+        function loadCombobox($control) {
+            $.fn.select2.amd.require(["select2/data/array", "select2/utils"], function (e, t) {
+                function a(e, t) {
+                    a.__super__.constructor.call(this, e, t)
+                }
+
+                function r(e, t) {
+                    return new RegExp(t, "i").test(e)
+                }
+                t.Extend(a, e), a.prototype.query = function (e, t) {
+                    "page" in e || (e.page = 1);
+                    var a = 10,
+                        n = this.$element.children().map(function (t, a) {
+                            return r(a.innerText, e.term) ? {
+                                id: a.value,
+                                text: a.innerText
+                            } : void 0
+                        });
+                    t({
+                        results: n.slice((e.page - 1) * a, e.page * a),
+                        pagination: {
+                            more: n.length >= e.page * a
+                        }
+                    })
+                }, $selectGroup = $control.select2({
+                    ajax: {},
+                    allowClear: false,
+                    dataAdapter: a
+                })
+            })
+        }
+        function OnSuccess() {
+            loadDataTable();
+        }
+        function loadImage(ewCardNo) {
+            var urlImageDefault = '@Url.Content("~/Libraries/dist/img/pdf-image.png")'
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("loadImages", "Reward")' + '?ewCardNo=' + ewCardNo,
+                success: function (data) {
+                    $.each(data, function (index, value) {
+                        if (index == 0) {
+                            if (value.indexOf('.pdf') != -1) {
+                                $(".img1").attr("src", urlImageDefault);
+                                $('.lb-img1').attr("href", value);
+                                $('.lb-img1').html("Open file pdf");
+                            } else {
+                                $(".img1").attr("src", value);
+                                $('.lb-img1').attr("href", value);
+                                $('.lb-img1').html("View detail");
+                            }
+                        } 
+                        else if(index == 1)
+                        {
+                            if (value.indexOf('.pdf') != -1) {
+                                $(".img2").attr("src", urlImageDefault);
+                                $('.lb-img2').attr("href", value);
+                                $('.lb-img2').html("Open file pdf");
+                            } else {
+                                $(".img2").attr("src", value);
+                                $('.lb-img2').attr("href", value);
+                                $('.lb-img2').html("View detail");
+                            }
+                        }
+                        else
+                        {
+                            if (value.indexOf('.pdf') != -1) {
+                                $(".img3").attr("src", urlImageDefault);
+                                $('.lb-img3').attr("href", value);
+                                $('.lb-img3').html("Open file pdf");
+                            } else {
+                                $(".img3").attr("src", value);
+                                $('.lb-img3').attr("href", value);
+                                $('.lb-img3').html("View detail");
+                            }
+                        }
+                    });
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                }
+            });
+        }
+    </script>
+}

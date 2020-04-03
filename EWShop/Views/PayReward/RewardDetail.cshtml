@@ -1,0 +1,425 @@
+﻿@model IEnumerable<EWShop.Models.ProductPayWard>
+@{
+    ViewBag.Title = "Danh sách trả thưởng";
+    Layout = "~/Views/Layout/_LayoutDashboard.cshtml";
+    string firstDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("dd/MM/yyyy");
+}
+
+@section Styles {
+    <link href="~/Libraries/vendor/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Libraries/dist/css/StyleImage.css" rel="stylesheet" />
+    <style>
+        label{
+            margin-bottom: 0;
+        }
+        .center {
+            text-align: center !important;
+        }
+        table.dataTable {
+            margin: 0 auto;
+            width: 100%;
+            clear: both;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        .panel-heading {
+            padding: 5px 15px;
+        }
+
+        .panel-body {
+            padding: 5px 5px 0;
+        }
+
+        .panel-footer {
+            padding: 5px;
+            display: none;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table-responsive > tbody > tr > td {
+            border-top: 0;
+            padding: 4px;
+            line-height: 1.4;
+        }
+
+        table.dataTable thead th {
+            padding: 2px;
+            white-space: nowrap;
+            text-align: center;
+            font-weight: 500;
+            color: black;
+        }
+
+        table.dataTable thead tr:first-child th, table.dataTable tfoot th {
+            padding: 5px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        table.dataTable tbody td {
+            padding: 4px 7px;
+            white-space: nowrap;
+            vertical-align: middle;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        table.dataTable tbody tr.active td {
+            font-weight: 600;
+            background-color: #ddd;
+        }
+
+        table.dataTable tbody tr {
+            cursor: pointer;
+        }
+
+        .div-dialog {
+            display: none;
+        }
+
+        .form-control {
+            height: 24px;
+            padding: 5px;
+        }
+        .form-filter {
+            width: 100% !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow, .select2-container .select2-selection--single, .select2-container--default .select2-selection--single .select2-selection__rendered {
+            height: 23px !important;
+        }
+        button.dt-button {
+            padding: 2px 10px;
+            font-size: 14px;
+            margin: 0;
+            margin-bottom: 5px;
+        }
+
+        .div-table {
+            margin: 0 !important;
+            display: none;
+            padding: 0 15px;
+        }
+        .col-md-4 {
+            padding: 0 5px;
+        }
+        .dataTables_wrapper .dataTables_paginate {
+            padding-bottom: 0;
+        }
+        table.dataTable.table-condensed>thead>tr>th{
+            padding: 3px 1px;
+        }
+        .panel {
+            margin-bottom: 5px;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered{
+            line-height: 20px;
+        }
+        .select2-results__option {
+            padding: 4px;
+        }
+
+        .btn {
+            padding: 3px 15px;
+            font-size: 14px;
+        }
+
+        .ui-autocomplete {
+            max-height: 150px;
+            overflow-y: auto; /* prevent horizontal scrollbar */
+            overflow-x: hidden; /* add padding to account for vertical scrollbar */
+            z-index: 1000 !important;
+        }
+    </style>
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading custom-header-panel">
+                        <h5 class="panel-title roboto">
+                            DANH SÁCH TRẢ THƯỞNG
+                        </h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row" style="z-index: 5; position: relative;width: 100%;margin:0;">
+                            @using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvTable", OnSuccess = "OnSuccess" }, new { @class = "form-filter" }))
+                            {
+                                @Html.ValidationSummary(true)
+                                <input name="proid" value="@ViewBag.proid" class="form-proid" type="hidden" />
+                                <input name="status" value="@ViewBag.flat" class="form-status" type="hidden" />
+                                <button class="btn btn-back btn-default" style="float:left;padding:1px 5px;font-size:14px;min-width: 110px;"><i class="fa fa-arrow-left"></i> Quay lại</button>
+                                <button class="btn btn-excel btn-success" style="float:right;padding:1px 5px;font-size:14px;min-width: 110px;"><i class="fa fa-file-excel-o"></i> Xuất excel</button>
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="div-loading" style="text-align:center;">
+                                <img src="~/Libraries/dist/img/loading-animation.gif" style="width:200px;height:200px;" />
+                            </div>
+                            <div class="row div-table" id="dvTable">
+                                @Html.Partial("~/Views/Layout/_PartialListEWRegistersForPayReward.cshtml", Model)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row" style="z-index: 5; position: relative;width: 100%;margin:0;">
+                            <label class="control-label" style="float:left;margin-right: 5px;padding: 5px;min-width: 100px;">Ghi chú Aqua:</label>
+                            <label class="control-label label-comment" style="float:left;margin-right: 5px;padding: 5px;" ></label>
+                        </div>
+                        <div class="row" style="z-index: 5; position: relative;width: 100%;margin:0;">
+                            <label class="control-label" style="float:left;margin-right: 5px;padding: 5px;min-width: 100px;">Ghi chú khách hàng:</label>
+                            <div style="width: 450px; margin-right: 5px;float:left;padding:5px;">
+                                <input type="text" class="form-control form-comment" placeholder="Nhập ghi chú ..." />
+                            </div>
+                            <button class="btn btn-save btn-primary" style="float:left;padding: 1px 5px;font-size:14px;margin: 5px;min-width: 80px;" title="Lưu ghi chú"><i class="fa fa-save"></i> Lưu</button>
+                        </div>
+                        <div class="row row-upload" style="z-index: 5; position: relative;width: 100%;margin:0;">
+                            <input type="hidden" class="form-id" />
+                            <label class="control-label" style="float:left;margin-right: 5px;padding: 5px;">Hình ảnh hoặc tập tin hóa đơn</label>
+                            <input type="file" name="fileUpload" class="fileUpload" placeholder="Nhấn để chọn tập tin ..." style="width: 200px; margin-right: 10px;float:left;padding:5px;" />
+                            <label class="control-label" style="float:left;margin-right: 5px;padding: 5px;">(Chỉ tải tối đa 3 tập tin)</label>
+                            <button class="btn btn-upload btn-primary" style="float:left;padding: 1px 5px;font-size:14px;margin: 5px;min-width: 80px;"><i class="fa fa-upload"></i> Tải</button>
+                            
+                        </div>
+                        <div class="row" style="z-index: 5; position: relative;width: 100%;margin:0;padding: 0 15px;">
+                            <table style="width: 100%;" class="table-images">
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="@Url.Content("~/Libraries/vendor/datatables/js/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/datatables/js/dataTables.bootstrap.min.js")"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+    <script src="@Url.Content("~/Libraries/dist/js/jquery.autocomplete.js")"></script>
+    <script src="@Url.Content("~/Libraries/dist/js/redirect.js")"></script>
+    <script>
+        var dialogView, dateFormat = "dd/mm/yy";
+        var index = 0;
+        var upload = 0;
+        var status = $('.form-status').val();
+        $(document).ready(function () {
+            $('.div-table').show();
+            $('.div-loading').hide();
+
+            BlockUi();
+            $('.form-date').mask('00/00/0000');
+            $('.form-date').datepicker({
+                dateFormat: dateFormat,
+                maxDate: new Date()
+            });
+            loadDataTable();
+            $('.btn-search').click(function (e) {
+                e.preventDefault();
+                BlockUi();
+                $('.form-filter').submit();
+            });
+            $('.btn-back').click(function () {
+                $.redirect("@Url.Action("RewardInfo", "PayReward")", { proid: $(".form-proid").val() });
+            });
+            $('.btn-excel').click(function () {
+                var status = $('.form-status').val();
+                var proid = $('.form-proid').val();
+                window.open('@Url.Action("DownloadExcel", "PayReward")' + '?status=' + status + '&proid=' + proid, '_blank');
+            });
+            $('.btn-save').click(function () {
+                var comment = $('.form-comment').val();
+                var ewCardNo = $('.form-id').val();
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("saveComment", "PayReward")' + '?ewCardNo=' + ewCardNo + '&comment=' + comment,
+                    success: function (data) {
+                        if (data.code == "1") {
+                            toastr.success("Cập nhật thành công");
+                            var tr = $('.table-payreward').find('tr.active');
+                            tr.find('.col-flat').data("name", comment);
+                            tr.find('.col-comment').html("Đã cập nhật thông tin");
+                        } else {
+                            toastr.danger(data.msg);
+                        }
+                    }, error: function (e) {
+                        alert(e);
+                    }, complete: function () {
+                    }
+                });
+            });
+            $('.btn-upload').click(function () {
+                var files = $(".fileUpload").get(0).files;
+                var fileData = new FormData();
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append("fileInput", files[i]);
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("uploadFile", "PayReward")' + '?id=' + $('.form-id').val(),
+                    dataType: "json",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (data) {
+                        if (data.code == "1") {
+                            $(".fileUpload").val('');
+                            selectItemEW($('.form-id').val(), "4");
+                            var tr = $('.table-payreward').find('tr.active');
+                            tr.find('.col-comment').html("Đã cập nhật thông tin");
+                        } else {
+
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert(status);
+                    },
+                    complete: function () {
+                        
+                    }
+                });
+            });
+            $('.table-images').on('click', '.btn-remove', function () {
+                var ewCardNo = $('.form-id').val();
+                var id = $(this).data("id");
+                if (confirm("Are you sure?")) {
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("removeItem", "PayReward")' + '?ewCardNo=' + ewCardNo + '&id=' + id,
+                        success: function (data) {
+                            if (data.code == "1") {
+                                toastr.success("Tác vụ thành công");
+                                selectItemEW(ewCardNo, "4");
+                            } else {
+                                toastr.danger(data.msg);
+                            }
+                        }, error: function (e) {
+                            alert(e);
+                        }, complete: function () {
+                        }
+                    });
+                }
+            });
+        });
+        function loadDataTable() {
+            table = $('.table-payreward').DataTable({
+                'destroy': true,
+                "dom": "rt<'row'<'col-sm-6'i><'col-sm-6 pull-right'p>>",
+                "orderCellsTop": true,
+                "pageLength": 8,
+                "autoWidth": false,
+                'columnDefs': [{
+                    "width": "7%",
+                    "targets": [0],
+                    "class": "center"
+                }, {
+                    "width": "7%",
+                    "targets": [1],
+                    "class": "center"
+                }, {
+                    "width": "13%",
+                    "targets": [2]
+                }, {
+                    "width": "11%",
+                    "targets": [3]
+                }, {
+                    "width": "9%",
+                    "targets": [4]
+                }, {
+                    "width": "12%",
+                    "targets": [5]
+                }, {
+                    "width": "8%",
+                    "targets": [6]
+                }, {
+                    "width": "10%",
+                    "targets": [7],
+                    "visible": false
+                }, {
+                    "width": "7%",
+                    "targets": [8]
+                }, {
+                    "width": "7%",
+                    "targets": [9],
+                    "class": "center",
+                    "visible": false
+                }, {
+                    "width": "10%",
+                    "targets": [10],
+                    "visible": false
+                }, {
+                    "width": "15%",
+                    "targets": [11]
+                }, {
+                    "width": "15%",
+                    "targets": [12]
+                }]
+            });
+            $(".table-payreward thead tr:eq(1) th input").on('keyup change', function () {
+                table.column($(this).parent().index() + ':visible').search(this.value, false, false, true).draw();
+            });
+            $('.table-payreward').on('click', 'tbody tr', function () {
+                var id = $(this).find('.col-card').html();
+                var flat = $(this).find('.col-flat').data("id");
+                var cmt = $(this).find('.col-flat').html();
+                var cmtCus = $(this).find('.col-flat').data("name");
+                var active = $(this).find('.col-card').data("id");
+                if (active == "True") {
+                    $(".row-upload").show();
+                } else {
+                    $(".row-upload").hide();
+                }
+                $('.table-payreward').find('tr').removeClass('active');
+                $(this).addClass('active');
+                $('.form-id').val(id);
+                $('.label-comment').html(cmt);
+                $('.form-comment').val(cmtCus);
+                selectItemEW(id, flat);
+            });
+            closeBlock();
+        }
+        function OnSuccess() {
+            loadDataTable();
+        }
+        function selectItemEW(id, flat) {
+            if (flat == "4") {
+                $('.panel-footer').show();
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("getItem", "PayReward")' + '?ewCardNo=' + id,
+                    success: function (data) {
+                        var html = '';
+                        $.each(data, function (index, value) {
+                            html += '<tr>';
+                            html += '<td style="width: 50px;">' + (index + 1) + '</td>';
+                            html += '<td><a href="' + value.imageUrl + '" target="_blank">' + value.imageOrig + '</a></td>';
+                            html += '<td style="width: 50px;"><button class="btn btn-default btn-remove" data-id="' + value.fileId + '" style="padding: 5px; border: 0; background: none;"><i class="fa fa-times-circle-o" style="font-size: 25px;" aria-hidden="true"></i></button></td>';
+                            html += '<tr>';
+                        });
+                        $('.table-images').html(html);
+                    }, error: function (e) {
+                        alert(e);
+                    }, complete: function () {
+
+                    }
+                });
+            } else {
+                $('.panel-footer').hide();
+                $(".fileUpload").val('');
+                $('.form-comment').val('');
+                $('.label-comment').html('');
+                $('.form-id').val('');
+            }
+        }
+    </script>
+}

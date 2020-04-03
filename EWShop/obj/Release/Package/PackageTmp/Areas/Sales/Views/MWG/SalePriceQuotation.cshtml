@@ -1,0 +1,641 @@
+﻿@model IEnumerable<EWShop.Areas.Sales.Models.MaterialPriceModel>
+@{
+    ViewBag.Title = "Sale Price Quotation";
+    Layout = "~/Views/Layout/_LayoutAdminDashboard.cshtml";
+    IEnumerable<EWShop.Models.DataReturn> listCustomers = (IEnumerable<EWShop.Models.DataReturn>)ViewData["CUSTOMER"];
+}
+@section Styles {
+<style>
+    .center {
+        text-align: center;
+    }
+
+    .right {
+        text-align: right;
+    }
+
+    .btn {
+        font-size: 14px !important;
+        padding: 1px 10px;
+        height: 25px;
+        border: 1px solid #fff !important;
+    }
+
+    .box {
+        margin-bottom: 5px !important;
+    }
+
+    .box-header > .box-tools {
+        top: 8px !important;
+    }
+
+    .box-body {
+        padding: 0 5px;
+    }
+
+    .no-margin {
+        margin: 0 !important;
+    }
+
+    .control-label {
+        float: left;
+        margin-right: 5px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 0;
+        padding: 2px;
+    }
+
+    .form-control {
+        float: left;
+        font-size: 14px;
+        font-weight: 500;
+        height: 25px;
+        border-radius: 3px;
+        padding: 5px 3px;
+    }
+
+    .div-select {
+        float: left;
+    }
+
+    .m-b-5 {
+        margin-bottom: 5px;
+    }
+
+    .table {
+        margin-bottom: 0 !important;
+    }
+
+        .table > tbody > tr > td {
+            border: 0 !important;
+            padding: 3px;
+        }
+
+    .col-label {
+        width: 80px !important;
+        text-align: right;
+        vertical-align: middle !important;
+    }
+
+    table.dataTable {
+        margin: 0 auto !important;
+        width: 100%;
+        clear: both;
+        border-collapse: collapse;
+        table-layout: fixed;
+    }
+
+        table.dataTable thead th {
+            padding: 1px;
+        }
+
+        table.dataTable thead tr:first-child {
+            color: #005996;
+            background-color: #E1EBF4;
+            font-weight: 600;
+        }
+
+            table.dataTable thead tr:first-child th {
+                padding: 5px 8px;
+                text-align: center;
+                font-size: 14px;
+                border: 0.5px solid #3c8dbc !important;
+            }
+
+        table.dataTable tbody td {
+            vertical-align: middle;
+            padding: 5px 3px;
+            white-space: nowrap;
+            font-size: 13px;
+            overflow: hidden;
+            border: 1px solid #ddd !important;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+        }
+
+        table.dataTable tbody tr.active td {
+            font-weight: 600;
+            background-color: #ddd;
+        }
+
+        table.dataTable tbody tr {
+            cursor: pointer;
+        }
+
+    .form-inline .form-control {
+        width: 100%;
+    }
+
+    .dvDialog,.ui-dialog-titlebar-close {
+        display: none;
+    }
+
+    .ui-widget.ui-widget-content {
+        z-index: 999 !important;
+    }
+    .custom-control {
+            position: relative;
+            display: block;
+            min-height: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        input[type=checkbox], input[type=radio] {
+            box-sizing: border-box;
+            padding: 0;
+        }
+        [type=checkbox]:checked, [type=checkbox]:not(:checked) {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+    .custom-control-label {
+            position: relative;
+            margin-bottom: 0;
+            vertical-align: top;
+        }
+    .custom-control-label::before{
+            transition: none;
+        }
+        .custom-checkbox .custom-control-label::before {
+            border-radius: .25rem;
+        }
+        .custom-control-label::before {
+            position: absolute;
+            top: 0;
+            left: -1.5rem;
+            display: block;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            content: "";
+            background-color: #fff;
+            border: #adb5bd solid 1px;
+        }
+        .custom-control-label::after {
+            position: absolute;
+            left: -1.5rem;
+            display: block;
+            width: 20px;
+            height: 20px;
+            content: "";
+            background: no-repeat 50%/50% 50%;
+        }
+        .custom-control-input:checked ~ .custom-control-label::before {
+            color: #fff;
+            border-color: black;
+            background-color: cornflowerblue;
+        }
+        .table-bordered > thead > tr > th {
+            text-align: center;
+        }
+        .table-transfer > tbody > tr > td {
+            border: 1px solid #ddd!important;
+            padding: 5px;
+        }
+        .ui-widget{
+            font-family: 'Times New Roman', Times, serif !important;
+        }
+</style>
+}
+<section class="content-header">
+    <h1>
+        List of Materials
+        <small>Dislayed</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home page</a></li>
+        <li class="active">Materials</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-list-alt"></i>
+                    <h3 class="box-title">List</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-success btn-box-tool btn-transfer"><i class="fa fa-exchange"></i> Transfer MWG</button>
+                        <button type="button" class="btn btn-primary btn-box-tool btn-download"><i class="fa fa-download"></i> Download from SAP</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row" style="padding: 5px;margin: 0 1px;">
+                        <div class="col-sm-12 no-padding">
+                            @using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvResults", OnSuccess = "OnSuccess", OnBegin = "OnBegin" }, new { @class = "form-table" }))
+                            {
+                                <label class="control-label" style="float:left;margin-right:5px;height: 25px; margin-bottom: 0; padding: 4px 0;margin-bottom: 2px;">Customer</label>
+                                <div style="float:left;margin-right:5px;width:235px;margin-bottom: 2px;">
+                                    <select class="form-select form-control form-customer" name="customer" style="width: 100%;">
+                                        @foreach (var item in listCustomers)
+                                        {
+                                            <option value="@item.value">@item.text</option>
+                                        }
+                                    </select>
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 25px; margin-bottom: 0; padding: 4px 0;margin-bottom: 2px;">Changed</label>
+                                <div style="float:left;margin-right:5px;width:100px;margin-bottom: 2px;">
+                                    <select class="form-select form-control form-modified" name="modified">
+                                        <option value="2">-- All --</option>
+                                        <option value="1">Changed</option>
+                                        <option value="0">Not changed</option>
+                                    </select>
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 25px; margin-bottom: 0; padding: 4px 0;margin-bottom: 2px;">Transfer</label>
+                                <div style="float:left;margin-right:5px;width:100px;margin-bottom: 2px;">
+                                    <select class="form-select form-control form-transfer" name="transfered">
+                                        <option value="2">-- All --</option>
+                                        <option value="1">Transfered</option>
+                                        <option value="0">Not transfered</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-default" style="float:left;border-color: #ddd!important;margin-right: 5px;"><i class="fa fa-filter"></i> Filter</button>
+                                <button type="button" class="btn btn-default btn-box-tool btn-excel" style="float:right;border-color: #ddd!important;"><i class="fa fa-file-excel-o"></i> Export excel</button>
+                            }
+                        </div>
+                    </div>
+                    <div class="row" style="margin: 0 1px; border: 1px solid #3c8dbc; border-bottom: 0; padding: 2px; background-color: #E1EBF4;">
+                        <div class="col-md-12 no-padding">
+                            @using (Ajax.BeginForm("UpdateMRPrice", "MWG", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccessUpdate", OnBegin = "OnBeginUpdate" }, new { @class = "form-update" }))
+                            {
+                                <input type="hidden" class="lb-customer" name="customer" />
+                                <input type="hidden" class="lb-matCode" name="matCode" />
+                                <div style="float:left;margin-right:5px;width: 185px;">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width: 50px;vertical-align: middle;text-align: right;font-weight: 600;">Model</td>
+                                            <td><label class="control-label lb-model" style="font-weight: 500;">(No data)</label></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="float:left;margin-right:5px;width: 160px;">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width: 50px;vertical-align: middle;text-align: right;font-weight: 600;">Amount</td>
+                                            <td><label class="form-control lb-price" style="font-weight: 500;cursor: not-allowed;margin: 0; padding: 2px;text-align: right;">(No data)</label></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="float:left;margin-right:5px;width: 160px;">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width: 50px;vertical-align: middle;text-align: right;font-weight: 600;">MRP</td>
+                                            <td><input class="form-update-mrp form-control form-money" name="mrp" style="width: 100%;text-align: right;" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="float:left;margin-right:5px;width: 160px;">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width: 50px;vertical-align: middle;text-align: right;font-weight: 600;">Sample</td>
+                                            <td><input class="form-update-sdp form-control form-money" name="sdp" style="width: 100%;text-align: right;" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="float:left;margin-right:5px;width: 120px;">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width: 50px;vertical-align: middle;text-align: right;font-weight: 600;">Currency</td>
+                                            <td><input class="form-update-currency form-control" name="currency" style="width: 100%;text-align: center;" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-save" style="display: none; float:left; border-color: #ddd!important; margin: 1px;"><i class="fa fa-save"></i> Save</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer" style="padding: 0 5px;border-top: 0;">
+                    <div id="dvResults">
+                        @Html.Partial("~/Areas/Sales/Views/Shared/_PartialListMaterialPrices.cshtml", Model)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dvDialog">
+        <div id="dialog-form" title="Transfer Data">
+            <p class="validateTips">Please choose item to transfer.</p>
+            <form class="form-transfer">
+                <input type="hidden" class="lb-customer" name="customer" />
+                <div style="overflow: auto; height: 300px;">
+                    <table class="table table-bordered table-transfer">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;text-align: center;">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input checkbox-all" id="checkall"  />
+                                        <label class="custom-control-label" for="checkall"></label>
+                                    </div>
+                                </th>
+                                <th>ModelType</th>
+                                <th>Amount</th>
+                                <th>MRP</th>
+                                <th>Sample</th>
+                                <th>FrmValid</th>
+                            </tr>
+                        </thead>
+                        <tbody class="body-data">
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script>
+        var dateFormat = "dd/mm/yy";
+        var dialog;
+        var urlDownloadExcel = '@Url.Action("DownloadExcelMaterial", "MWG")';
+        var urlTransferMaterialPrice = '@Url.Action("transferToMWG", "MWG")';
+        var urlDownloadMaterialFromSAP = '@Url.Action("downloadMatPrice", "MWG")';
+        var urlLoadDetailInfo = '@Url.Action("loadDetail", "MWG")';
+        var urlLoadDataTransfer = '@Url.Action("loadListRecordNotTransfer", "MWG")';
+        $(document).ready(function () {
+            loadCombobox($('.form-select'));
+            loadDataTable();
+            dialog = $("#dialog-form").dialog({
+                autoOpen: false,
+                height: 450,
+                width: 700,
+                modal: true,
+                buttons: {
+                    "Transfer": transferMaterialPrice,
+                    Cancel: function () {
+                        dialog.dialog("close");
+                    }
+                }
+            });
+            $('.lb-customer').val($('.form-customer').val());
+            $('.form-date').mask('00/00/0000');
+            $('.form-date').datepicker({
+                dateFormat: dateFormat
+            });
+            $('.form-money').mask("#,##0", { reverse: true });
+            $('.btn-download').click(function () {
+                downloadMatPriceFromSAP();
+            });
+            $('.btn-transfer').click(function () {
+                loadDataTransfer();
+            });
+            $('.btn-excel').click(function () {
+                var modified = $('.form-modified').val();
+                var transfer = $('.form-transfer').val();
+                var customer = $('.lb-customer').val();
+                window.open(urlDownloadExcel + '?customer=' + customer + '&modified=' + modified + '&transfer=' + transfer, '_blank');
+            });
+            $('.checkbox-all').change(function () {
+                if (this.checked) {
+                    $('.table-transfer').find('.checkbox-item').prop('checked', true);
+                } else {
+                    $('.table-transfer').find('.checkbox-item').prop('checked', false);
+                }
+            });
+            $('.table-transfer').on('change', '.checkbox-item', function () {
+                if (this.checked) {
+                    var result = true;
+                    $('.table-transfer').find('.checkbox-item').each(function (index) {
+                        if (!this.checked) {
+                            result = false;
+                        }
+                    });
+                    $('.checkbox-all').prop('checked', result);
+                } else {
+                    $('.checkbox-all').prop('checked', false);
+                }
+            });
+        });
+        function OnBegin() {
+            BlockUi();
+            clearData();
+        }
+        function OnBeginUpdate() {
+            if (confirm("Are you sure ?")) {
+                BlockUi();
+                return true;
+            }
+            return false;
+        }
+        function OnSuccess() {
+            loadDataTable();
+            $('.lb-customer').val($('.form-customer').val());
+            closeBlock();
+        }
+        function OnSuccessUpdate(data) {
+            if (data.code == "1") {
+                clearData();
+                $('.form-table').submit();
+                toastr.success("Save changed !!!");
+            } else {
+                toastr.warning(data.msg);
+                closeBlock();
+            }
+        }
+        function loadDataTable() {
+            table = $('.table-materials').DataTable({
+                'destroy': true,
+                "dom": "rt<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                "orderCellsTop": true,
+                "pageLength": 10,
+                "autoWidth": false,
+                "order": [],
+                'columnDefs': [{
+                    "width": "10%",
+                    "targets": [0]
+                }, {
+                    "width": "15%",
+                    "targets": [1]
+                }, {
+                    "width": "10%",
+                    "targets": [2],
+                    "class": "right"
+                }, {
+                    "width": "10%",
+                    "targets": [3],
+                    "class": "right"
+                }, {
+                    "width": "10%",
+                    "targets": [4],
+                    "class": "right"
+                }, {
+                    "width": "8%",
+                    "targets": [5],
+                    "class": "center",
+                    "orderable": false
+                }, {
+                    "width": "8%",
+                    "targets": [6],
+                    "class": "center",
+                    "orderable": false
+                }, {
+                    "width": "8%",
+                    "targets": [7],
+                    "class": "center",
+                    "orderable": false
+                }, {
+                    "width": "8%",
+                    "targets": [8],
+                    "class": "center",
+                    "orderable": false
+                }]
+            });
+            $(".table-materials thead tr:eq(1) th input").on('keyup change', function () {
+                table.column($(this).parent().index() + ':visible').search(this.value, false, false, true).draw();
+            });
+            $('.table-materials').on('click', 'tbody tr.row-item td', function () {
+                var tr = $(this).closest('tr');
+                clearData();
+                tr.addClass('active');
+
+                var matCode = tr.find('.col-code').html();
+                var customer = $('.lb-customer').val();
+                loadDetail(customer, matCode);
+                $('.btn-save').show();
+            });
+            closeBlock();
+        }
+        function clearData() {
+            $('.btn-save').hide();
+            $('.table-materials').find('tr').removeClass('active')
+            $('.lb-model').html('(No data)');
+            $('.lb-price').html('(No data)');
+            $('.form-update-mrp').val('0');
+            $('.form-update-currency').val('');
+            $('.form-update-sdp').val('0');
+            $('.lb-matCode').val('');
+        }
+        function loadCombobox($control) {
+            $.fn.select2.amd.require(["select2/data/array", "select2/utils"], function (e, t) {
+                function a(e, t) {
+                    a.__super__.constructor.call(this, e, t)
+                }
+
+                function r(e, t) {
+                    return new RegExp(t, "i").test(e)
+                }
+                t.Extend(a, e), a.prototype.query = function (e, t) {
+                    "page" in e || (e.page = 1);
+                    var a = 10,
+                        n = this.$element.children().map(function (t, a) {
+                            return r(a.innerText, e.term) ? {
+                                id: a.value,
+                                text: a.innerText
+                            } : void 0
+                        });
+                    t({
+                        results: n.slice((e.page - 1) * a, e.page * a),
+                        pagination: {
+                            more: n.length >= e.page * a
+                        }
+                    })
+                }, $selectGroup = $control.select2({
+                    ajax: {},
+                    allowClear: false,
+                    dataAdapter: a
+                })
+            })
+        }
+        function transferMaterialPrice() {
+            BlockUi();
+            $.ajax({
+                type: "POST",
+                url: urlTransferMaterialPrice,
+                data : $('.form-transfer').serialize(),
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == "1")
+                    {
+                        $('.form-table').submit();
+                        dialog.dialog("close");
+                    }
+                    else
+                        toastr.warning(data.msg);
+                }, error: function (xhr, status, error) {
+                    alert(error);
+                    closeBlock();
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+        function downloadMatPriceFromSAP() {
+            BlockUi();
+            var customer = $('.form-customer').val();
+            $.ajax({
+                type: "GET",
+                url: urlDownloadMaterialFromSAP + '?customer=' + customer,
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == "1")
+                        toastr.success("Download completed !!!");
+                    else
+                        toastr.warning(data.msg);
+                }, error: function (xhr, status, error) {
+                    alert(error);
+                    closeBlock();
+                }, complete: function () {
+                    $('.form-table').submit();
+                    closeBlock();
+                }
+            });
+        }
+        function loadDetail(customer, matCode) {
+            BlockUi();
+            $.ajax({
+                type: "GET",
+                url: urlLoadDetailInfo + '?customer=' + customer + '&matCode=' + matCode,
+                dataType: "json",
+                success: function (data) {
+                    $('.lb-matCode').val(data.matCode);
+                    $('.lb-model').html(data.matName);
+                    $('.lb-price').html(data.amount);
+                    $('.form-update-mrp').val(data.marketRetailPrice);
+                    $('.form-update-sdp').val(data.sampleDisplayPrice);
+                    $('.form-update-currency').val(data.currency);
+                    $('.btn-save').show();
+                }, error: function (xhr, status, error) {
+                    alert(error);
+                    closeBlock();
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+        function loadDataTransfer() {
+            BlockUi();
+            var customer = $('.lb-customer').val();
+            $.ajax({
+                type: "GET",
+                url: urlLoadDataTransfer + '?customer=' + customer,
+                dataType: "json",
+                success: function (data) {
+                    var html = '';
+                    $.each(data, function (key, value) {
+                        html += '<tr>';
+                        html += '   <td style="text-align: center;">';
+                        html += '       <div class="custom-control custom-checkbox">';
+                        html += '           <input type="checkbox" class="custom-control-input checkbox-item" id="check' + value.matCode + '" value="' + value.matCode + '" name="matCode" />';
+                        html += '           <label class="custom-control-label" for="check' + value.matCode + '"></label>';
+                        html += '       </div>';
+                        html += '   </td>';
+                        html += '   <td>' + value.matName + '</td>';
+                        html += '   <td style="text-align: right;">' + value.amount + '</td>';
+                        html += '   <td style="text-align: right;">' + value.mrp + '</td>';
+                        html += '   <td style="text-align: right;">' + value.sdp + '</td>';
+                        html += '   <td style="text-align: center;">' + value.beginDate + '</td>';
+                        html += '</tr>';
+                    });
+                    $('.body-data').html(html);
+                }, error: function (xhr, status, error) {
+                    alert(error);
+                    closeBlock();
+                }, complete: function () {
+                    closeBlock();
+                    dialog.dialog("open");
+                }
+            });
+        }
+    </script>
+}

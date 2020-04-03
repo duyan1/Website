@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ExecutePOAcknowledgement">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strAuthen" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="objPOA" type="tns:POAcknowledgement" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="POAcknowledgement">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="OrderID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SoldCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="InputDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="tns:Message" />
+          <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Message">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Detail" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Item" nillable="true" type="tns:Item" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Item">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ItemCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="QuantityUnit" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="tns:Message" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ExecutePOAcknowledgementResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExecutePOAcknowledgementResult" type="tns:ResponseMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResponseMessage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ExecuteQuotation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strAuthen" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="objQuotations" type="tns:ArrayOfQuotation" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfQuotation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Quotation" nillable="true" type="tns:Quotation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Quotation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ItemCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SalePrice" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Price" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PriceType" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ExecuteQuotationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExecuteQuotationResult" type="tns:ResponseMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExecuteStock">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strAuthen" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="objStocks" type="tns:ArrayOfStock" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfStock">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Stock" nillable="true" type="tns:Stock" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Stock">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Branch" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="StockQuantity" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ExecuteStockResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExecuteStockResult" type="tns:ResponseMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ExecutePOAcknowledgementSoapIn">
+    <wsdl:part name="parameters" element="tns:ExecutePOAcknowledgement" />
+  </wsdl:message>
+  <wsdl:message name="ExecutePOAcknowledgementSoapOut">
+    <wsdl:part name="parameters" element="tns:ExecutePOAcknowledgementResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExecuteQuotationSoapIn">
+    <wsdl:part name="parameters" element="tns:ExecuteQuotation" />
+  </wsdl:message>
+  <wsdl:message name="ExecuteQuotationSoapOut">
+    <wsdl:part name="parameters" element="tns:ExecuteQuotationResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExecuteStockSoapIn">
+    <wsdl:part name="parameters" element="tns:ExecuteStock" />
+  </wsdl:message>
+  <wsdl:message name="ExecuteStockSoapOut">
+    <wsdl:part name="parameters" element="tns:ExecuteStockResponse" />
+  </wsdl:message>
+  <wsdl:portType name="AquaSvcSoap">
+    <wsdl:operation name="ExecutePOAcknowledgement">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Execute POAcknowledgement</wsdl:documentation>
+      <wsdl:input message="tns:ExecutePOAcknowledgementSoapIn" />
+      <wsdl:output message="tns:ExecutePOAcknowledgementSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteQuotation">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Execute Quotation</wsdl:documentation>
+      <wsdl:input message="tns:ExecuteQuotationSoapIn" />
+      <wsdl:output message="tns:ExecuteQuotationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteStock">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Execute Stock</wsdl:documentation>
+      <wsdl:input message="tns:ExecuteStockSoapIn" />
+      <wsdl:output message="tns:ExecuteStockSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AquaSvcSoap" type="tns:AquaSvcSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ExecutePOAcknowledgement">
+      <soap:operation soapAction="http://tempuri.org/ExecutePOAcknowledgement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteQuotation">
+      <soap:operation soapAction="http://tempuri.org/ExecuteQuotation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteStock">
+      <soap:operation soapAction="http://tempuri.org/ExecuteStock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AquaSvcSoap12" type="tns:AquaSvcSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ExecutePOAcknowledgement">
+      <soap12:operation soapAction="http://tempuri.org/ExecutePOAcknowledgement" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteQuotation">
+      <soap12:operation soapAction="http://tempuri.org/ExecuteQuotation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteStock">
+      <soap12:operation soapAction="http://tempuri.org/ExecuteStock" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AquaSvc">
+    <wsdl:port name="AquaSvcSoap" binding="tns:AquaSvcSoap">
+      <soap:address location="http://partnerservices.thegioididong.com/test/AquaSvc.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AquaSvcSoap12" binding="tns:AquaSvcSoap12">
+      <soap12:address location="http://partnerservices.thegioididong.com/test/AquaSvc.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

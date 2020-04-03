@@ -1,0 +1,349 @@
+﻿@{ 
+    EWShop.Models.User user = (EWShop.Models.User)HttpContext.Current.Session[EWShop.Models.CommonConstants.USER_INFO];
+    IEnumerable<EWShop.Models.Menus> listMainMenus = (IEnumerable<EWShop.Models.Menus>)HttpContext.Current.Session[EWShop.Models.CommonConstants.MAIN_MENUS_INFO];
+    IEnumerable<EWShop.Models.Menus> listChildMenus = (IEnumerable<EWShop.Models.Menus>)HttpContext.Current.Session[EWShop.Models.CommonConstants.CHILD_MENUS_INFO];
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="icon" type="image/png" href="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/favicon.png" />
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Libraries/dist/img/iconlogo.png">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Libraries/vendor/bootstrap-3.4.1/dist/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Libraries/vendor/datatables/css/dataTables.bootstrap.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Libraries/vendor/ionicons/css/ionicons.min.css">
+    <!--===============================================================================================-->
+    <link type="text/css" href="~/Libraries/vendor/select2/select2.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Libraries/vendor/toastr-master/build/toastr.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Libraries/dist/css/AdminLTE.css">
+    <link rel="stylesheet" type="text/css" href="~/Libraries/dist/css/skins/_all-skins.min.css">
+    <!--=== Google Font ===============================================================================-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        body{
+            font-family:'Times New Roman', Times, serif !important;
+        }
+        .table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td{
+            border: 1px solid #ddd!important;
+        }
+        .ui-dialog .ui-dialog-content{
+            overflow:hidden!important;
+        }
+        .select2-results__option{
+            padding: 5px!important;
+            font-size: 12.5px;
+        }
+        .select2-container--default .select2-results__option[aria-selected=true], .select2-container--default .select2-results__option[aria-selected=true]:hover{
+            font-size:12.5px!important;
+        }
+        .select2-container--default .select2-selection--single, .select2-selection .select2-selection--single {
+            padding: 3px 5px;
+            height: 25px;
+            border-radius: 3px;
+        }
+        .btn-search {
+            float: left;
+            font-size: 12.5px;
+            padding: 5px 10px;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow{
+            top:-3px;
+        }
+        .content-header{
+            padding: 10px 10px 0 10px;
+        }
+        .content {
+            padding-left: 10px!important;
+            padding-right: 10px!important;
+        }
+        .box-header > .box-tools{
+            top: 0px!important;
+        }
+        .box.box-solid > .box-header > .box-tools .btn{
+            font-size: 22px;
+            margin-right: 5px;
+        }
+    </style>
+
+    <!--===============================================================================================-->
+    <script src="@Url.Content("~/Libraries/vendor/jquery/jquery-3.3.1.js")"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="@Url.Content("~/Libraries/dist/js/jquery.mask.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/bootstrap-3.4.1/dist/js/bootstrap.min.js")"></script>
+    <!-- DataTables -->
+    <script src="@Url.Content("~/Libraries/vendor/datatables/js/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/datatables/js/dataTables.bootstrap.min.js")"></script>
+    <!-- SlimScroll -->
+    <script src="@Url.Content("~/Libraries/vendor/jquery-slimscroll/jquery.slimscroll.js")"></script>
+    <!-- FastClick -->
+    <script src="@Url.Content("~/Libraries/vendor/fastclick/fastclick.js")"></script>
+    <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Libraries/dist/js/adminlte.min.js")"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="@Url.Content("~/Libraries/dist/js/demo.js")"></script>
+    <!--- animotion --->
+    <script src="@Url.Content("~/Libraries/dist/js/jquery.blockUI.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/select2/select2.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/toastr-master/build/toastr.min.js")"></script>
+
+    @RenderSection("Styles", false)
+</head>
+<body class="sidebar-mini fixed sidebar-mini-expand-feature layout-boxed skin-blue-light sidebar-collapse">
+    <div class="wrapper">
+        <header class="main-header">
+            <!-- Logo -->
+
+            @if (user.roleName == "administrator")
+            {
+                <a href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/admin" class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini">PSI</span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg"><b>Admin</b>PSI</span>
+                </a>
+            }
+            else
+            {
+                <a href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/distribution" class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini">Sell</span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg"><b>Sell </b>through</span>
+                </a>
+            }
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="@user.avatar" class="user-image" alt="User Image">
+                                <span class="hidden-xs">@user.fullName</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img src="@user.avatar" class="img-circle" alt="User Image">
+                                    <p>
+                                        @user.fullName
+                                        <small>@user.roleName</small>
+                                    </p>
+                                </li>
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    @if (user.roleName == "administrator")
+                                    {
+                                        <div class="pull-left">
+                                            <a href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/Admin/Account/UserProfile" class="btn btn-default btn-flat">Profile</a>
+                                        </div>
+                                    }
+                                    <div class="pull-right">
+                                        <a href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/Account/Logout" class="btn btn-default btn-flat">Sign out</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- Control Sidebar Toggle Button -->
+                        <li>
+                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- =============================================== -->
+        <!-- Left side column. contains the sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="@user.avatar" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <p>@user.fullName </p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
+                </div>
+                <!-- search form -->
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+                <!-- /.search form -->
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">MAIN MENU</li>
+                    @foreach (var menu in listMainMenus)
+                    {
+                        <li class="treeview @if (menu.menuShortName == ViewBag.MainMenu) { @("active") } ">
+                            <a href="@menu.menuUrl">
+                                <i class="fa @menu.iconMenu"></i>
+                                <span>@menu.menuName</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            @if (menu.menuUrl == null || menu.menuUrl == "")
+                            {
+                                <ul class="treeview-menu">
+                                    @foreach (var childMenu in listChildMenus)
+                                    {
+                                        if (childMenu.mainMenuId == menu.menuId)
+                                        {
+                                            <li class="@if (childMenu.menuShortName == ViewBag.ChildMenu) { @("active") } ">
+                                                <a href="@childMenu.menuUrl">
+                                                    <i class="fa @childMenu.iconMenu"></i>@childMenu.menuName
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            }
+                        </li>
+                    }
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- =============================================== -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        <!-- /.content-wrapper -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Create the tabs -->
+            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- Home tab content -->
+                <div class="tab-pane" id="control-sidebar-home-tab">
+                    <h3 class="control-sidebar-heading">Recent Activity</h3>
+                    <ul class="control-sidebar-menu">
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                                    <p>Will be 23 on April 24th</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-user bg-yellow"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+                                    <p>New phone +1(800)555-1234</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.control-sidebar-menu -->
+                    <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                    <ul class="control-sidebar-menu">
+                        <li>
+                            <a href="javascript:void(0)">
+                                <h4 class="control-sidebar-subheading">
+                                    Custom Template Design
+                                    <span class="label label-danger pull-right">70%</span>
+                                </h4>
+                                <div class="progress progress-xxs">
+                                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.control-sidebar-menu -->
+                </div>
+                <!-- /.tab-pane -->
+                <!-- Stats tab content -->
+                <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+                <!-- /.tab-pane -->
+                <!-- Settings tab content -->
+                <div class="tab-pane" id="control-sidebar-settings-tab">
+                    <form method="post">
+                        <h3 class="control-sidebar-heading">General Settings</h3>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Report panel usage
+                                <input type="checkbox" class="pull-right" checked>
+                            </label>
+                            <p>
+                                Some information about this general settings option
+                            </p>
+                        </div>
+                        <!-- /.form-group -->
+                        <h3 class="control-sidebar-heading">Lệnh thực thi</h3>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                <a href="itms-services://?action=download-manifest&amp;url=http://aquavietnam.vn/Support/ewarranty/Download.aspx?ID=2">Download file ios tại đây</a>
+                            </label>
+                        </div>
+                        <!-- /.form-group -->
+                    </form>
+                </div>
+                <!-- /.tab-pane -->
+            </div>
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div>
+
+    <!--===============================================================================================-->
+    <script type="text/javascript">
+        function BlockUi() {
+            $.blockUI({
+                css: {
+                    border: "none",
+                    padding: "15px",
+                    backgroundColor: "#000",
+                    "-webkit-border-radius": "10px",
+                    "-moz-border-radius": "10px",
+                    opacity: .5,
+                    color: "#fff"
+                }
+            })
+        }
+        function closeBlock() {
+            $.unblockUI();
+        }
+    </script>
+    @RenderSection("Scripts", false)
+</body>
+
+</html>

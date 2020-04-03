@@ -1,0 +1,290 @@
+﻿@model IEnumerable<EWShop.Models.ProductSellOutReport>
+@{
+    IEnumerable<EWShop.Models.DataReturn> listShops = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.SHOP_INFO];
+    IEnumerable<EWShop.Models.DataReturn> listMaterials = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.MATERIAL_INFO];
+}
+@{
+    ViewBag.Title = "Lịch sử đăng ký bảo hành";
+    Layout = "~/Views/Layout/_LayoutAdminDashboard.cshtml";
+}
+@section Styles {
+    <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .center {
+            text-align: center !important;
+        }
+
+        .form-inline .form-control {
+            width: 100% !important;
+            font-size: 14px;
+            padding: 5px;
+            height: 25px;
+        }
+
+        table.dataTable {
+            margin: 0 auto;
+            width: 100%;
+            clear: both;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+            table.dataTable thead th {
+                padding: 2px;
+                white-space: nowrap;
+                text-align: center;
+                font-weight: 500;
+            }
+
+            table.dataTable thead tr:first-child th, table.dataTable tfoot th {
+                padding: 5px;
+                text-align: center;
+                font-weight: 600;
+            }
+
+            table.dataTable tbody td {
+                padding: 5px 7px;
+                white-space: nowrap;
+                vertical-align: middle;
+                font-size: 13px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            table.dataTable tbody tr.active td {
+                font-weight: 600;
+                background-color: #ddd;
+            }
+
+            table.dataTable tbody tr {
+                cursor: pointer;
+            }
+
+        .div-dialog {
+            display: none;
+        }
+        td.details-control {
+            background: url('../../Libraries/dist/img/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+        tr.shown td.details-control {
+            background: url('../../Libraries/dist/img/details_close.png') no-repeat center center;
+        }
+        .form-control {
+            height: 30px;
+            padding: 3px 7px;
+            border-radius : 3px;
+        }
+        button.dt-button{
+            padding: 5px 15px;
+            font-size : 14px;
+        }
+        .div-table{
+            margin: 0!important;
+            display:none;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1>
+        Danh sách lịch sử ĐKBH
+        <small>Hiển thị danh sách</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active">BHĐT</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- interactive chart -->
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border" style="padding: 4px 10px;">
+                    <i class="fa fa-list-alt" style="padding: 5px"></i>
+                    <h3 class="box-title">Danh sách</h3>
+                    <div class="pull-right">
+                        <button class="btn btn-success btn-excel" style="float:left; font-size: 13px; padding: 5px 10px;"><i class="fa fa-file-excel-o"></i> Xuất excel</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row div-filter">
+                        @using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvTable", OnSuccess = "OnSuccess" }, new { @class = "form-filter" }))
+                        {
+                            @Html.ValidationSummary(true)
+                            <div class="col-sm-12">
+                                <label class="control-label" style="float:left;margin-right:5px;height: 34px; margin-bottom: 0; padding: 7px;">Reg.Date</label>
+                                <div style="float:left;margin-right:5px;width:85px;">
+                                    <input class="form-control form-date form-frm-date" name="frmDate" value="@DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy")" />
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 34px; margin-bottom: 0; padding: 7px;">-</label>
+                                <div style="float:left;margin-right:5px;width:85px;">
+                                    <input class="form-control form-date form-to-date" name="toDate" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 34px; margin-bottom: 0; padding: 7px;">Shop Name:</label>
+                                <div style="float:left;margin-right:5px;width:300px;">
+                                    <select class="sel-channel form-control" name="shop">
+                                        <option value=""></option>
+                                        @foreach (var item in listShops)
+                                        {
+                                            <option value="@item.value">@item.text</option>
+                                        }
+                                    </select>
+                                </div>
+                                <label class="control-label" style="float:left;margin-right:5px;height: 34px; margin-bottom: 0; padding: 7px;">Model No:</label>
+                                <div style="float:left;margin-right:5px;width:150px;">
+                                    <select class="sel-material form-control" name="material">
+                                        <option value=""></option>
+                                        @foreach (var item in listMaterials)
+                                        {
+                                            <option value="@item.value">@item.text</option>
+                                        }
+                                    </select>
+                                </div>
+                                <button class="btn btn-default btn-search" style="float:left;margin-right: 5px;"><i class="fa fa-filter"></i> Lọc thông tin</button>
+                                
+                            </div>
+                        }
+                    </div>
+                    <div class="div-loading" style="text-align:center;">
+                        <img src="~/Libraries/dist/img/loading-animation.gif" style="width:200px;height:200px;" />
+                    </div>
+                    <div class="row div-table" id="dvTable">
+                        @Html.Partial("~/Views/Layout/_PartialListEWRegisters.cshtml", Model)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+    <script>
+        var table, index = 0;
+        var dateFormat = "dd/mm/yy";
+        $(document).ready(function () {
+            $('.div-table').show();
+            $('.div-loading').hide();
+            BlockUi();
+            loadDataTable();
+            $('.form-date').mask('00/00/0000');
+            $('.form-date').datepicker({
+                dateFormat: dateFormat,
+                maxDate: new Date()
+            });
+            loadCombobox($('.sel-channel'));
+            loadCombobox($('.sel-material'));
+            $(window).on('resize', function () {
+                table.draw();
+            });
+            $('.btn-search').click(function (e) {
+                e.preventDefault();
+                BlockUi();
+                $('.form-filter').submit();
+            });
+            $('.btn-excel').click(function () {
+                var shop = $('.sel-channel').val();
+                var material = $('.sel-material').val();
+                var frmDate = $('.form-frm-date').val();
+                var toDate = $('.form-to-date').val();
+                window.open('@Url.Action("DownloadExcel", "Ewarranty")' + '?shop=' + shop + '&material=' + material + '&frmDate=' + frmDate + '&toDate=' + toDate, '_blank');
+            });
+        });
+        function loadDataTable() {
+            table = $('.table-ewarranty').DataTable({
+                'destroy': true,
+                "dom": "rt<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                "orderCellsTop": true,
+                "pageLength": 9,
+                "autoWidth": false,
+                'columnDefs': [{
+                    "width": "10%",
+                    "targets": [0]
+                }, {
+                    "width": "10%",
+                    "targets": [1]
+                }, {
+                    "width": "10%",
+                    "targets": [2]
+                }, {
+                    "width": "10%",
+                    "targets": [3]
+                }, {
+                    "width": "10%",
+                    "targets": [4]
+                }, {
+                    "width": "10%",
+                    "targets": [5]
+                }, {
+                    "width": "10%",
+                    "targets": [6]
+                }, {
+                    "width": "10%",
+                    "targets": [7],
+                    "visible": false
+                }, {
+                    "width": "10%",
+                    "targets": [8]
+                }, {
+                    "width": "10%",
+                    "targets": [9]
+                }, {
+                    "width": "10%",
+                    "targets": [10]
+                }, {
+                    "width": "10%",
+                    "targets": [11],
+                    "visible": false
+                }, {
+                    "width": "10%",
+                    "targets": [12]
+                }]
+            });
+            $(".table-ewarranty thead tr:eq(1) th input").on('keyup change', function () {
+                table.column($(this).parent().index() + ':visible').search(this.value, false, false, true).draw();
+            });
+            closeBlock();
+        }
+        function loadCombobox($control) {
+            $.fn.select2.amd.require(["select2/data/array", "select2/utils"], function (e, t) {
+                function a(e, t) {
+                    a.__super__.constructor.call(this, e, t)
+                }
+
+                function r(e, t) {
+                    return new RegExp(t, "i").test(e)
+                }
+                t.Extend(a, e), a.prototype.query = function (e, t) {
+                    "page" in e || (e.page = 1);
+                    var a = 10,
+                        n = this.$element.children().map(function (t, a) {
+                            return r(a.innerText, e.term) ? {
+                                id: a.value,
+                                text: a.innerText
+                            } : void 0
+                        });
+                    t({
+                        results: n.slice((e.page - 1) * a, e.page * a),
+                        pagination: {
+                            more: n.length >= e.page * a
+                        }
+                    })
+                }, $selectGroup = $control.select2({
+                    ajax: {},
+                    allowClear: false,
+                    dataAdapter: a
+                })
+            })
+        }
+        function OnSuccess() {
+            loadDataTable();
+        }
+    </script>
+}

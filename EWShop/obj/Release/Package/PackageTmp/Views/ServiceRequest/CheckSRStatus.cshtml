@@ -1,0 +1,302 @@
+﻿@model EWShop.Models.CheckBarcode
+@{
+    ViewBag.Title = "Kiểm tra trang thái yêu cầu bảo hành/bảo trì";
+    Layout = "~/Views/Layout/_LayoutCustomerDashboard.cshtml";
+    EWShop.Models.ItemResult register = (EWShop.Models.ItemResult)ViewData["data"];
+}
+@section Styles {
+    <style>
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+            /* Style the buttons inside the tab */
+            .tab button {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 10px 7px;
+                transition: 0.3s;
+                font-size: 18px;
+                width: 33.333333333333%;
+                border-right: 1px solid #ccc;
+            }
+                .tab button:last-child {
+                    border-right: 0px;
+                }
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                    background-color: #ddd;
+                }
+                /* Create an active/current tablink class */
+                .tab button.active {
+                    background-color: #ccc;
+                }
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+        .center-block {
+            text-align: center;
+        }
+        .tabcontent.active {
+            display: block;
+        }
+        .table td, .table th{
+            border: 0px!important;
+            padding: 5px 15px;
+            vertical-align: middle;
+        }
+        .table,.form-group{
+            margin-bottom: 5px;
+        }
+        p{
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        .col-label{
+            width: 150px;
+        }
+        .form-control {
+            height: calc(1.2em + .75rem + 2px);
+            padding: 7px;
+            font-size: 17px;
+        }
+        .about .about-header{
+            margin-top: 20px;
+        }
+        .about .about-header h2{
+            font-size: 40px;
+            text-align: center;
+            font-weight: 600;
+        }
+        @@media only screen and (max-width : 767px) {
+            .block-heading h2 {
+                font-size: 28px;
+            }
+
+            .block-heading:after {
+                top: 19px;
+            }
+
+            .block-heading p {
+                font-size: 19px;
+            }
+
+            .tab button {
+                font-size: 16px;
+                padding: 15px 5px;
+            }
+        }
+    </style>
+}
+<div class="breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/">
+    <span><span><a href="https://aquavietnam.com.vn/">Trang chủ</a> &gt; <span class="breadcrumb_last" aria-current="page">Yêu cầu bảo hành</span></span></span>
+</div>
+<div class="about-header">
+    <h2>TRA CỨU TRẠNG THÁI YÊU CẦU BẢO HÀNH/BẢO TRÌ</h2>
+</div>
+<div class="about-image">
+    <p style="text-align:center;">Chọn phương thức tìm kiếm tình trạng yêu cầu bảo hành/bảo trì</p>
+</div>
+<div class="row">
+    <div style="float:left;width: 100%;max-width: 900px;margin: 0 auto;">
+        <div class="tab">
+            <button class="tablinks @if (ViewData["active"].ToString() == "1") { @("active") }" onclick="openTab(event, 'reqCode')">Mã yêu cầu</button>
+            <button class="tablinks @if (ViewData["active"].ToString() == "2") { @("active") }" onclick="openTab(event, 'model')">Kiểu máy</button>
+            <button class="tablinks @if (ViewData["active"].ToString() == "3") { @("active") }" onclick="openTab(event, 'barcode')">Số máy</button>
+        </div>
+        <div id="reqCode" class="tabcontent @if (ViewData["active"].ToString() == "1") { @("active") }">
+            @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvResults", OnSuccess = "OnSuccess" }))
+            {
+                @Html.ValidationSummary(true)
+                <fieldset class="field">
+                    <input type="hidden" name="flat" value="1" />
+                    <div class="form-group">
+                        <table class="table">
+                            <tr>
+                                <td class="col-label">Mã yêu cầu</td>
+                                <td>
+                                    <div class="div-input">
+                                        @Html.TextBoxFor(N => N.cardNo, new { @class = "form-control form-request-code", @placeholder = "Nhập mã yêu cầu", required = "required" })
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <table class="table">
+                            <tr>
+                                <td class="col-label">Mã xác nhận</td>
+                                <td>
+                                    <div style="width: 40%;float:left;max-width: 100px;">
+                                        <img src="/Home/GetCaptchaImage" class="imgCaptcha" style="width:100%;height: 35px;border: 1px solid #ddd;" title="Captcha" />
+                                    </div>
+                                    <div style="width: 60%;float:right;">
+                                        @Html.TextBoxFor(N => N.clientCaptcha, new { @class = "form-control form-captcha", @placeholder = "Nhập mã xác nhận", required = "required" })
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="form-group" style="text-align: center;">
+                        <input type="submit" value="Tra cứu thông tin" class="btn btn-primary" style="padding: 5px 15px; font-size: 17px;" />
+                    </div>
+                </fieldset>
+            }
+        </div>
+        <div id="model" class="tabcontent @if (ViewData["active"].ToString() == "2") { @("active") }">
+            @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvResults", OnSuccess = "OnSuccess" }))
+            {
+                @Html.ValidationSummary(true)
+                <fieldset class="field">
+                    <input type="hidden" name="flat" value="2" />
+                    <input type="hidden" name="matid" class="form-matid" />
+                    <div class="form-group">
+                        <table class="table">
+                            <tr>
+                                <td class="col-label">Số điện thoại</td>
+                                <td>
+                                    <div class="div-input">
+                                        @Html.TextBoxFor(N => N.phone, new { @class = "form-control form-phone", @placeholder = "Nhập số điện thoại...", required = "required" })
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <table class="table">
+                            <tr>
+                                <td class="col-label">Kiểu máy</td>
+                                <td>
+                                    <div class="div-input">
+                                        @Html.TextBoxFor(N => N.model, new { @class = "form-control form-model", @placeholder = "Nhập kiểu máy... (VD : AQW-D900AT)", required = "required" })
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <table class="table">
+                            <tr>
+                                <td class="col-label">Mã xác nhận</td>
+                                <td>
+                                    <div style="width: 40%;float:left;max-width: 100px;">
+                                        <img src="/Home/GetCaptchaImage" class="imgCaptcha" style="width:100%;height: 35px;border: 1px solid #ddd;" title="Captcha" />
+                                    </div>
+                                    <div style="width: 60%;float:right;">
+                                        @Html.TextBoxFor(N => N.clientCaptcha, new { @class = "form-control form-captcha", @placeholder = "Nhập mã xác nhận", required = "required" })
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="form-group" style="text-align: center;">
+                        <input type="submit" value="Tra cứu thông tin" class="btn btn-primary" style="padding: 5px 15px; font-size: 17px;" />
+                    </div>
+                </fieldset>
+            }
+        </div>
+        <div id="barcode" class="tabcontent @if (ViewData["active"].ToString() == "3") { @("active") }">
+            @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvResults", OnSuccess = "OnSuccess" }))
+            {
+                @Html.ValidationSummary(true)
+                <fieldset class="field">
+                    <input type="hidden" name="flat" value="3" />
+                    <div class="form-group">
+                        <table class="table">
+                            <tr>
+                                <td class="col-label">Số điện thoại</td>
+                                <td>
+                                    <div class="div-input">
+                                        @Html.TextBoxFor(N => N.phone, new { @class = "form-control form-phone", @placeholder = "Nhập số điện thoại...", required = "required" })
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <table class="table">
+                            <tr>
+                                <td class="col-label">Số máy</td>
+                                <td>
+                                    <div class="div-input">
+                                        @Html.TextBoxFor(N => N.model, new { @class = "form-control form-model", @placeholder = "Nhập số máy(4 số cuối)...", required = "required" })
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <table class="table">
+                            <tr>
+                                <td class="col-label">Mã xác nhận</td>
+                                <td>
+                                    <div style="width: 40%;float:left;max-width: 100px;">
+                                        <img src="/Home/GetCaptchaImage" class="imgCaptcha" style="width:100%;height: 35px;border: 1px solid #ddd;" title="Captcha" />
+                                    </div>
+                                    <div style="width: 60%;float:right;">
+                                        @Html.TextBoxFor(N => N.clientCaptcha, new { @id = "captcha2", @class = "form-control form-captcha", @placeholder = "Nhập mã xác nhận", required = "required" })
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="form-group" style="text-align: center;">
+                        <input type="submit" value="Tra cứu thông tin" class="btn btn-primary" style="padding: 5px 15px; font-size: 17px;" />
+                    </div>
+                </fieldset>
+            }
+        </div>
+    </div>
+    <div id="dvResults" style="border: 1px solid #ddd; padding: 5px 20px 10px; border-radius: 5px;float:left;width: 100%;max-width: 900px;margin: 0 auto;">
+        @Html.Partial("~/Views/Layout/_PartialListServiceRequest.cshtml", register)
+    </div>
+</div>
+@section Scripts {
+<script src="@Url.Content("~/Libraries/dist/js/jquery.autocomplete.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.form-model').autocomplete({
+                source: '@Url.Action("searchModel", "Home")',
+                minLength: 3,
+                select: function (event, ui) {
+                    $('.form-matid').val(ui.item.id);
+                }
+            });
+        });
+        function openTab(evt, cityName) {
+            clearData();
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].className = tabcontent[i].className.replace(" active", "");
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).className += " active";
+            evt.currentTarget.className += " active";
+        }
+        function clearData() {
+            $('.form-phone').val('');
+            $('.form-serial').val('');
+            $('.form-captcha').val('');
+            $('.form-phone').val('');
+            $('.form-barcode').val('');
+        }
+        function OnSuccess() {
+            $('.form-captcha').val('');
+            var unique = $.now();
+            $(".imgCaptcha").attr("src", "/Home/GetCaptchaImage?" + unique);
+        }
+    </script>
+}

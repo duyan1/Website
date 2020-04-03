@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Layout/_LayoutDashboard.cshtml";
+}
+
+<style>
+    .feature-box {
+        background-color: #fff;
+        margin-bottom: 15px;
+        text-align: center;
+        width: 100%;
+        float: left;
+        height: 300px;
+        position:relative;
+        cursor: pointer;
+        border: 1px solid #1b50a5;
+        border-radius: 22px;
+    }
+    .feature-box::after{
+        display:block;
+        padding-bottom: 100%;
+    }
+
+    .feature-box span {
+        margin-top: 5px;
+        width: 100%;
+        float: left;
+        padding: 20px;
+        font-size: 17px;
+        color: #1b50a5;
+    }
+
+    .feature-box:hover {
+        background-color: #101525;
+        border: 1px solid #e3e3e3;
+        color: white;
+    }
+
+    h5 {
+        margin-bottom: 0;
+    }
+
+    .panel-heading {
+        padding: 8px 15px;
+        text-align: center;
+    }
+</style>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <h5>BẢO HÀNH</h5>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row clearfix">
+            <div class="col-md-3 column">
+                <a class="feature-box" href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/EW/RegisterEWForCustomer">
+                    <div style="width:100%;padding: 30px;">
+                        <img style="width:60%;height:60%;" src="@Url.Content("~/Libraries/dist/img/bao-hanh-dien-tu.png")" />
+                    </div>
+                    <span>BẢO HÀNH ĐIỆN TỬ</span>
+                </a>
+            </div>
+            <div class="col-md-3 column">
+                <a class="feature-box" href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/EW/UploadExcel">
+                    <div style="width:100%;padding: 30px;">
+                        <img style="width:50%;height:50%;" src="@Url.Content("~/Libraries/dist/img/excel.png")" />
+                    </div>
+                    <span>BẢO HÀNH ĐIỆN TỬ <br />CHO NHIỀU KHÁCH HÀNG</span>
+                </a>
+            </div>
+            <div class="col-md-3 column">
+                <a class="feature-box" href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/EW/CheckEwarranty">
+                    <div style="width:100%;padding: 30px;">
+                        <img style="width:60%;height:60%;" src="@Url.Content("~/Libraries/dist/img/tra-cuu-bao-hanh.png")" />
+                    </div>
+                    <span>TRA CỨU BẢO HÀNH</span>
+                </a>
+            </div>
+            <div class="col-md-3 column">
+                <a class="feature-box" href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/EW/FilterServiceRequest">
+                    <div style="width:100%;padding: 30px;">
+                        <img style="width:60%;height:60%;" src="@Url.Content("~/Libraries/dist/img/yeu-cau-bao-hanh.png")" />
+                    </div>
+                    <span>YÊU CẦU BẢO HÀNH/BẢO TRÌ</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <h5>LỊCH SỬ ĐĂNG KÝ</h5>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row clearfix">
+            <div class="col-md-3 column">
+                <a class="feature-box" href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/EW/History">
+                    <div style="width:100%;padding: 30px;">
+                        <img style="width:50%;height:50%;" src="@Url.Content("~/Libraries/dist/img/list.png")" />
+                    </div>
+                    <span>DANH SÁCH LỊCH SỬ ĐĂNG KÝ</span>
+                </a>
+            </div>
+            <div class="col-md-3 column">
+                <a class="feature-box" href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/Payreward">
+                    <div style="width:100%;padding: 30px;">
+                        <img style="width:60%;height:60%;" src="@Url.Content("~/Libraries/dist/img/tra-thuong.png")" />
+                    </div>
+                    <span>DANH SÁCH TRẢ THƯỞNG</span>
+                </a>
+            </div>
+            <div class="col-md-3 column">
+                <a class="feature-box" href="@System.Configuration.ConfigurationManager.AppSettings["urlDomain"]/Report">
+                    <div style="width:100%;padding: 30px;">
+                        <img style="width:60%;height:60%;" src="@Url.Content("~/Libraries/dist/img/bao-cao.png")" />
+                    </div>
+                    <span>BÁO CÁO DOANH SỐ BÁN RA</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

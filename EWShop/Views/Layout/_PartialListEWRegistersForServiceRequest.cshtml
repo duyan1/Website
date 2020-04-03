@@ -1,0 +1,49 @@
+﻿@model IEnumerable<EWShop.Models.ProductSellOutReport>
+
+<table class="table table-bordered table-ewarranty table-condensed table-striped">
+    <thead>
+        <tr>
+            <th title="Mã bảo hành">Mã BH</th>
+            <th title="Ngày mua">Ngày mua</th>
+            <th title="Số máy">Số máy</th>
+            <th title="Kiểu máy">Kiểu máy</th>
+            <th title="Loại sản phẩm">Loại sản phẩm</th>
+            <th title="Tên khách hàng">Tên KH</th>
+            <th title="SĐT khách hàng">SĐT KH</th>
+            <th title="Ngày đăng ký">Ngày ĐK</th>
+            <th title="Xử lý"></th>
+        </tr>
+        <tr>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th></th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td>@item.eWCardNo</td>
+                    <td>@item.POD</td>
+                    <td>@item.barcode</td>
+                    <td>@item.model</td>
+                    <td>@item.plant</td>
+                    <td>@item.cusName</td>
+                    <td>@item.cusPhone</td>
+                    <td>@item.regDate</td>
+                    <td><button type="button" title="Đăng ký yêu cầu bảo hành/bảo trì sản phẩm" class="btn btn-default btn-reg" data-id="@item.eWCardId" data-name="@item.flat">Đăng ký YCBH/BT</button></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+

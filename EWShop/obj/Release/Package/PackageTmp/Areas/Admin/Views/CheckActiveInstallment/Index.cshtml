@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/_LayoutAdminDashboard.cshtml";
+}
+@section Styles {
+    <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <style>
+        p {
+            margin: 0;
+        }
+
+        hr {
+            margin: 5px 0;
+        }
+
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .label-title {
+            float: left;
+            margin: 7px;
+            min-width: 150px;
+        }
+
+        .label-title-filter {
+            float: left;
+            margin: 7px;
+            min-width: 50px;
+        }
+
+        .div-title {
+            float: left;
+            min-width: 150px;
+            margin-right: 5px;
+        }
+
+        .div-button {
+            float: left;
+            margin-left: 5px;
+        }
+
+        .div-form {
+            float: left;
+            margin-bottom: 5px;
+        }
+
+        .col-title {
+            width: 125px !important;
+        }
+
+        .row-register, .row-production {
+            display: none;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1>
+        Kiểm tra
+        <small>Check barcode</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active">Kiểm tra số máy</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <form method="post" action="@Url.Action("uploadFileExcel","CheckActiveInstallment")" enctype="multipart/form-data">
+                    <label class="control-label" style="float:left;margin-right: 50px;padding: 5px;">Chọn tập tin để tải lên hệ thống (tập tin theo dạng excel)</label>
+                    <input type="file" name="fileUpload" class="fileUpload" placeholder="Nhấn để chọn tập tin ..." style="width: 280px; margin-right: 10px;float:left;padding:5px;" />
+                    <button type="submit" class="btn btn-upload btn-primary" style="float:left;padding: 1px 5px;font-size:14px;margin-top: 3px;">Tải lên hệ thống</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+@section scripts {
+
+    <script>
+        $('.btn-upload').click(function () {
+            var files = $(".fileUpload").get(0).files;
+            var fileData = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                fileData.append("fileInput", files[i]);
+            }
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("uploadFileExcel", "CheckActiveInstallment")',
+                dataType: "json",
+                contentType: false, // Not to set any content header
+                processData: false, // Not to process data
+                data: fileData,
+                success: function (data) {
+                    if (data.code == "1") {
+                        closeBlock();
+                    }
+                }
+            }
+            )
+
+        })
+
+    </script>
+
+}

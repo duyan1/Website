@@ -1,0 +1,589 @@
+﻿@model IEnumerable<EWShop.Models.User>
+@{
+    ViewBag.Title = "Danh sách người dùng";
+    Layout = "~/Views/Layout/_LayoutAdminDashboard.cshtml";
+    IEnumerable<EWShop.Models.DataReturn> listRegions = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.REGIONS_INFO];
+    IEnumerable<EWShop.Models.DataReturn> listRoles = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.ROLES_INFO];
+    IEnumerable<EWShop.Models.DataReturn> listChannels = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.SHOP_INFO];
+}
+@section Styles {
+<style>
+    .center {
+        text-align: center !important;
+    }
+
+    .form-control {
+        float: left;
+        font-size: 14px;
+        font-weight: 500;
+        height: 25px;
+        border-radius: 3px;
+        padding: 5px 3px;
+        width: 100%!important;
+    }
+    .btn {
+        font-size: 14px !important;
+        padding: 1px 15px;
+        height: 25px;
+        border: 1px solid #fff !important;
+    }
+    .table{
+        margin-bottom: 0;
+    }
+    .table > tbody > tr > td {
+        border: 0;
+        padding: 5px 2px;
+    }
+
+    table.dataTable {
+        margin: 0 auto;
+        width: 100%;
+        clear: both;
+        border-collapse: collapse;
+        table-layout: fixed;
+    }
+
+        table.dataTable thead th {
+            padding: 2px;
+            white-space: nowrap;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        table.dataTable thead tr:first-child th, table.dataTable tfoot th {
+            padding: 5px;
+            font-weight: 600;
+        }
+
+        table.dataTable tbody td {
+            padding: 5px!important;
+            white-space: nowrap;
+            vertical-align: middle;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        table.dataTable tbody tr.active td {
+            font-weight: 600;
+            background-color: #ddd;
+        }
+
+    .div-filter, .div-dialog {
+        display: none;
+    }
+
+    .btn-table {
+        padding: 5px 10px !important;
+    }
+
+    .custom-control {
+        position: relative;
+        display: block;
+        min-height: 1.5rem;
+    }
+
+    .box-header.with-border {
+        border: 0 !important;
+    }
+
+    .box-body {
+        padding: 0;
+    }
+
+    input[type=checkbox], input[type=radio] {
+        box-sizing: border-box;
+        padding: 0;
+    }
+
+    [type=checkbox]:checked, [type=checkbox]:not(:checked) {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .custom-control-label {
+        position: relative;
+        margin-bottom: 0;
+        vertical-align: top;
+        width: 20px;
+        height: 20px;
+        margin: 0;
+    }
+
+        .custom-control-label::before {
+            transition: none;
+        }
+
+    .custom-checkbox .custom-control-label::before {
+        border-radius: .25rem;
+    }
+
+    .custom-control-label::before {
+        position: absolute;
+        top: 0;
+        display: block;
+        width: 20px;
+        height: 20px;
+        pointer-events: none;
+        content: "";
+        background-color: #fff;
+        border: #adb5bd solid 1px;
+    }
+
+    .custom-control-label::after {
+        position: absolute;
+        left: -1.5rem;
+        display: block;
+        width: 20px;
+        height: 20px;
+        content: "";
+        background: no-repeat 50%/50% 50%;
+    }
+
+    .custom-control-input:checked ~ .custom-control-label::before {
+        color: #fff;
+        border-color: black;
+        background-color: cornflowerblue;
+    }
+    td.col-user{
+        cursor: pointer!important;
+    }
+    .ui-dialog .ui-dialog-titlebar-close {
+        display: none;
+    }
+</style>
+}
+<section class="content-header">
+    <h1>
+        Danh sách người dùng
+        <small>Hiển thị danh sách</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active">Người dùng</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border" style="float:left; width: 100%;">
+                    <i class="fa fa-list-alt" style="float:left;padding: 3px;"></i>
+                    <h3 class="box-title" style="float:left;margin-right: 10px;padding: 3px;">Danh sách</h3>
+                    @using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess", OnBegin = "OnBegin", UpdateTargetId= "dvResults" }, new { @class = "form-filter" }))
+                    {
+                        <label style="float:left; margin-right: 5px;padding-top: 3px;">Role</label>
+                        <div style="float:left;margin-right:5px;width: 150px;">
+                            <select class="form-control form-select form-filter-role" name="role">
+                                <option value="">-- All --</option>
+                                @foreach (var item in listRoles)
+                                {
+                                    <option value="@item.value" @if ("1".Equals(item.value)) { @("selected=selected")}>@item.text</option>
+                                }
+                            </select>
+                        </div>
+                        <label style="float:left; margin-right: 5px;padding-top: 3px;">Region</label>
+                        <div style="float:left;margin-right:5px;width: 150px;">
+                            <select class="form-control form-select form-filter-region" name="region">
+                                <option value="">-- All --</option>
+                                @foreach (var item in listRegions)
+                                {
+                                    <option value="@item.value" @if ("4".Equals(item.value)) { @("selected=selected")}>@item.text</option>
+                                }
+                            </select>
+                        </div>
+                    }
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-success btn-save" style="float:left; border-color: #ddd!important;"><i class="fa fa-save"></i> Save</button>
+                        <button type="button" class="btn btn-primary btn-add" style="float:left;border-color: #ddd!important;margin-left: 5px;"><i class="fa fa-refresh"></i> Clear</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row" style="margin: 0 1px; border: 0; padding: 2px; background-color: #E1EBF4;">
+                        @using (Ajax.BeginForm("UpdateUser", "BasicData", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccessUpdate" }, new { @class = "form-submit" }))
+                        {
+                            <div class="col-md-12 no-padding">
+                                <input type="hidden" class="form-user-id" name="userId" />
+                                <div style="float:left;margin-right:5px;width: 200px;">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width: 75px;vertical-align: middle;text-align: right;font-weight: 600;">Username</td>
+                                            <td><input class="form-username form-control" name="userName" style="width: 100%;text-align: center;" value="" required /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="float:left;margin-right:5px;width: 250px;">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width: 60px;vertical-align: middle;text-align: right;font-weight: 600;">Fullname</td>
+                                            <td><input class="form-fullname form-control" name="fullName" style="width: 100%;" value="" required /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="float:left;margin-right:5px;width: 200px;">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width: 45px;vertical-align: middle;text-align: right;font-weight: 600;">Phone</td>
+                                            <td><input class="form-phone form-control" name="userPhone" style="width: 100%;" required /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="float:left;margin-right:5px;width: 350px;">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width: 60px;vertical-align: middle;text-align: right;font-weight: 600;">Address</td>
+                                            <td><input class="form-address form-control" name="userAddress" style="width: 100%;" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="float:left;margin-right:5px;width: 200px;">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width: 45px;vertical-align: middle;text-align: right;font-weight: 600;">Email</td>
+                                            <td><input class="form-email form-control" name="userEMail" style="width: 100%;" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-12 no-padding">
+                                <div style="float:left;margin-right:5px;width: 455px;">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width: 75px;vertical-align: middle;text-align: right;font-weight: 600;">Shop</td>
+                                            <td>
+                                                <select class="form-control form-select form-shop" name="shopId">
+                                                    <option value="" selected="selected">-- default --</option>
+                                                    @foreach (var item in listChannels)
+                                                    {
+                                                    <option value="@item.value">@item.text</option>
+                                                    }
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="float:left;margin-right:5px;width: 200px;">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width: 45px;vertical-align: middle;text-align: right;font-weight: 600;">Role</td>
+                                            <td>
+                                                <select class="form-control form-select form-role" name="roleId">
+                                                    <option value="" selected="selected">-- default --</option>
+                                                    @foreach (var item in listRoles)
+                                                    {
+                                                        <option value="@item.value">@item.text</option>
+                                                    }
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style="float:left;margin-right:5px;width: 555px;">
+                                    <table class="table">
+                                        <tr>
+                                            <td style="width: 60px;vertical-align: middle;text-align: right;font-weight: 600;">Remarks</td>
+                                            <td>
+                                                <label class="form-control label-remarks"></label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="box-footer" style="padding: 0 5px;border-top: 0;">
+                    <div id="dvResults">
+                        @Html.Partial("~/Areas/Admin/Views/Shared/_PartialListUsers.cshtml", Model)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="div-dialog">
+    <div class="dialog-change" title="Đổi mật khẩu">
+        <form class="form-horizontal form-change">
+            <input type="hidden" class="txtUserName" name="userName" />
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input type="password" class="form-control" name="newPass" placeholder="Mật khẩu mới" style="height: 28px;">
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input type="password" class="form-control" name="confirmPass" placeholder="Xác nhận mật khẩu mới" style="height: 28px;">
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var table, dialogChange, dialogView;
+        var urlSaveRecord = '@Url.Action("saveUser", "BasicData")';
+        var urlChangePass = '@Url.Action("changePassUser", "BasicData")';
+        var urlGetDetail = '@Url.Action("getUserInfo", "BasicData")';
+        var urlActiveUser = '@Url.Action("activeUser", "BasicData")';
+        $(document).ready(function () {
+            BlockUi();
+            loadCombobox($('.form-select'));
+            loadDataTable();
+            $(window).on('resize', function () {
+                table.draw();
+            });
+            $('.btn-add').click(function () {
+                clearData();
+            });
+            dialogChange = $(".dialog-change").dialog({
+                autoOpen: false,
+                width: 450,
+                modal: true,
+                buttons: {
+                    "Ghi nhận": changePassUser,
+                    Cancel: function () {
+                        dialogChange.dialog("close");
+                    }
+                },
+                close: function () {
+                }
+            });
+            $('.form-filter-role').change(function () {
+                $('.form-filter').submit();
+            });
+            $('.form-filter-region').change(function () {
+                $('.form-filter').submit();
+            });
+            $('.btn-save').click(function () {
+                saveUser();
+            });
+        });
+        function OnBegin() {
+            BlockUi();
+        }
+        function OnSuccess() {
+            loadDataTable();
+        }
+        function OnSuccessUpdate(data) {
+            if (data.code == "1") {
+                $('.form-filter').submit();
+                toastr.success("Save change successful !!!");
+            } else {
+                toastr.warning(data.msg);
+            }
+        }
+        function changePassUser() {
+            BlockUi();
+            $.ajax({
+                type: "POST",
+                url: urlChangePass,
+                data: $('.form-change').serialize(),
+                success: function (data) {
+                    if (data.code == "1") {
+                        dialogChange.dialog("close");
+                        toastr.success("Save successfully !!!");
+                        clearData();
+                    } else {
+                        toastr.error("Save unsuccessfully !!!");
+                    }
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+        function saveUser() {
+            BlockUi();
+            $('.form-submit').submit();
+        }
+        function loadDataTable() {
+            table = $('.table-users').DataTable({
+                'destroy': true,
+                "dom": "rt<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                "orderCellsTop": true,
+                "pageLength": 10,
+                "autoWidth": false,
+                'columnDefs': [{
+                    "width": "8%",
+                    "targets": [0],
+                    "class": "center"
+                }, {
+                    "width": "20%",
+                    "targets": [1]
+                }, {
+                    "width": "8%",
+                    "targets": [2]
+                }, {
+                    "width": "8%",
+                    "targets": [3]
+                }, {
+                    "width": "17%",
+                    "targets": [4]
+                }, {
+                    "width": "5%",
+                    "targets": [5],
+                    "class": "center",
+                    "orderable": "false"
+                }, {
+                    "width": "5%",
+                    "targets": [6],
+                    "class": "center",
+                    "orderable": "false"
+                }, {
+                    "width": "5%",
+                    "targets": [7],
+                    "class": "center",
+                    "orderable": "false"
+                }],
+                initComplete: function () {
+                    this.api().columns([4]).every(function () {
+                        var column = this;
+                        var select = $(".form-role");
+                        select.append('<option value="">-- All --</option>')
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                    $('.form-role').select2();
+                }
+            });
+            $(".table-users thead tr:eq(1) th input").on('keyup change', function () {
+                table.column($(this).parent().index() + ':visible').search(this.value, false, false, true).draw();
+            });
+            $('.table-users tbody').on('click', '.btn-change', function () {
+                var tr = $(this).closest('tr');
+                var username = tr.find('.col-user').html();
+                $('.txtUserName').val(username);
+                dialogChange.dialog("open");
+                dialogChange.dialog('option', 'title', 'Lấy lại mật khẩu người dùng : ' + username);
+            });
+            $('.table-users tbody').on('click', '.col-user', function () {
+                BlockUi();
+                var data = $(this).data("id");
+                clearData();
+                var tr = $(this).closest('tr').addClass('active');
+                loadDetail(data);
+            });
+            $('.table-users tbody').on('change', '.checkbox-item-active', function () {
+                var tr = $(this).closest('tr');
+                var id = tr.find('.col-user').data("id");
+                if (this.checked) {
+                    activeUser(tr, id, "1");
+                } else {
+                    $(this).prop('checked', true);
+                    toastr.warning("Please choose inactive checkbox to set inactive user", "Notification", { "preventDuplicates": true })
+                }
+            });
+            $('.table-users tbody').on('change', '.checkbox-item-inactive', function () {
+                var tr = $(this).closest('tr');
+                var id = tr.find('.col-user').data("id");
+                if (this.checked) {
+                    $item = tr;
+                    activeUser(tr, id, "0");
+                } else {
+                    $(this).prop('checked', true);
+                    toastr.warning("Please choose active checkbox to set active user", "Notification", { "preventDuplicates": true });
+                }
+            });
+            closeBlock();
+        }
+        function activeUser($tr, id, active) {
+            BlockUi();
+            $.ajax({
+                type: "GET",
+                url: urlActiveUser + '?userId=' + id + '&active=' + active,
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == "1") {
+                        if (active == "1") {
+                            $tr.find('.checkbox-item-inactive').prop('checked', false);
+                        } else {
+                            $tr.find('.checkbox-item-active').prop('checked', false);
+                        }
+                        toastr.success("Save change successful!!!", "", { "preventDuplicates": true })
+                    } else {
+                        if (active == "1") {
+                            $tr.find('.checkbox-item-active').prop('checked', false);
+                        } else {
+                            $tr.find('.checkbox-item-inactive').prop('checked', false);
+                        }
+                        toastr.error(data.msg, "", { "preventDuplicates": true });
+                    }
+                }, error: function (e) {
+                    alert("Phiên làm việc của bạn đã hết hạn. Vui lòng làm mới trang web để đăng nhập lại.");
+                    closeBlock();
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+        function clearData() {
+            $('.table-users').find('tr').removeClass('active');
+            $('.form-user-id').val("");
+            $('.form-username').val("");
+            $('.form-fullname').val("");
+            $('.form-phone').val("");
+            $('.form-address').val("");
+            $('.form-email').val("");
+            $('.form-role').val("0").trigger('change');
+            $('.form-shop').val("").trigger('change');
+            $('.label-remarks').html("");
+        }
+        function loadDetail(userId) {
+            $.ajax({
+                type: "GET",
+                url: urlGetDetail + '?userId=' + userId,
+                dataType: "json",
+                success: function (data) {
+                    $('.form-user-id').val(data.userId);
+                    $('.form-username').val(data.userName);
+                    $('.form-fullname').val(data.fullName);
+                    $('.form-phone').val(data.userPhone);
+                    $('.form-address').val(data.userAddress);
+                    $('.form-email').val(data.userEMail);
+                    $('.form-role').val(data.roleId).trigger('change');
+                    $('.form-shop').val(data.shopId).trigger('change');
+                    $('.label-remarks').html(data.remarks);
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+        function loadCombobox($control) {
+            $.fn.select2.amd.require(["select2/data/array", "select2/utils"], function (e, t) {
+                function a(e, t) {
+                    a.__super__.constructor.call(this, e, t)
+                }
+
+                function r(e, t) {
+                    return new RegExp(t, "i").test(e)
+                }
+                t.Extend(a, e), a.prototype.query = function (e, t) {
+                    "page" in e || (e.page = 1);
+                    var a = 10,
+                        n = this.$element.children().map(function (t, a) {
+                            return r(a.innerText, e.term) ? {
+                                id: a.value,
+                                text: a.innerText
+                            } : void 0
+                        });
+                    t({
+                        results: n.slice((e.page - 1) * a, e.page * a),
+                        pagination: {
+                            more: n.length >= e.page * a
+                        }
+                    })
+                }, $selectGroup = $control.select2({
+                    ajax: {},
+                    allowClear: false,
+                    dataAdapter: a
+                })
+            })
+        }
+</script>
+
+}

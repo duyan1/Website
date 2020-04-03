@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ReceiveMt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrefixId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CommandCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="MoId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="MtTypeId" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MsgContent" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="MsgContentTypeId" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="FeeTypeId" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="CampaignId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="OtherInfo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsSchedule" type="s:unsignedByte" />
+            <s:element minOccurs="0" maxOccurs="1" name="ScheduleTime" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveMtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ReceiveMtResult" type="s:unsignedByte" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveMtCSKH">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrefixId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CommandCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MsgContent" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="MsgContentTypeId" type="s:unsignedByte" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveMtCSKHResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ReceiveMtCSKHResult" type="s:unsignedByte" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveMtQC">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrefixId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CommandCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MsgContent" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="MsgContentTypeId" type="s:unsignedByte" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveMtQCResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ReceiveMtQCResult" type="s:unsignedByte" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveMtReplyMo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrefixId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CommandCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="MoId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MsgContent" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="MsgContentTypeId" type="s:unsignedByte" />
+            <s:element minOccurs="1" maxOccurs="1" name="FeeTypeId" type="s:unsignedByte" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveMtReplyMoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ReceiveMtReplyMoResult" type="s:unsignedByte" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ReceiveMtSoapIn">
+    <wsdl:part name="parameters" element="tns:ReceiveMt" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveMtSoapOut">
+    <wsdl:part name="parameters" element="tns:ReceiveMtResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveMtCSKHSoapIn">
+    <wsdl:part name="parameters" element="tns:ReceiveMtCSKH" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveMtCSKHSoapOut">
+    <wsdl:part name="parameters" element="tns:ReceiveMtCSKHResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveMtQCSoapIn">
+    <wsdl:part name="parameters" element="tns:ReceiveMtQC" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveMtQCSoapOut">
+    <wsdl:part name="parameters" element="tns:ReceiveMtQCResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveMtReplyMoSoapIn">
+    <wsdl:part name="parameters" element="tns:ReceiveMtReplyMo" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveMtReplyMoSoapOut">
+    <wsdl:part name="parameters" element="tns:ReceiveMtReplyMoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="MtReceiverSoap">
+    <wsdl:operation name="ReceiveMt">
+      <wsdl:input message="tns:ReceiveMtSoapIn" />
+      <wsdl:output message="tns:ReceiveMtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveMtCSKH">
+      <wsdl:input message="tns:ReceiveMtCSKHSoapIn" />
+      <wsdl:output message="tns:ReceiveMtCSKHSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveMtQC">
+      <wsdl:input message="tns:ReceiveMtQCSoapIn" />
+      <wsdl:output message="tns:ReceiveMtQCSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveMtReplyMo">
+      <wsdl:input message="tns:ReceiveMtReplyMoSoapIn" />
+      <wsdl:output message="tns:ReceiveMtReplyMoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MtReceiverSoap" type="tns:MtReceiverSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ReceiveMt">
+      <soap:operation soapAction="http://tempuri.org/ReceiveMt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveMtCSKH">
+      <soap:operation soapAction="http://tempuri.org/ReceiveMtCSKH" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveMtQC">
+      <soap:operation soapAction="http://tempuri.org/ReceiveMtQC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveMtReplyMo">
+      <soap:operation soapAction="http://tempuri.org/ReceiveMtReplyMo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MtReceiverSoap12" type="tns:MtReceiverSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ReceiveMt">
+      <soap12:operation soapAction="http://tempuri.org/ReceiveMt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveMtCSKH">
+      <soap12:operation soapAction="http://tempuri.org/ReceiveMtCSKH" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveMtQC">
+      <soap12:operation soapAction="http://tempuri.org/ReceiveMtQC" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveMtReplyMo">
+      <soap12:operation soapAction="http://tempuri.org/ReceiveMtReplyMo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MtReceiver">
+    <wsdl:port name="MtReceiverSoap" binding="tns:MtReceiverSoap">
+      <soap:address location="http://103.48.194.60/WebserivceFibo/MtReceiver.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MtReceiverSoap12" binding="tns:MtReceiverSoap12">
+      <soap12:address location="http://103.48.194.60/WebserivceFibo/MtReceiver.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

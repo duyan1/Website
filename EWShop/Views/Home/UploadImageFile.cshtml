@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "UploadImageFile";
+    Layout = "~/Views/Layout/_LayoutCustomerDashboard.cshtml";
+}
+@section Styles {
+    <style>
+        .table { width: 100%; margin-bottom:0!important; }
+        .block-heading { margin: 30px 0 15px; }
+        .block-heading h2{
+            font-size: 35px;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+        .block-heading p{
+            font-size: 19px;
+        }
+        .dv-content{
+            max-width: 900px;
+            width:100%;
+            margin: 0 auto;
+            text-align:left;
+        }
+    </style>
+}
+<div class="block-item">
+    <div class="block-heading">
+        <h2>TẢI HÌNH</h2>
+        <div class="dv-content">
+            <p>Local : <label class="lbLocal" style="color:red;margin: 0 10px;"></label></p>
+            <p>Server : <label class="lbServer" style="color:red;margin: 0 10px;"></label></p>
+        </div>
+    </div>
+</div>
+<div class="block-body">
+    <table class="table">
+        <tr>
+            <td><input type="file" class="form-image form-control" style="margin: 0 10px;" /></td>
+            <td><button class="btn btn-default">Tải hình</button></td>
+        </tr>
+    </table>
+    
+    
+</div>
+        
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.btn-default').click(function () {
+                uploadImage();
+            });
+        });
+        function uploadImage() {
+            var file1 = $(".form-image").get(0).files;
+            var fileData = new FormData();
+            for (var i = 0; i < file1.length; i++) {
+                fileData.append("fileInput", file1[i]);
+            }
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("uploadImageFile", "Home")',
+                dataType: "json",
+                contentType: false, // Not to set any content header
+                processData: false, // Not to process data
+                data: fileData,
+                success: function (data) {
+                    $('.lbLocal').html(data.msg);
+                    $('.lbServer').html(data.code);
+                },
+                error: function (xhr, status, error) {
+                    alert(error);
+                },
+                complete: function () {
+                }
+            });
+        }
+    </script>
+}

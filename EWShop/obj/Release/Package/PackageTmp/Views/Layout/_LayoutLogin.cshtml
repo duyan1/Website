@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Libraries/dist/img/iconlogo.png">
+    <link href="~/Libraries/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Libraries/dist/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Libraries/dist/fonts/iconic/css/material-design-iconic-font.min.css" rel="stylesheet" />
+    <link href="~/Libraries/vendor/animate/animate.css" rel="stylesheet" />
+    <link href="~/Libraries/vendor/css-hamburgers/hamburgers.css" rel="stylesheet" />
+    <link href="~/Libraries/vendor/animsition/css/animsition.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Libraries/dist/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Libraries/dist/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+    <div class="limiter">
+        @RenderBody()
+    </div>
+    <script src="@Url.Content("~/Libraries/vendor/jquery/jquery-3.2.1.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/animsition/js/animsition.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/bootstrap/js/popper.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/bootstrap/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/countdowntime/countdowntime.js")"></script>
+    <script src="@Url.Content("~/Libraries/dist/js/main.js")"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>

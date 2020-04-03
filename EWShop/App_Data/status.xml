@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<status>
+  <obj ID="Generation">
+    <Text>Mới yêu cầu</Text>
+  </obj>
+  <obj ID="Escalation">
+    <Text>Đã chuyển cấp</Text>
+  </obj>
+  <obj ID="Dispatched">
+    <Text>Đã điều phối Trạm BH</Text>
+  </obj>
+  <obj ID="Accept">
+    <Text>Trạm BH đã tiếp nhận</Text>
+  </obj>
+ <obj ID="Reject">
+    <Text>Trạm BH đã từ chối</Text>
+  </obj>
+ <obj ID="In Process">
+    <Text>Đang xử lý</Text>
+  </obj>
+
+ <obj ID="ASP closed">
+    <Text>Đã hoàn tất</Text>
+  </obj>
+<obj ID="Closed">
+    <Text>Đã hoàn tất</Text>
+  </obj>
+  <obj ID="Temporary Completed">
+    <Text>Đã hoàn tất</Text>
+  </obj> 
+  <obj ID="Completed">
+    <Text>Đã hoàn tất</Text>
+  </obj>
+  <obj ID="Info.Supplement">
+    <Text>Đã hoàn tất</Text>
+  </obj>
+ <obj ID="Cancel">
+    <Text>Đã hủy</Text>
+  </obj>
+<obj ID="Received by Call Center">
+    <Text>Call Center đã tiếp nhận</Text>
+  </obj>
+<obj ID="Terminated by Call Center">
+    <Text>Call Center đã Tư vấn/Hướng dẫn</Text>
+  </obj>
+<obj ID="CIC can not contact customer">
+    <Text>Không liên lạc được với KH</Text>
+  </obj>
+<obj ID="Canceled by Call Center">
+    <Text>Đã bị hủy bởi Call Center</Text>
+  </obj>
+<obj ID="Terminated by Service Partner">
+    <Text>Đã bị hủy bởi Trạm BH</Text>
+</obj>
+<obj ID="SR send to ASP">
+    <Text>Đã chuyển đến Trạm BH</Text>
+  </obj>
+<obj ID="Received by Service Partner">
+    <Text>Trạm BH đã tiếp nhận</Text>
+  </obj>
+  <obj ID="Appointment scheduled">
+    <Text>Đã lên lịch hẹn với KH</Text>
+  </obj>
+<obj ID="Parts ordered">
+    <Text>TBH đã đặt hàng</Text>
+  </obj>
+  <obj ID="Repair Finished">
+    <Text>Đã hoàn tất sửa chữa</Text>
+  </obj>  
+  <obj ID="Processing by Call Center">
+    <Text>Call Center đang xử lý</Text>
+  </obj>
+</status>

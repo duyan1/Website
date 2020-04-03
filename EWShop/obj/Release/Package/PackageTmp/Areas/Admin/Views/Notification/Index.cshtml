@@ -1,0 +1,448 @@
+﻿@{
+    ViewBag.Title = "List of notification";
+    Layout = "~/Views/Layout/_LayoutAdminDashboard.cshtml";
+    IEnumerable<EWShop.Models.DataReturn> listMonths = (IEnumerable<EWShop.Models.DataReturn>)ViewData["MONTH"];
+}
+@section Styles {
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
+
+            .select2-container .select2-selection--single .select2-selection__rendered {
+                font-size: 14px;
+            }
+
+        .center {
+            text-align: center !important;
+        }
+
+        .form-control {
+            width: 100% !important;
+            font-size: 14px;
+            padding: 5px;
+            height: 25px;
+            border-radius: 3px;
+        }
+
+        table.dataTable {
+            margin: 0 auto;
+            width: 100%;
+            clear: both;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+            table.dataTable thead th {
+                padding: 2px;
+                white-space: nowrap;
+                text-align: center;
+                font-weight: 500;
+            }
+
+            table.dataTable thead tr:first-child th, table.dataTable tfoot th {
+                padding: 5px;
+                font-weight: 600;
+            }
+
+            table.dataTable tbody td {
+                padding: 5px 7px;
+                white-space: nowrap;
+                vertical-align: middle;
+                font-size: 14px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            table.dataTable tbody tr.active td {
+                font-weight: 600;
+                background-color: #ddd;
+            }
+
+            table.dataTable tbody tr {
+                cursor: pointer;
+            }
+
+        .div-filter {
+            display: none;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .btn {
+            font-size: 13px !important;
+            padding: 3px 10px;
+            height: 25px;
+            border: 1px solid #fff !important;
+        }
+
+        .box {
+            margin-bottom: 10px !important;
+        }
+
+        .box-header {
+            padding: 8px 10px;
+        }
+
+        .box-body {
+            padding: 5px;
+        }
+
+        .col-label {
+            width: 100px;
+            text-align: right;
+            vertical-align: middle;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+            .table > tbody > tr > td {
+                border-top: 0;
+            }
+    </style>
+}
+<section class="content-header">
+    <h1>
+        List of notification
+        <small>Display</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home page</a></li>
+        <li class="active">notification</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- interactive chart -->
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-list-alt"></i>
+                    <h3 class="box-title">List of notification</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-success btn-excel" style="float: left; margin-top: 6px;"><i class="fa fa-file-excel-o"></i> Export excel</button>
+                        <button type="button" class="btn btn-primary btn-filter" style="margin-top: 6px;" title="Filter">
+                            <i class="fa fa-filter"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row div-filter">
+                        <div class="col-sm-12 no-padding">
+                            <label class="control-label" style="float:left; padding: 2px; margin-bottom: 0; margin-right: 5px;">Month</label>
+                            <div style="float:left;margin-right:5px;width:100px;">
+                                <select class="sel-month form-control form-select">
+                                    <option value="" selected="selected"></option>
+                                    @foreach (var item in listMonths)
+                                    {
+                                        <option value="@item.value">@item.text</option>
+                                    }
+                                </select>
+                            </div>
+                            <button class="btn btn-default btn-search" style="float:left; border-color: gray!important;">Lọc thông tin</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 no-padding">
+                        <table class="table table-bordered table-striped table-notification">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Content</th>
+                                    <th>BeginDate</th>
+                                    <th>EndDate</th>
+                                    <th>IsActive</th>
+                                    <th>Remarks</th>
+                                </tr>
+                                <tr>
+                                    <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+                                    <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+                                    <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+                                    <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+                                    <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+                                    <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.box-body-->
+            </div>
+            <!-- /.box -->
+
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- box -->
+            <form class="form-horizontal">
+                <div class="box box-primary box-solid">
+                    <div class="box-header with-border">
+                        <i class="fa fa-pencil"></i>
+                        <h3 class="box-title">Chi tiết</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-primary btn-save" style="float: left; margin-top: 6px;"><i class="fa fa-save"></i> Lưu lại</button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <input type="hidden" name="NId" class="hidden-NId" />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-12 no-padding">
+                                    <table class="table table-condensed">
+                                        <tr>
+                                            <td class="col-label" title="Notification title">Title</td>
+                                            <td>
+                                                <input type="text" class="form-control text-title" name="NTitle" placeholder="Enter title ...">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-12 no-padding">
+                                    <table class="table table-condensed">
+                                        <tr>
+                                            <td class="col-label">Date</td>
+                                            <td style="width: 120px;"><input type="text" class="form-control form-date" name="beginDate" placeholder="Begin date"></td>
+                                            <td style="width: 120px;"><input type="text" class="form-control form-date" name="endDate" placeholder="End date"></td>
+                                            <td>
+                                                <input type="hidden" name="isActive" class="form-active" />
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="lbCheckbox" />
+                                                    <label class="custom-control-label" for="lbCheckbox">Active</label>
+                                                </div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-12 no-padding">
+                                    <table class="table table-condensed">
+                                        <tr>
+                                            <td class="col-label">Content</td>
+                                            <td colspan="3">
+                                                <textarea cols="3" rows="4" class="form-control text-content" name="NContent" id="editor1"></textarea>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-12 no-padding">
+                                    <table class="table table-condensed">
+                                        <tr>
+                                            <td class="col-label" title="Url reference">URL Ref.</td>
+                                            <td><input type="text" class="form-control text-remarks" name="remarks" placeholder="Enter remarks"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<script src="@Url.Content("~/Libraries/vendor/ckeditor/ckeditor.js")"></script>
+@section Scripts {
+    <script>
+        var table;
+        var dateFormat = "dd/mm/yy";
+        $(document).ready(function () {
+            loadCombobox($('.sel-month'));
+            loadDataTable($('.sel-month').val());
+            CKEDITOR.replace('editor1');
+            $('.form-date').mask('00/00/0000');
+            $('.form-date').datepicker({
+                dateFormat: dateFormat,
+                maxDate: new Date()
+            });
+            $(window).on('resize', function () {
+                table.draw();
+            });
+            $('.btn-filter').click(function () {
+                $('.div-filter').slideToggle();
+            });
+            $('.btn-search').click(function () {
+                loadDataTable($('.sel-month').val());
+            });
+            $('.btn-save').click(function () {
+                saveMaterial();
+            });
+            $('.btn-excel').click(function () {
+                var month = $('.sel-month').val();
+                window.open('@Url.Action("DownloadExcel", "Notification")' + '?month=' + month, '_blank');
+            });
+        });
+        function loadDataTable(month) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("getlistNotifications", "Notification")' + '?month=' + month,
+                dataType: "json",
+                success: function (data) {
+                    table = $('.table-notification').DataTable({
+                        'destroy': true,
+                        "dom": "rt<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                        "orderCellsTop": true,
+                        "pageLength": 5,
+                        'data': data,
+                        "autoWidth": false,
+                        'columnDefs': [{
+                            "width": "20%",
+                            "targets": [0]
+                        }, {
+                            "width": "36%",
+                            "targets": [1]
+                        }, {
+                            "width": "8%",
+                            "targets": [2],
+                            "class": "center"
+                        }, {
+                            "width": "8%",
+                            "targets": [3],
+                            "class": "center"
+                        }, {
+                            "width": "8%",
+                            "targets": [4],
+                            "class": "center"
+                        }, {
+                            "width": "20%",
+                            "targets": [5]
+                        }],
+                        'columns': [
+                            {
+                                'data': 'NTitle',
+                                'render': function (data) {
+                                    var array = data.split(",");
+                                    return '<label class="col-id" data-id="' + array[0] + '">' + array[1] + '</label>';
+                                }
+                            },
+                            { 'data': 'NContent' },
+                            { 'data': 'beginDate' },
+                            { 'data': 'endDate' },
+                            {
+                                'data': 'isActive',
+                                'render': function (data) {
+                                    if (data == "True")
+                                        return '<img src="@Url.Content("~/Libraries/dist/img/icon_green.png")" style="width: 25px;height:25px;" class="" />';
+                                    else
+                                        return '<img src="@Url.Content("~/Libraries/dist/img/icon_red.png")" style="width: 25px;height:25px;" />'
+                                }
+                            },
+                            { 'data': 'remarks' }],
+                    });
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    $(".table-notification thead tr:eq(1) th input").on('keyup change', function () {
+                        table.column($(this).parent().index() + ':visible').search(this.value, false, false, true).draw();
+                    });
+                    $('.table-notification tbody').on('click', 'tr', function () {
+                        var data = table.row(this).data();
+                        table.rows().every(function () {
+                            this.nodes().to$().removeClass('active')
+                        })
+                        $(this).addClass('active');
+                        var id = $(this).find('.col-id').data("id");
+                        loadDetail(id);
+                    });
+                }
+            });
+        }
+        function loadDetail(id) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("getDetailInfo", "Notification")' + '?id=' + id,
+                dataType: "json",
+                success: function (data) {
+                    $('.hidden-MATID').val(data.MATID);
+                    $('.text-material-code').val(data.MATCode);
+                    $('.text-material-description').val(data.MATDescription);
+                    $('.select-plant').val(data.plantID).trigger('change');
+                    $('.select-model').val(data.modelTypeID).trigger('change');
+                    $('.text-price').val(data.price);
+                    $('.text-discount').val(data.discount);
+                    $('.text-currency').val(data.currency);
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+
+                }
+            });
+        }
+        function saveMaterial() {
+            BlockUi();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("saveMaterial", "BasicData")',
+                data: $('.form-horizontal').serialize(),
+                success: function (data) {
+                    if (data.code == "1") {
+                        toastr.success("Save successfully !!!");
+                        clearData();
+                    } else {
+                        toastr.error(data.msg);
+                    }
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+        function clearData() {
+            $('.hidden-MATID').val("");
+            $('.text-material-code').val("");
+            $('.text-material-description').val("");
+            $('.select-plant').val("0").trigger('change');
+            $('.select-model').val("0").trigger('change');
+            $('.text-price').val("");
+            $('.text-discount').val("");
+            $('.text-currency').val("");
+        }
+        function loadCombobox($control) {
+            $.fn.select2.amd.require(["select2/data/array", "select2/utils"], function (e, t) {
+                function a(e, t) {
+                    a.__super__.constructor.call(this, e, t)
+                }
+
+                function r(e, t) {
+                    return new RegExp(t, "i").test(e)
+                }
+                t.Extend(a, e), a.prototype.query = function (e, t) {
+                    "page" in e || (e.page = 1);
+                    var a = 10,
+                        n = this.$element.children().map(function (t, a) {
+                            return r(a.innerText, e.term) ? {
+                                id: a.value,
+                                text: a.innerText
+                            } : void 0
+                        });
+                    t({
+                        results: n.slice((e.page - 1) * a, e.page * a),
+                        pagination: {
+                            more: n.length >= e.page * a
+                        }
+                    })
+                }, $selectGroup = $control.select2({
+                    ajax: {},
+                    allowClear: false,
+                    dataAdapter: a
+                })
+            })
+        }
+    </script>
+}

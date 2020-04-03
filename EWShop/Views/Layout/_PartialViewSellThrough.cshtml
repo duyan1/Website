@@ -1,0 +1,45 @@
+﻿@model IEnumerable<EWShop.Areas.Distribution.Models.SellThrough>
+
+<table class="table table-bordered table-sell">
+    <thead>
+        <tr>
+            <th title="Số máy">Số máy</th>
+            <th title="Kiểu máy">Kiểu máy</th>
+            <th title="Kiểu máy">Sản phẩm</th>
+            <th title="Ngày bán">Ngày bán</th>
+            <th title="Cửa hàng nhận">Cửa hàng nhận</th>
+            <th title="Người tải">Người tải</th>
+            <th title="Ngày tải">Ngày tải</th>
+            <th title="Comment">Ghi chú</th>
+        </tr>
+        <tr>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td>@item.barcode</td>
+                    <td>@item.model</td>
+                    <td>@item.plant</td>
+                    <td>@item.sellDate</td>
+                    <td>@item.shopName</td>
+                    <td>@item.transuser</td>
+                    <td>@item.transdate</td>
+                    <td>@item.comment</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+

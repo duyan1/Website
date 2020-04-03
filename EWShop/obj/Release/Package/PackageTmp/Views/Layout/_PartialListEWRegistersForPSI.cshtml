@@ -1,0 +1,65 @@
+﻿@model IEnumerable<EWShop.Models.ProductSellOutReport>
+
+<table class="table table-bordered table-ewarranty table-condensed table-striped">
+    <thead>
+        <tr>
+            <th title="Mã bảo hành">Mã BH</th>
+            <th title="Ngày mua">Ngày mua</th>
+            <th title="Số máy">Số máy</th>
+            <th title="Kiểu máy">Kiểu máy</th>
+            <th title="Loại sản phẩm">Loại sản phẩm</th>
+            <th title="Tên khách hàng">Tên KH</th>
+            <th title="SĐT khách hàng">SĐT KH</th>
+            <th title="Địa chỉ khách hàng">Địa chỉ KH</th>
+            <th title="Kênh đăng ký">Kênh ĐK</th>
+            <th title="Ngày đăng ký">Ngày ĐK</th>
+            <th title="Mã cửa hàng">Mã CH</th>
+            <th title="Tên cửa hàng">Tên CH</th>
+            <th title="Địa chỉ cửa hàng">Địa chỉ CH</th>
+            <th title="Khu vực">Khu vực</th>
+            <th title="Ghi chú">Ghi chú</th>
+        </tr>
+        <tr>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+            <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                <tr>
+                    <td class="col-card" data-id="@item.eWCardId">@item.eWCardNo</td>
+                    <td class="col-flat" data-id="@item.flat">@item.POD</td>
+                    <td>@item.barcode</td>
+                    <td>@item.model</td>
+                    <td>@item.plant</td>
+                    <td>@item.cusName</td>
+                    <td>@item.cusPhone</td>
+                    <td>@item.cusAddress</td>
+                    <td>@item.channel</td>
+                    <td>@item.regDate</td>
+                    <td>@item.shopCode</td>
+                    <td>@item.shopName</td>
+                    <td>@item.shopAddress</td>
+                    <td>@item.region</td>
+                    <td title="@item.status">@item.status</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

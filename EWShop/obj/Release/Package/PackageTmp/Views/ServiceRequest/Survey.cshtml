@@ -1,0 +1,82 @@
+﻿@model EWShop.Areas.Admin.Models.QAItem
+@{
+    Layout = null;
+    EWShop.Models.Ministry ministry = (EWShop.Models.Ministry)ViewData[EWShop.Models.CommonConstants.MINISTRY_INFO];
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Khảo sát</title>
+    <link rel="icon" type="image/png" href="https://aquavietnam.com.vn/wp-content/themes/aquavietnam/favicon.png" />
+    <link href="~/Libraries/dist/css/survey.css" rel="stylesheet" />
+    <style>
+        h3{
+            margin-bottom: 0;
+        }
+        p.text-center {
+            font-size: 24px;
+            font-weight: 600;
+            padding: 0 15px;
+            text-align: left!important;
+        }
+        input[type=radio]:checked + label:after {
+            border-color: #2e7d32;
+            background-color: #2e7d32;
+        }
+        .survey-footer{
+            border-top:  1px solid #ddd;
+        }
+    </style>
+
+    <script src="@Url.Content("~/Libraries/vendor/jquery/jquery-3.3.1.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/bootstrap-3.4.1/dist/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+</head>
+<body>
+    <div class="container mt-3 mb-3">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Card Regular -->
+                <div class="card card-cascade">
+
+                    <!-- Card content -->
+                    <div class="card-body card-body-cascade text-center">
+                        <!-- Title -->
+                        <div class="card-title">
+                            <img src="~/Libraries/dist/img/logo_login.png" style="width: 270px; margin-bottom: 30px; margin-top: 15px;" />
+                            <h5><strong>KHẢO SÁT CHẤT LƯỢNG DỊCH VỤ</strong></h5>
+                            <hr style="border: 0; margin: 0;" />
+                            <a>Vui lòng giúp chúng tôi cải thiện dịch vụ bằng cách tham gia cuộc khảo sát ngắn này nhé</a>
+                        </div>
+                    </div>
+                    <hr />
+                    @using (Ajax.BeginForm("Survey", "ServiceRequest", new AjaxOptions { HttpMethod = "POST", UpdateTargetId="dvUpdatePanel", OnSuccess = "OnSuccess" }))
+                    {
+                        <div id="dvUpdatePanel">
+                            @Html.Partial("~/Views/Layout/_PartialViewItemQASurvey.cshtml", Model)
+                        </div>
+                    }
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142865147-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-142865147-1');
+
+      function OnSuccess() {
+
+      }
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<EWShop.Areas.Admin.Models.ShopItem>
+@if (Model != null)
+{
+    <table class="table table-bordered table-striped table-shops">
+        <thead>
+            <tr>
+                <th>ShopCode</th>
+                <th>ShopName</th>
+                <th>ShopType</th>
+                <th>Account</th>
+                <th>Level</th>
+                <th>Province</th>
+                <th>Region</th>
+                <th>Area</th>
+                <th>Active</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+                <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+                <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+                <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+                <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+                <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+                <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+                <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+                <th><input class="form-control form-filter" placeholder="Tìm kiếm ..." /></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.shopCode</td>
+                        <td>@item.shopName</td>
+                        <td>@item.shopType</td>
+                        <td>@item.shopGroup</td>
+                        <td>@item.shopLevel</td>
+                        <td>@item.province</td>
+                        <td>@item.region</td>
+                        <td>@item.area</td>
+                        @if (item.isActive == "True")
+                        {
+                            <td class="center"><img src="@Url.Content("~/Libraries/dist/img/icon_green.png")" style="width: 25px;height:25px;" /></td>
+                        }
+                        else
+                        {
+                            <td class="center"><img src="@Url.Content("~/Libraries/dist/img/icon_red.png")" style="width: 25px;height:25px;" /></td>
+                        }
+                        <td class="center"><a class="btn btn-default btn-view" data-id="@item.shopId"><i class="fa fa-pencil-square"></i></a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}

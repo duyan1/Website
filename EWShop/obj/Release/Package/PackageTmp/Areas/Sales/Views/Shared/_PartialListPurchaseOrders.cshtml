@@ -1,0 +1,64 @@
+﻿@model IEnumerable<EWShop.Areas.Sales.Models.PurchaseOrder>
+
+@if (Model != null)
+{
+    <table class="table table-bordered table-striped table-purchase">
+        <thead>
+            <tr>
+                <th>PO Number</th>
+                <th title="Order Date">Ord.Date</th>
+                <th title="Currency">Curr.</th>
+                <th>CreatedPO</th>
+                <th title="Order Type ( 1: đơn hàng thường, 2: đơn hàng trưng bày)">Ord.Type</th>
+                <th>SoldTo</th>
+                <th>ShipTo</th>
+                <th>Confirmed</th>
+                <th title="Date Confirmed">DateConf.</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr class="row-item">
+                        <td class="col-pono">@item.numberPO</td>
+                        <td>@item.orderDate</td>
+                        <td>@item.currency</td>
+                        <td>@item.createdPO</td>
+                        @if (item.orderType == "1")
+                        {
+                            <td>ĐH THƯỜNG</td>
+                        }
+                        else
+                        {
+                            <td>ĐH TRƯNG BÀY</td>
+                        }
+                        <td>@item.soldTo</td>
+                        <td>@item.shipTo</td>
+                        @if ("0".Equals(item.confirmed))
+                        {
+                            <td>Not confirmed</td>
+                        }
+                        else if ("1".Equals(item.confirmed))
+                        {
+                            <td>Confirmed</td>
+                        }
+                        else
+                        {
+                            <td>Rejected</td>
+                        }
+                        <td>@item.dateConfirmed</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}else
+{
+    <div class="row">
+        <div class="col-md-12 center">
+            <label style="color: red;">NO DATA</label>
+        </div>
+    </div>
+}

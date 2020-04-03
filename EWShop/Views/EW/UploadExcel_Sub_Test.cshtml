@@ -1,0 +1,339 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Xử lý tập tin</title>
+    <link href="~/Libraries/vendor/bootstrap-3.4.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="~/Libraries/vendor/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .center {
+            text-align: center !important;
+        }
+        table.dataTable {
+            margin: 0 auto;
+            width: 100%;
+            clear: both;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+            table.dataTable thead th {
+                padding: 2px;
+                white-space: nowrap;
+                text-align: center;
+                font-weight: 500;
+                color: black;
+            }
+
+            table.dataTable thead tr:first-child th, table.dataTable tfoot th {
+                padding: 5px;
+                text-align: center;
+                font-weight: 600;
+            }
+
+            table.dataTable tbody td {
+                padding: 8px 3px;
+                white-space: nowrap;
+                vertical-align: middle;
+                font-size: 10px;
+                line-height: 1.2!important;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            table.dataTable tbody tr.active td {
+                font-weight: 600;
+                background-color: #ddd;
+            }
+            table.dataTable tbody tr {
+                cursor: pointer;
+            }
+            .pagination>li>a, .pagination>li>span{
+                padding: 5px 15px;
+            }
+    </style>
+</head>
+<body style="overflow:hidden;">
+    <input type="hidden" class="form-fileId" value="@ViewBag.fileId" />
+    <div class="row" style="z-index: 1; position: relative;width:50%;">
+        <div class="col-md-12" style="padding: 5px 20px;width:100%;">
+            <label style="font-weight:500;margin-right:5px;">Tổng số: </label><label class="lbTotal" style="font-weight:600;margin-right:10px;color: blue;cursor:pointer;">6</label>&nbsp;|&nbsp;
+            <label style="font-weight:500;margin-right:5px;">Hợp lệ: </label><label class="lbValid" style="font-weight:600;margin-right:10px;color: blue;cursor:pointer;">6</label>&nbsp;|&nbsp;
+            <label style="font-weight:500;margin-right:5px;">Không hợp lệ: </label><label class="lbInValid" style="font-weight:600;margin-right:10px;color: blue;cursor:pointer;">6</label>&nbsp;|&nbsp;
+            <label style="font-weight:500;margin-right:5px;">Xác nhận bằng hình ảnh: </label><label class="lbVerify" style="font-weight:600;margin-right:10px;color: blue;cursor:pointer;">6</label>&nbsp;|&nbsp;
+            @if (ViewBag.error != null)
+            {<label style="color:red;">@ViewBag.error</label>}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="margin-top: -35px;">
+            <table class="table table-bordered table-data">
+                <thead>
+                    <tr>
+                        <th>Tên KH</th>
+                        <th>SĐT KH</th>
+                        <th>Địa chỉ KH</th>
+                        <th>Số máy</th>
+                        <th>Kiểu máy</th>
+                        <th>Ngày mua</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="row" style="margin:0 10px;">
+        <label style="font-weight:500;margin-right:5px;float:left;margin-top: 5px;">Danh sách tải hình :</label>
+        <input type="file" multiple class="form-control fileUpload" style="width: 40%;padding: 3px; float: left; margin-right: 10px; height: 30px;" />
+        <button class="btn btn-default" id="btnUpload" style="padding: 4px 15px; height: 30px;">Tải hình</button>
+        <label style="font-weight:500;margin-right:5px;float:left;margin-top: 5px;color: red;" class="lbError"></label>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed table-bordered table-images">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên hình</th>
+                        <th>Ngày tải</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
+    <script src="@Url.Content("~/Libraries/vendor/bootstrap-3.4.1/dist/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/datatables/js/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/datatables/js/dataTables.bootstrap.min.js")"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            loadDataTable($('.form-fileId').val(),"3");
+            loadDataTableImages($('.form-fileId').val());
+            loadInfo($('.form-fileId').val());
+            $('.lbTotal').click(function () {
+                var total = $(this).html();
+                if(total != "0")
+                    loadDataTable($('.form-fileId').val(),"3");
+            });
+            $('.lbValid').click(function () {
+                var total = $(this).html();
+                if (total != "0")
+                    loadDataTable($('.form-fileId').val(), "1");
+            });
+            $('.lbInValid').click(function () {
+                var total = $(this).html();
+                if (total != "0")
+                    loadDataTable($('.form-fileId').val(), "0");
+            });
+            $('.lbVerify').click(function () {
+                var total = $(this).html();
+                if (total != "0")
+                    loadDataTable($('.form-fileId').val(), "2");
+            });
+            $('#btnUpload').click(function () {
+                $('.lbError').html('');
+                var files = $(".fileUpload").get(0).files;
+                var fileData = new FormData();
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append("fileInput", files[i]);
+                }
+                fileData.append("fileId", $('.form-fileId').val());
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("uploadImage", "EW")',
+                    dataType: "json",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (data) {
+                        if (data.code == "1") {
+                            loadDataTableImages($('.form-fileId').val());
+                        } else {
+                            $('.lbError').html(data.msg);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert(status);
+                    }
+                });
+            });
+            $('.table-images').on('click', '.remove-item', function () {
+                var fileId = $(this).data("name");
+                var imgId = $(this).data("id");
+                removeImage(fileId, imgId);
+            });
+        });
+        function removeImage(fileId,imgId) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("removeImage", "EW")' + '?fileId=' + fileId + '&imgId=' + imgId,
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == "1") {
+                        loadDataTableImages($('.form-fileId').val());
+                    } else {
+                        alert(data.msg);
+                    }
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+
+                }
+            });
+        }
+        function loadInfo(fileId) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("loadInfoFileUpload_Test", "EW")' + '?fileId=' + fileId,
+                dataType: "json",
+                success: function (data) {
+                    $('.lbTotal').html(data.total);
+                    $('.lbValid').html(data.valid);
+                    $('.lbInValid').html(data.inValid);
+                    $('.lbVerify').html(data.verify);
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+
+                }
+            });
+        }
+        function loadDataTableImages(fileId) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("loadDataImageUpload", "EW")' + '?fileId=' + fileId,
+                dataType: "json",
+                success: function (data) {
+                    table = $('.table-images').DataTable({
+                        'destroy': true,
+                        "dom": "rt<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                        "pageLength": 4,
+                        'data': data,
+                        "autoWidth": false,
+                        'columnDefs': [{
+                            "width": "10%",
+                            "targets": [0],
+                            "class": "center"
+                        }, {
+                            "width": "50%",
+                            "targets": [1]
+                        }, {
+                            "width": "25%",
+                            "targets": [2],
+                            "class": "center"
+                        }, {
+                            "width": "15%",
+                            "targets": [3],
+                            "class": "center"
+                        }],
+                        'columns': [
+                            { 'data': 'fileId' },
+                            {
+                                'data': 'imageOrig',
+                                'render': function (data) {
+                                    return "<a title='" + data + "'>" + data + "</a>";
+                                }
+                            },
+                            { 'data': 'uploadDate' },
+                            {
+                                'data': 'imageId',
+                                'render': function (data) {
+                                    var array = data.split(";");
+                                    return "<a class='remove-item' data-id='" + array[0] + "' data-name='" + array[1] + "'>Xóa</a>";
+                                }
+                            }],
+                    });
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                }
+            });
+        }
+        function loadDataTable(fileId, status) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("loadDataTempFileUpload_Test", "EW")' + '?fileId=' + fileId + '&status=' + status,
+                dataType: "json",
+                success: function (data) {
+                    table = $('.table-data').DataTable({
+                        'destroy': true,
+                        "dom": "<'col-sm-6 pull-right'p>rt",
+                        "pageLength": 5,
+                        'data': data,
+                        "autoWidth": false,
+                        'columnDefs': [{
+                            "width": "10%",
+                            "targets": [0]
+                        }, {
+                            "width": "7%",
+                            "targets": [1],
+                            "class": "center"
+                        }, {
+                            "width": "15%",
+                            "targets": [2]
+                        }, {
+                            "width": "11%",
+                            "targets": [3],
+                            "class": "center"
+                        }, {
+                            "width": "9%",
+                            "targets": [4],
+                            "class": "center"
+                        }, {
+                            "width": "7%",
+                            "targets": [5],
+                            "class": "center"
+                        }, {
+                            "width": "15%",
+                            "targets": [6]
+                        }],
+                        'columns': [
+                            {
+                                'data': 'cusName',
+                                'render': function (data) {
+                                    return "<a title='" + data + "'>" + data + "</a>";
+                                }
+                            },
+                            { 'data': 'cusPhone' },
+                            {
+                                'data': 'cusAddress',
+                                'render': function (data) {
+                                    return "<a title='" + data + "'>" + data + "</a>";
+                                }
+                            },
+                            {
+                                'data': 'barcode',
+                                'render': function (data) {
+                                    return "<a title='" + data + "'>" + data + "</a>";
+                                }
+                            },
+                            { 'data': 'model' },
+                            { 'data': 'purchaseDate' },
+                            {
+                                'data': 'status',
+                                'render': function (data) {
+                                    return "<a title='" + data + "'>" + data + "</a>";
+                                }
+                            }],
+                    });
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    parent.closeBlock();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

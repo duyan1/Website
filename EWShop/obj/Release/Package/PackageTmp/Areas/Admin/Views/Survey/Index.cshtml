@@ -1,0 +1,327 @@
+﻿@model EWShop.Areas.Admin.Models.QAItem
+@{
+    ViewBag.Title = "Setup QA survey";
+    Layout = "~/Views/Layout/_LayoutAdminDashboard.cshtml";
+    IEnumerable<EWShop.Areas.Admin.Models.RecordItem> listQuestions = (IEnumerable<EWShop.Areas.Admin.Models.RecordItem>)ViewData["QUESTIONS"];
+    IEnumerable<EWShop.Areas.Admin.Models.RecordItem> listAnswers = (IEnumerable<EWShop.Areas.Admin.Models.RecordItem>)ViewData["ANSWERS"];
+}
+@section Styles {
+    <style>
+        a{
+            color: black;
+        }
+        h4{
+            margin: 0;
+        }
+        .box-body{
+            padding: 0;
+        }
+        .select2-container {
+            width: 100% !important;
+        }
+        .select2-container .select2-selection--single .select2-selection__rendered{
+            font-size: 14px;
+        }
+        .center{
+            text-align:center!important;
+        }
+        .form-control {
+            width: 100% !important;
+            font-size: 14px;
+            padding: 5px;
+            height: 25px;
+            border-radius: 3px;
+        }
+        table > thead > tr > th{
+            padding:5px!important;
+            font-weight: 600;
+            text-align: center;
+        }
+        table.dataTable {
+            margin: 0 auto!important;
+            width: 100%;
+            clear: both;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        table.dataTable thead th {
+            padding: 2px;
+            white-space: nowrap;
+            text-align: center;
+            font-weight: 500;
+        }
+        table.dataTable thead tr:first-child th, table.dataTable tfoot th {
+            padding:5px!important;
+            font-weight: 600;
+        }
+        table.dataTable tbody td {
+            padding: 0 5px;
+            white-space: nowrap;
+            vertical-align: middle;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        table.dataTable tbody tr.active td {
+            font-weight:600;
+            background-color:#ddd;
+        }
+        table.dataTable tbody tr {
+            cursor:pointer;
+        }
+        .custom-control {
+            position: relative;
+            display: block;
+            min-height: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        input[type=checkbox], input[type=radio] {
+            box-sizing: border-box;
+            padding: 0;
+        }
+        [type=checkbox]:checked, [type=checkbox]:not(:checked) {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .lbCheck{
+            font-size: 25px;
+        }
+        label{
+            display: inline-block;
+        }
+        .col-label{
+            width: 100px;
+        }
+        .custom-control-label {
+            position: relative;
+            margin-bottom: 0;
+            vertical-align: top;
+        }
+        .custom-control-label::before{
+            transition: none;
+        }
+        .custom-checkbox .custom-control-label::before {
+            border-radius: .25rem;
+        }
+        .custom-control-label::before {
+            position: absolute;
+            top: 0;
+            left: -1.5rem;
+            display: block;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            content: "";
+            background-color: #fff;
+            border: #adb5bd solid 1px;
+        }
+        .custom-control-label::after {
+            position: absolute;
+            top: .25rem;
+            left: -1.5rem;
+            display: block;
+            width: 1rem;
+            height: 1rem;
+            content: "";
+            background: no-repeat 50%/50% 50%;
+        }
+        .custom-control-input:checked ~ .custom-control-label::before {
+            color: #fff;
+            border-color: black;
+            background-color: cornflowerblue;
+        }
+        .box-header > .box-tools {
+            top: 8px !important;
+        }
+        .btn{
+            min-width: 100px;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1>
+        Manage question answer
+        <small>Setup survey</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home page</a></li>
+        <li class="active">QA survey</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <div class="box-title" style="margin-top: 5px;">
+                        <h4>List questions</h4>
+                    </div>
+                </div>
+                <div class="box-body" style="margin-top: -40px;">
+                    <table class="table table-bordered table-questions">
+                        <thead>
+                            <tr>
+                                <th>Content</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var item in listQuestions)
+                            {
+                                <tr>
+                                    <td class="col-question">@item.ItemContent</td>
+                                    <td><a class="lbCheck" data-id="@item.ItemId"><i class="fa fa-pencil-square"></i></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header" style="padding: 14px;">
+                    <div class="box-title">
+                        <h4>List answers</h4>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="div-table" style="height: 222px; overflow: auto;">
+                        <table class="table table-bordered table-answers">
+                            <thead>
+                                <tr>
+                                    <th>Content</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in listAnswers)
+                                {
+                                    <tr>
+                                        <td>@item.ItemContent</td>
+                                        <td class="center">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="lbCheck-@item.ItemId" />
+                                                <label class="custom-control-label" for="lbCheck-@item.ItemId"></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header" style="padding: 14px;">
+                    <div class="box-title">
+                        <h4>QA detail</h4>
+                    </div>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-default">Get Answers</button>
+                        <button type="button" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+                @using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvResults", OnSuccess="OnSuccess"}, new { id = "form-table" }))
+                {
+                    <input type="hidden" class="form-qId" name="QId" />
+                    <div class="box-body" id="dvResults">
+                        @Html.Partial("~/Areas/Admin/Views/Shared/_PartialQuestionAnswers.cshtml", Model)
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+@section scripts {
+    <script src="@Url.Content("~/Libraries/dist/js/jquery.autocomplete.js")"></script>
+    <script>
+        $(document).ready(function () {
+            loadDataTable($('.table-questions'));
+            loadCombobox($('.form-select'));
+            $('.table-answers').on('click', 'tbody > tr', function () {
+                var checkbox = $(this).find('.custom-control-input');
+                if (checkbox.prop("checked") == true) {
+                    checkbox.prop('checked', false);
+                }
+                else if (checkbox.prop("checked") == false) {
+                    checkbox.prop('checked', true);
+                }
+            });
+            $('.table-questions').on('click', '.lbCheck', function () {
+                var tr = $(this).closest('tr');
+                $('.table-questions').find('tr').removeClass('active');
+                tr.addClass('active');
+                var question = $(this).data("id");
+
+                $('.form-qId').val(question);
+                $('#form-table').submit();
+            });
+            $('.form-qNext').autocomplete({
+                source: '@Url.Action("getListQuestions", "Survey")',
+                minLength: 3,
+                select: function (event, ui) {
+                    var td = $(this).closest('td');
+                    td.find('.hidden-qNext').val(ui.item.id);
+                }
+            });
+        });
+        function loadDataTable($item) {
+            table = $item.DataTable({
+                'destroy': true,
+                "dom": "<'row no-margin'<'col-sm-6 pull-right'p>>rt",
+                "orderCellsTop": true,
+                "pageLength": 5,
+                "ordering": false,
+                "autoWidth": false,
+                'columnDefs': [{
+                    "width": "95%",
+                    "targets": [0]
+                }, {
+                    "width": "5%",
+                    "targets": [1],
+                    "class": "center"
+                }]
+            });
+        }
+        function loadCombobox($control) {
+            $.fn.select2.amd.require(["select2/data/array", "select2/utils"], function (e, t) {
+                function a(e, t) {
+                    a.__super__.constructor.call(this, e, t)
+                }
+
+                function r(e, t) {
+                    return new RegExp(t, "i").test(e)
+                }
+                t.Extend(a, e), a.prototype.query = function (e, t) {
+                    "page" in e || (e.page = 1);
+                    var a = 10,
+                        n = this.$element.children().map(function (t, a) {
+                            return r(a.innerText, e.term) ? {
+                                id: a.value,
+                                text: a.innerText
+                            } : void 0
+                        });
+                    t({
+                        results: n.slice((e.page - 1) * a, e.page * a),
+                        pagination: {
+                            more: n.length >= e.page * a
+                        }
+                    })
+                }, $selectGroup = $control.select2({
+                    ajax: {},
+                    allowClear: false,
+                    dataAdapter: a
+                })
+            })
+        }
+        function OnSuccess() {
+
+        }
+    </script>
+}

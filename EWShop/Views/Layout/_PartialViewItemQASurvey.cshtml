@@ -1,0 +1,45 @@
+﻿@model EWShop.Areas.Admin.Models.QAItem
+@if (Model != null)
+{
+    if (Model.question.ItemId != "0")
+    {
+        string nextQuestion = "";
+
+        <input type="hidden" name="srnum" value="@ViewData["SRNUM"]" />
+        <input type="hidden" name="question" value="@Model.question.ItemId" />
+        <p class="text-center" data-id="">Câu hỏi: @Model.question.ItemContent</p>
+        foreach (var ans in Model.answers)
+        {
+            <div class="form-check mb-4">
+                <input class="form-check-input" name="answer" type="radio" id="radio-@ans.QAId" value="@ans.QAId">
+                <label class="form-check-label" for="radio-@ans.QAId">@ans.AContent</label>
+            </div>
+            if (ans.isCheck == "True")
+            {
+                <div class="form-group">
+                    <input class="form-control" name="remarks" value="" />
+                </div>
+            }
+            nextQuestion = ans.QIdNext;
+        }
+        <div class="survey-footer clearfix">
+            <button type="button" class="btn btn-outline-primary btn-prev" style="display:none;" @if (ViewData["FIRST"] != null && ViewData["FIRST"].ToString() == "True") { @("disabled")   }>Quay lại</button>
+            @if (nextQuestion != "0")
+            {
+                <button type="submit" class="btn btn-primary btn-continue" style="float: right;">Tiếp tục</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-primary btn-continue" style="float: right;">Kết thúc</button>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="card-body" style="text-align: center; padding: 5px 5px 10px;">
+            <h5>Cám ơn bạn đã tham gia khảo sát đánh giá chất lượng dịch vụ !!!</h5>
+            <a class="btn btn-default" href="@Url.Action("ServiceRequest","ServiceRequest")">Quay lại trang đăng ký yêu cầu bảo hành</a>
+        </div>
+    }
+
+}

@@ -1,0 +1,633 @@
+﻿@model IEnumerable<EWShop.Areas.CallCenter.Models.SMSItem>
+@{
+    ViewBag.Title = "Danh sách sms đăng ký bảo hành";
+    Layout = "~/Views/Layout/_LayoutAdminDashboard.cshtml";
+    IEnumerable<EWShop.Models.DataReturn> listShops = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.SHOP_INFO];
+    IEnumerable<EWShop.Models.DataReturn> listPlants = (IEnumerable<EWShop.Models.DataReturn>)ViewData[EWShop.Models.CommonConstants.PLANTS_INFO];
+}
+@section Styles {
+    <style>
+        .center {
+            text-align: center !important;
+        }
+        .btn {
+            font-size: 14px !important;
+            padding: 1px 10px;
+            height: 25px;
+            border: 1px solid #fff !important;
+        }
+        .box {
+            margin-bottom: 10px !important;
+        }
+        .box-header > .box-tools {
+            top: 8px !important;
+        }
+        .box-body {
+            padding: 5px 5px 0;
+        }
+        .no-margin {
+            margin: 0 !important;
+        }
+        .control-label {
+            float: left;
+            margin-right: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 0;
+            padding: 2px;
+        }
+
+        .form-control {
+            float: left;
+            font-size: 14px;
+            font-weight: 500;
+            height: 25px;
+            border-radius: 3px;
+            padding: 5px 3px;
+        }
+
+        .div-select {
+            float: left;
+        }
+
+        .m-b-5 {
+            margin-bottom: 5px;
+        }
+
+        .table {
+            margin-bottom: 0 !important;
+        }
+
+            .table > tbody > tr > td {
+                border: 0 !important;
+                padding: 3px;
+            }
+
+        .col-label {
+            width: 80px !important;
+            text-align: right;
+            vertical-align: middle !important;
+        }
+
+        table.dataTable {
+            margin: 0 auto;
+            width: 100%;
+            clear: both;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+            table.dataTable thead th {
+                padding: 1px;
+            }
+
+            table.dataTable thead tr:first-child {
+                color: #005996;
+                background-color: #E1EBF4;
+                font-weight: 600;
+            }
+
+                table.dataTable thead tr:first-child th {
+                    padding: 5px 8px;
+                    text-align: center;
+                    font-size: 14px;
+                }
+
+            table.dataTable tbody td {
+                vertical-align: middle;
+                padding: 6px 3px;
+                white-space: nowrap;
+                font-size: 13px;
+                overflow: hidden;
+                border: 1px solid #ddd !important;
+                text-overflow: ellipsis;
+                vertical-align: middle;
+            }
+
+            table.dataTable tbody tr.active td {
+                font-weight: 600;
+                background-color: #ddd;
+            }
+
+            table.dataTable tbody tr {
+                cursor: pointer;
+            }
+
+        .img-lb {
+            width: 170px;
+            height: 170px;
+        }
+
+        .btn-register, .btn-close, .btn-save-comment {
+            display: none;
+        }
+        .left{
+            text-align: left!important;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1>
+        List of SMS Register ewarranty
+        <small>Displayed</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home page</a></li>
+        <li class="active">List SMS</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-list-alt"></i>
+                    <h3 class="box-title">List of SMS Register ewarranty</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-success btn-box-tool btn-export-excel"><i class="fa fa-file-excel-o"></i> Export excel</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row div-filter m-b-5">
+                        @using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvResults", OnBegin = "OnBegin", OnSuccess = "OnSuccess" }, new { @class = "form-filter" }))
+                        {
+                            <div class="col-md-12">
+                                <label class="control-label" title="Ngày đăng ký - Register date">Send Date</label>
+                                <input type="text" class="form-control form-date form-from-date" style="width: 80px;" name="frmDate" value="@DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy")" />
+                                <label class="control-label no-margin">-</label>
+                                <input type="text" class="form-control form-date form-to-date" style="width: 80px;" name="toDate" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+                                <label class="control-label">Status</label>
+                                <div class="div-select" style="width: 160px; margin-right: 5px;">
+                                    <select class="form-control form-select form-status" name="status" style="width: 100%;">
+                                        <option value="2">-- All --</option>
+                                        <option value="1">Valid</option>
+                                        <option value="0">InValid</option>
+                                    </select>
+                                </div>
+                                <label class="control-label">Check</label>
+                                <div class="div-select" style="width: 110px; margin-right: 5px;">
+                                    <select class="form-control form-select form-check" style="width: 100%;" name="check">
+                                        <option value="2">-- All --</option>
+                                        <option value="1">Check</option>
+                                        <option value="0">Not check</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="border: 1px solid #367fa9 !important;"><i class="fa fa-filter"></i> Filter</button>
+                            </div>
+                        }
+                    </div>
+                    <div class="row">
+                        <div id="dvResults">
+                            @Html.Partial("~/Areas/CallCenter/Views/Shared/_PartialListSMSInvalid.cshtml", Model)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary box-solid" style="margin-bottom: 0!important;">
+                <div class="box-header with-border">
+                    <i class="fa fa-pencil"></i>
+                    <h3 class="box-title label-title" style="margin-right: 10px;">Additional new information</h3>
+                    <label class="lbError" style="color:darkorange;margin-bottom: 0;"></label>
+                    <label class="lbSuccess" style="color:chartreuse;margin-bottom: 0;"></label>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-danger btn-close"><i class="fa fa-unlock-alt"></i> Close</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row no-margin">
+                        <div class="col-md-12" style="padding: 5px 0 10px; border-bottom: 1px solid #ddd;">
+                        @using (Ajax.BeginForm("updateComment", "Ewarranty", new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBegin", OnSuccess = "OnSuccessUpdate" }, new { @class = "form-update-comment" }))
+                        {
+                            <input type="hidden" class="form-id" value="" name="id" />
+                            <table class="table">
+                                <tr>
+                                    <td class="col-label">Sender</td>
+                                    <td style="width: 150px;"><input disabled="disabled" class="form-control form-sender" style="width: 100%;" /></td>
+                                    <td class="col-label" style="width: 55px!important;">Content</td>
+                                    <td><input class="form-control form-content" style="width: 100%;" /></td>
+                                    <td class="col-label" style="width: 60px!important;">Comment</td>
+                                    <td><input class="form-control form-comment" name="comment" style="width: 100%;" /></td>
+                                    <td><button type="submit" class="btn btn-default btn-save-comment"><i class="fa fa-save"></i></button></td>
+                                </tr>
+                            </table>
+                        }
+                        </div>
+                    </div>
+                    <div class="row">
+                        @using (Ajax.BeginForm("Register", "Ewarranty", new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBegin", OnSuccess = "OnSuccessRegister" }, new { @class = "form-input" }))
+                        {
+                            <div class="col-sm-12" style="padding-top: 10px;">
+                                <input type="hidden" class="form-id" value="" name="id" required />
+                                <table class="table">
+                                    <tr>
+                                        <td title="Mã bảo hành - EWCardNo" class="col-label">EW CardNo</td>
+                                        <td colspan="2">
+                                            <input disabled="disabled" class="form-control form-card-no" style="width: 100%;" />
+                                        </td>
+                                        <td title="Ngày mua - Purchased Date" class="col-label">POD</td>
+                                        <td>
+                                            <input class="form-control form-date form-pod" name="POD" style="width: 100%;" required />
+                                        </td>
+                                        <td title="Hạn bảo hành - Expired Date" class="col-label">Exp.Date</td>
+                                        <td>
+                                            <input class="form-control form-date form-exp-date" name="expiredDate" style="width: 100%;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td title="Số máy - Barcode" class="col-label">Barcode</td>
+                                        <td>
+                                            <input class="form-control form-barcode" name="barcode" style="width: 100%;" required />
+                                        </td>
+                                        <td style="width: 20px;padding:0;vertical-align:middle;">
+                                            <img class="imgCheckSerial" src="@Url.Content("~/Libraries/dist/img/question.png")" style="height: 20px; margin-left: 5px;margin-top: 5px;" title="Check barcode" />
+                                            <img class="imgBarcodeValid" src="@Url.Content("~/Libraries/dist/img/ok.png")" style="height: 20px; margin-left: 5px;margin-top: 0;display: none;" title="Barcode valid" />
+                                        </td>
+                                        <td title="Sản phẩm - Production" class="col-label">Production</td>
+                                        <td>
+                                            <div style="width: 100%;float:left;">
+                                                <select class="form-control form-select form-plant" style="width: 100%;">
+                                                    <option value="0">-- Please choose production --</option>
+                                                    @foreach (var item in listPlants)
+                                                    {
+                                                        <option value="@item.value">@item.text</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td title="Kiểu máy - Model Type" class="col-label">Modeltype</td>
+                                        <td>
+                                            <div style="width: 100%;float:left;">
+                                                <select class="form-control form-select form-model" name="model" style="width: 100%;"></select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td title="Tên khách hàng - Customer Name" class="col-label">Cus.Name</td>
+                                        <td colspan="2">
+                                            <input class="form-control form-customer-name" name="cusName" style="width: 100%;" required />
+                                        </td>
+                                        <td title="Số điện thoại khách hàng - Customer Phone" class="col-label">Cus.Phone</td>
+                                        <td>
+                                            <input class="form-control form-customer-phone" name="cusPhone" style="width: 100%;" required />
+                                        </td>
+                                        <td title="Địa chỉ khách hàng - Customer Address" class="col-label">Cus.Address</td>
+                                        <td>
+                                            <input class="form-control form-customer-address" name="cusAddress" style="width: 100%;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td title="SĐT cửa hàng - Shop Phone" class="col-label">ShopPhone</td>
+                                        <td>
+                                            <input class="form-control form-shop-phone" name="shopPhone" style="width: 100%;" />
+                                        </td>
+                                        <td style="width: 20px;padding:0;vertical-align:middle;">
+                                            <img class="imgCheckShopPhone" src="@Url.Content("~/Libraries/dist/img/question.png")" style="height: 20px; margin-left: 5px;margin-top: 5px;" title="Check barcode" />
+                                            <img class="imgShopPhoneValid" src="@Url.Content("~/Libraries/dist/img/ok.png")" style="height: 20px; margin-left: 5px;margin-top: 0;display: none;" title="Barcode valid" />
+                                        </td>
+                                        <td title="Cửa hàng - Shop/Store" class="col-label">Shop/Store</td>
+                                        <td colspan="3">
+                                            <div style="width: 100%;float:left;">
+                                                <select class="form-control form-select form-shop" name="shopId" style="width: 100%;">
+                                                    <option value="0">-- Please choose --</option>
+                                                    @foreach (var item in listShops)
+                                                    {
+                                                        <option value="@item.value">@item.text</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="5" class="lbShopFound"></td>
+                                        <td style="text-align:right;">
+                                            <input type="hidden" class="form-shop-name" name="shopName" />
+                                            <button type="submit" class="btn btn-primary btn-register"><i class="fa fa-save"></i> Register</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script src="@Url.Content("~/Libraries/dist/js/dataTables.scroller.min.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        var dateFormat = "dd/mm/yy";
+        $(document).ready(function () {
+            BlockUi();
+            loadListModel("", "");
+            $('.form-date').mask('00/00/0000');
+            $('.form-date').datepicker({
+                dateFormat: dateFormat,
+                maxDate: new Date()
+            });
+            loadCombobox($('.form-select'));
+            $('.form-plant').on('change', function () {
+                loadListModel($(this).val(), "");
+            });
+            $('.imgCheckSerial').click(function (e) {
+                var barcode = $('.form-barcode').val();
+                var matId = $('.form-model').val();
+                if (barcode == "") {
+                    toastr.warning("Please input barcode to check !!!");
+                } else if(barcode.length < 8) {
+                    toastr.warning("Please input barcode with lenght > 7 to check !!!");
+                } else {
+                    checkBarcode(barcode, matId);
+                }
+                return false;
+            });
+            $('.imgCheckShopPhone').click(function () {
+                var phone = $('.form-shop-phone').val();
+                if (phone == "") {
+                    toastr.warning("Please input shop phone to check !!!");
+                }else {
+                    checkShopPhone(phone);
+                }
+                return false;
+            });
+            $('.btn-close').click(function () {
+                if (confirm("Are you sure?")) {
+                    var id = $('.form-id').val();
+                    var comment = $('.form-comment').val();
+                    closeSMS(id, comment);
+                }
+                return false;
+            });
+            $('.btn-export-excel').click(function () {
+                var status = $('.form-status').val();
+                var check = $('.form-check').val();
+                var frmDate = $('.form-from-date').val();
+                var toDate = $('.form-to-date').val();
+                window.open('@Url.Action("DownloadExcelSMSRegister", "Ewarranty")' + '?frmDate=' + frmDate + '&toDate=' + toDate + '&status=' + status + '&check=' + check, '_blank');
+            });
+            loadDataTable();
+        });
+        function loadDataTable() {
+            table = $('.table-sms').DataTable({
+                'destroy': true,
+                'dom': 'rt',
+                'autoWidth': false,
+                'scrollX': '100%',
+                'scrollY': 180,
+                'paging': true,
+                'scrollCollapse': false,
+                'deferRender': true,
+                'scroller': true,
+                'stateSave': true,
+                'order': [],
+                'columnDefs': [{
+                    "width": "4%",
+                    "targets": [0]
+                }, {
+                    "width": "9%",
+                    "targets": [1]
+                }, {
+                    "width": "23%",
+                    "targets": [2],
+                    "class": "left"
+                }, {
+                    "width": "10%",
+                    "targets": [3]
+                }, {
+                    "width": "8%",
+                    "targets": [4]
+                }, {
+                    "width": "7%",
+                    "targets": [5]
+                }, {
+                    "width": "18%",
+                    "targets": [6],
+                    "class": "left"
+                }]
+            });
+            $('.table-sms').on('click', 'tbody tr', function () {
+                clearDataInput();
+                var id = $(this).find('.col-id').data("id");
+                var sender = $(this).find('.col-sender').html();
+                var content = $(this).find('.col-content').html();
+                var comment = $(this).find('.col-comment').data("id");
+                var status = $(this).find('.col-status').data("id");
+                var check = $(this).find('.col-check').data("id");
+                $('.form-id').val(id);
+                $('.form-sender').val(sender);
+                $('.form-content').val(content);
+                $('.form-comment').val(comment);
+                $(this).addClass('active');
+                if (status == "True") {
+                    $('.btn-register').hide();
+                    $('.btn-close').hide();
+                    $('.btn-save-comment').hide();
+                } else {
+                    if (check == "True") {
+                        $('.btn-register').hide();
+                        $('.btn-close').hide();
+                        $('.btn-save-comment').hide();
+                    } else {
+                        $('.btn-register').show();
+                        $('.btn-close').show();
+                        $('.btn-save-comment').show();
+                    }
+                }
+            });
+            closeBlock();
+        }
+        function loadCombobox($control) {
+            $.fn.select2.amd.require(["select2/data/array", "select2/utils"], function (e, t) {
+                function a(e, t) {
+                    a.__super__.constructor.call(this, e, t)
+                }
+
+                function r(e, t) {
+                    return new RegExp(t, "i").test(e)
+                }
+                t.Extend(a, e), a.prototype.query = function (e, t) {
+                    "page" in e || (e.page = 1);
+                    var a = 10,
+                        n = this.$element.children().map(function (t, a) {
+                            return r(a.innerText, e.term) ? {
+                                id: a.value,
+                                text: a.innerText
+                            } : void 0
+                        });
+                    t({
+                        results: n.slice((e.page - 1) * a, e.page * a),
+                        pagination: {
+                            more: n.length >= e.page * a
+                        }
+                    })
+                }, $selectGroup = $control.select2({
+                    ajax: {},
+                    allowClear: false,
+                    dataAdapter: a
+                })
+            })
+        }
+        function OnBegin() {
+            BlockUi();
+        }
+        function OnSuccess() {
+            loadDataTable();
+        }
+        function clearDataInput() {
+            $('.form-id').val("");
+
+            $('.form-sender').val("");
+            $('.form-content').val("");
+            $('.form-comment').val("");
+
+            $('.form-pod').val("");
+            $('.form-exp-date').val("");
+
+            $('.form-barcode').val("");
+            $('.imgCheckSerial').show();
+            $('.imgBarcodeValid').hide();
+            $('.form-plant').val("0").trigger('change');
+            $('.form-model').val("0").trigger('change');
+
+            $('.form-customer-name').val("");
+            $('.form-customer-phone').val("");
+            $('.form-customer-address').val("");
+
+            $('.form-shop-phone').val("");
+            $('.imgCheckShopPhone').show();
+            $('.imgShopPhoneValid').hide();
+            $('.lbShopFound').html('');
+            $('.form-shop-name').val("");
+            $('.form-shop').val("0").trigger("change");
+
+            $('.lbError').html('');
+            $('.lbSuccess').html('');
+            $('.table-sms').find('tr').removeClass('active');
+            $('.btn-register').hide();
+            $('.btn-close').hide();
+            $('.btn-save-comment').hide();
+        }
+        function loadListModel(plantId, matId) {
+            BlockUi();
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("loadListMaterials", "Ewarranty")' + '?plantId=' + plantId,
+                success: function (data) {
+                    var html = '<option value="0">-- Please choose --</option>';
+                    $.each(data, function (key, value) {
+                        html += '<option value="' + value.value + '">' + value.text + '</option>';
+                    });
+                    $('.form-model').html(html);
+                }, error: function (e) {
+                    alert(e);
+                    closeBlock();
+                }, complete: function () {
+                    closeBlock();
+                    if (matId != "") {
+                        $('.form-model').val(matId).trigger('change');
+                    }
+                }
+            });
+        }
+        function checkShopPhone(phone) {
+            BlockUi();
+            $('.lbError').html('');
+            $('.lbSuccess').html('');
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("checkShopPhone", "Ewarranty")' + '?phone=' + phone,
+                success: function (data) {
+                    if (data.code == "0") {
+                        $('.imgCheckShopPhone').show();
+                        $('.imgShopPhoneValid').hide();
+                        $('.lbError').html(data.msg);
+                    } else {
+                        $('.imgCheckShopPhone').hide();
+                        $('.imgShopPhoneValid').show();
+                        $('.lbShopFound').html(data.data);
+                        $('.form-shop-name').val(data.data);
+                    }
+                }, error: function (e) {
+                    alert(e);
+                    closeBlock();
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+        function closeSMS(id, comment) {
+            BlockUi();
+            $('.lbError').html('');
+            $('.lbSuccess').html('');
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("closeSMSInvalid", "Ewarranty")',
+                data: $('.form-update-comment').serialize(),
+                success: function (data) {
+                    if (data.code == "0") {
+                        $('.lbError').html(data.msg);
+                    } else if (data.code == "1") {
+                        $('.form-filter').submit();
+                        clearDataInput();
+                    }
+                }, error: function (e) {
+                    alert(e);
+                    closeBlock();
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+        function checkBarcode(barcode, matId){
+            BlockUi();
+            $('.lbError').html('');
+            $('.lbSuccess').html('');
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("checkBarcode", "Ewarranty")' + '?barcode=' + barcode + '&matId=' + matId,
+                success: function (data) {
+                    if (data.code == "0" || data.code == "2" || data.code == "3") {
+                        $('.imgCheckSerial').show();
+                        $('.imgBarcodeValid').hide();
+                        $('.lbError').html(data.msg);
+                    } else if (data.code == "1" || data.code == "4") {
+                        $('.imgCheckSerial').hide();
+                        $('.imgBarcodeValid').show();
+                        $('.lbSuccess').html(data.msg);
+                        $('.form-plant').val(data.plant).trigger('change');
+                        loadListModel(data.plant, data.matid);
+                    }
+                }, error: function (e) {
+                    alert(e);
+                    closeBlock();
+                }, complete: function () {
+                    closeBlock();
+                }
+            });
+        }
+        function OnSuccessUpdate(data) {
+            if (data.code == "1") {
+                toastr.success("Save changed successful !!!");
+            } else {
+                toastr.danger(data.msg);
+            }
+            closeBlock();
+        }
+        function OnSuccessRegister(data) {
+            if (data.code == "1") {
+                $('.form-card-no').val(data.data);
+                $('.form-filter').submit();
+                toastr.success("Save changed successful !!!");
+            } else {
+                toastr.danger(data.message);
+            }
+            closeBlock();
+        }
+    </script>
+}
+

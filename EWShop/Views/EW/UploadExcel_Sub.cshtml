@@ -1,0 +1,670 @@
+﻿@model IEnumerable<EWShop.Models.ItemSellOutExcel>
+@{
+    Layout = null;
+    EWShop.Models.InfoReturn info = (EWShop.Models.InfoReturn)ViewBag.info;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Read file</title>
+
+    <link href="~/Libraries/vendor/bootstrap-3.4.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Libraries/dist/fonts/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link href="~/Libraries/vendor/toastr-master/build/toastr.css" rel="stylesheet" />
+    <link href="~/Libraries/dist/css/StyleImage.css" rel="stylesheet" />
+
+    <script src="@Url.Content("~/Libraries/vendor/jquery/jquery-3.3.1.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/bootstrap-3.4.1/dist/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/dist/js/jquery.mask.js")"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/vendor/toastr-master/build/toastr.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/dist/js/jquery.autocomplete.js")"></script>
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        label {
+            margin: 0 !important;
+        }
+
+        .dvBody {
+            float: left;
+            width: 100%;
+            min-height: 100px;
+            overflow: hidden;
+        }
+
+        .dvRow {
+            float: left;
+            width: 100%;
+            padding: 5px 0;
+        }
+
+        .dvTable {
+            overflow: auto;
+            height: 250px;
+            padding: 0 !important;
+        }
+
+        .dvTitle {
+            font-size: 17px;
+            font-weight: 600;
+            padding: 2px 5px;
+        }
+
+        .dvContent {
+            float: left;
+            width: 100%;
+        }
+
+        .button-right {
+            float: right !important;
+            margin-right: 0 !important;
+        }
+
+        .button {
+            float: left;
+            display: inline-block;
+            margin-bottom: 0;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            background-image: none;
+            border: 1px solid transparent;
+            padding: 3px 7px;
+            font-size: 13px;
+            line-height: 1.4;
+            border-radius: 1px;
+            min-width: 85px;
+            margin-right: 5px;
+        }
+
+        .button-default {
+            color: #333;
+            background-color: #fff;
+            border-color: #ccc;
+        }
+
+            .button-default:hover {
+                color: #333;
+                background-color: #e6e6e6;
+                border-color: #adadad;
+            }
+
+        .button-warning {
+            color: #fff;
+            background-color: #f0ad4e;
+            border-color: #eea236;
+        }
+
+            .button-warning:hover {
+                color: #fff;
+                background-color: #ec971f;
+                border-color: #d58512;
+            }
+
+        .button-primary {
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #2e6da4;
+        }
+
+            .button-primary:hover {
+                color: #fff;
+                background-color: #286090;
+                border-color: #204d74;
+            }
+
+        .button-danger {
+            color: #fff;
+            background-color: #d9534f;
+            border-color: #d43f3a;
+        }
+
+            .button-danger:hover {
+                color: #fff;
+                background-color: #c9302c;
+                border-color: #ac2925;
+            }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin: 0 !important;
+        }
+
+        .table-bordered > tbody > tr.active > td {
+            background-color: #e5e4e4;
+            font-weight: 600;
+        }
+
+        .table-bordered > thead > tr > th {
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            font-size: 15px;
+            padding: 5px 7px;
+            white-space: nowrap;
+            background-color: darkgray;
+        }
+
+        .table-bordered > tbody > tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+            .table-bordered > tbody > tr > td {
+                border: 0;
+                font-size: 13px;
+                white-space: nowrap;
+                padding: 8px 5px !important;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                line-height: 1.1 !important;
+                cursor: pointer;
+            }
+
+        .table-striped > tbody > tr > td {
+            border: 0;
+            font-size: 13px;
+            white-space: nowrap;
+            padding: 3px !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2 !important;
+            vertical-align: middle !important;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 5px;
+            font-size: 13.5px;
+            border-radius: 2px;
+            border: 1px solid #ddd;
+        }
+
+        .col-detail, .col-image, .col-half-image {
+            float: left;
+        }
+
+        .col-detail {
+            width: 60%;
+        }
+
+        .col-image {
+            width: 40%;
+            padding: 2px;
+            float: right;
+        }
+
+        .col-half-image {
+            width: 50%;
+        }
+
+        .col-label {
+            width: 75px;
+            text-align: right;
+        }
+
+        .box {
+            min-width: 0;
+            height: 175px;
+            margin: 0 2px;
+        }
+
+        .js--image-preview {
+            height: 144px;
+        }
+
+        .upload-options {
+            height: 31px;
+        }
+
+            .upload-options label::after {
+                font-size: 30px;
+                left: calc(50% - 0.7rem);
+            }
+
+        label.lbInfo {
+            margin-left: 5px !important;
+            margin-right: 8px !important;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        label.active {
+            color: #337ab7;
+            font-weight: 600;
+        }
+
+        .ui-autocomplete {
+            max-height: 100px;
+            overflow-y: auto; /* prevent horizontal scrollbar */
+            overflow-x: hidden; /* add padding to account for vertical scrollbar */
+            z-index: 1000 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="dvBody">
+        <div class="dvRow">
+            <button type="button" class="button button-primary"><i class="fa fa-save"></i> Lưu lại</button>
+            <button type="button" class="button button-danger"><i class="fa fa-trash-o"></i> Xóa</button>
+            @using (Html.BeginForm("ExportExcel", "EW", FormMethod.Get))
+            {
+                <input type="hidden" name="flat" class="flat" value="2" />
+                <input type="hidden" name="fileId" class="form-fileId" value="@ViewBag.fileId" />
+                <button type="submit" class="button button-default button-excel"><i class="fa fa-file-excel-o "></i> Xuất excel</button>
+            }
+            <div style="padding: 0 10px;float:left;margin-top: 5px;">
+                @using (Ajax.BeginForm("LoadDataExcel", "EW", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "dvTable", OnSuccess = "OnSuccess" }, new { @id = "form-info" }))
+                {
+                    <input type="hidden" name="fileId" value="@ViewBag.fileId" />
+                    <input type="hidden" name="flat" class="flat" value="2" />
+                    <label style="font-weight:500;margin-right:5px;">Tổng số: </label><label class="lbTotal lbInfo active">@info.total</label>
+                    <label style="font-weight:500;margin-right:5px;">ĐKBH thành công: </label><label class="lbValid lbInfo">@info.valid</label>
+                    <label style="font-weight:500;margin-right:5px;">Không hợp lệ: </label><label class="lbInValid lbInfo">@info.inValid</label>
+                }
+            </div>
+            <button class="button button-default button-right button-close"><i class="fa fa-window-close-o"></i> Đóng</button>
+        </div>
+        <div class="dvRow dvTable" id="dvTable">
+            @Html.Partial("~/Views/Layout/_PartialListDataExcel.cshtml", Model)
+        </div>
+        <div class="dvRow">
+            <div class="dvTitle">
+                <label>THÔNG TIN CHI TIẾT</label>
+            </div>
+            <div class="dvContent">
+                @using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccessSaveChange" }, new { @class = "form-detail" }))
+                {
+                    <div class="col-detail">
+                        <input type="hidden" name="fileId" value="@ViewBag.fileId" />
+                        <input type="hidden" class="form-id" name="id" />
+                        <input type="hidden" class="form-img1" name="img1" />
+                        <input type="hidden" class="form-img2" name="img2" />
+                        <table class="table table-striped">
+                            <tr>
+                                <td title="Tên khách hàng" class="col-label">Tên KH</td>
+                                <td><input type="text" placeholder="Nhập tên khách hàng ..." class="form-input form-name" name="cusName" /></td>
+                                <td title="Số máy sản phẩm" class="col-label">Số máy</td>
+                                <td><input type="text" placeholder="Nhập số máy ..." class="form-input form-barcode" name="barcode" /></td>
+                            </tr>
+                            <tr>
+                                <td title="Số điện thoại khách hàng" class="col-label">SĐT KH</td>
+                                <td><input type="text" placeholder="Nhập số điện thoại ..." class="form-input form-phone" name="cusPhone" /></td>
+                                <td title="Kiểu máy sản phẩm" class="col-label">Kiểu máy</td>
+                                <td>
+                                    <input type="hidden" class="form-matid" name="matid" />
+                                    <input type="text" placeholder="Nhập kiểu máy ..." class="form-input form-model" name="model" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td title="Mã cửa hàng" class="col-label">Mã cửa hàng</td>
+                                <td><input type="text" placeholder="Nhập mã của hàng ..." class="form-input form-brand" name="brandCode" /></td>
+                                <td title="Ngày mua sản phẩm" class="col-label">Ngày mua</td>
+                                <td><input type="text" placeholder="Nhập ngày mua ..." class="form-input form-date" name="pod" /></td>
+                            </tr>
+                            <tr>
+                                <td title="Địa chỉ khách hàng" class="col-label">Địa chỉ</td>
+                                <td colspan="3"><input type="text" placeholder="Nhập địa chỉ khách hàng ..." class="form-input form-address" name="cusAddress" /></td>
+                            </tr>
+                            <tr>
+                                <td title="Trạng thái" class="col-label">Trạng thái</td>
+                                <td colspan="3" style="white-space: normal;font-size: 13px;"><label class="form-status" style="padding:1px 5px;line-height: 1.3;"></label></td>
+                            </tr>
+                        </table>
+                    </div>
+                }
+                <div class="col-image">
+                    <div class="col-half-image">
+                        <div class="box">
+                            <div class="js--image-preview img1"></div>
+                            <div class="upload-options">
+                                <label>
+                                    <input type="file" class="image-upload" accept="image/*" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-half-image">
+                        <div class="box">
+                            <div class="js--image-preview img2"></div>
+                            <div class="upload-options">
+                                <label>
+                                    <input type="file" class="image-upload" accept="image/*" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var dateFormat = "dd/mm/yy";
+        var upload = 0;
+        $(document).ready(function () {
+            $('.form-date').mask('00/00/0000');
+            $('.form-date').datepicker({
+                dateFormat: dateFormat,
+                maxDate: new Date()
+            });
+            $('.lbTotal').click(function (e) {
+                $(this).addClass('active');
+                $('.lbValid').removeClass('active');
+                $('.lbInValid').removeClass('active');
+                $('.flat').val("2");
+                clearData();
+                $('#form-info').submit();
+            });
+            $('.lbValid').click(function (e) {
+                $('.flat').val("1");
+                $(this).addClass('active');
+                $('.lbTotal').removeClass('active');
+                $('.lbInValid').removeClass('active');
+                clearData();
+                $('#form-info').submit();
+            });
+            $('.lbInValid').click(function (e) {
+                $('.flat').val("0");
+                $(this).addClass('active');
+                $('.lbTotal').removeClass('active');
+                $('.lbValid').removeClass('active');
+                clearData();
+                $('#form-info').submit();
+            });
+            $('.dvTable').on('click', 'tr', function (e) {
+                clearData();
+                var item = $(this);
+                $('.table-data').find('tr').removeClass('active');
+                $(this).addClass('active');
+                selectData(item);
+            });
+            $('.button-danger').click(function (e) {
+                // Xóa item
+                e.preventDefault();
+                var id = $('.form-id').val();
+                var fileId = $('.form-fileId').val();
+                if (id != "") {
+                    if (confirm("Bạn có chắc chắn ?")) {
+                        executeAction(id, fileId);
+                    }
+                } else {
+                    alert("Vui lòng chọn dòng dữ liệu cần xóa !!!");
+                }
+                return false;
+            });
+            $('.button-primary').click(function (e) {
+                // Lưu lại
+                e.preventDefault();
+                uploadImage();
+            });
+            $('.button-close').click(function (e) {
+                e.preventDefault();
+                parent.closeDialog();
+                return false;
+            });
+            $('.form-model').autocomplete({
+                source: '@Url.Action("searchModel", "EW")',
+                minLength: 1,
+                select: function (event, ui) {
+                    $('.form-matid').val(ui.item.id);
+                }
+            });
+            parent.closeBlock();
+        });
+        var OnSuccessSaveChange = function (data) {
+            if (data.code == "1") {
+                toastr.success("Ghi nhận thành công.","Hoàn tất !!!")
+                clearData();
+                $('#form-info').submit();
+            } else {
+                alert("Ghi nhận thất bại !!!");
+            }
+        }
+        function OnSuccess() {
+            var fileId = $('.form-fileId').val();
+            loadInfoFileUpload(fileId);
+        }
+        function uploadImage() {
+            if (upload != 0) {
+                $('.form-detail').submit();
+            } else {
+                var file1 = $(".image-upload").get(0).files;
+                var file2 = $(".image-upload").get(1).files;
+                var fileData = new FormData();
+                var temp = 0
+                for (var i = 0; i < file1.length; i++) {
+                    fileData.append("fileInput", file1[i]);
+                    temp = 1;
+                }
+                for (var i = 0; i < file2.length; i++) {
+                    fileData.append("fileInput", file2[i]);
+                    if (temp == 1)
+                        temp = 3;
+                    else temp = 2;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("uploadImageFile", "EW")',
+                    dataType: "json",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (data) {
+                        if (data.code == "1") {
+                            upload = 1;
+                            var urlImgs = data.msg.split(";");
+                            $.each(urlImgs, function (index, value) {
+                                if (temp == 3 || temp == 1) {
+                                    if (index == 0) {
+                                        $('.form-img1').val(value);
+                                    }
+                                    else
+                                        $('.form-img2').val(value);
+                                } else {
+                                    $('.form-img2').val(value);
+                                }
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert(error);
+                    },
+                    complete: function () {
+                        $('.form-detail').submit();
+                    }
+                });
+            }
+        }
+        function executeAction(id, fileId) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("ExcuteAction", "EW")' + '?fileId=' + fileId + '&id=' + id,
+                success: function (data) {
+                    if (data.code == "1") {
+                        clearData();
+                        toastr.success("Thực thi hoàn tất !!!");
+                    } else {
+                        alert("Thực thi thất bại !!!");
+                    }
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+                    $('#form-info').submit();
+                }
+            });
+        }
+        function loadInfoFileUpload(fileId) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("LoadInfoFileUpload", "EW")' + '?fileId=' + fileId,
+                success: function (data) {
+                    $('.lbTotal').html(data.total);
+                    $('.lbValid').html(data.valid);
+                    $('.lbInValid').html(data.inValid);
+                }, error: function (e) {
+                    alert(e);
+                }, complete: function () {
+
+                }
+            });
+        }
+        function clearData() {
+            $('.form-id').val('');
+            $('.form-name').val('');
+            $('.form-barcode').val('');
+            $('.form-phone').val('');
+            $('.form-matid').val('');
+            $('.form-model').val('');
+            $('.form-email').val('');
+            $('.form-status').html('');
+            $('.form-address').val('');
+            $('.form-date').val('');
+            $('.form-img2').val("");
+            $('.form-img1').val("");
+            $('.image-upload').val("");
+            $('.img1').css('background-image', '');
+            $('.img2').css('background-image', '');
+            $('.img1').removeClass('js--no-default');
+            $('.img2').removeClass('js--no-default');
+            upload = 0;
+        }
+        function selectData(item) {
+            $('.form-id').val(item.find('.col-phone').data('id'));
+            if (item.find('.col-name').html() == "(No data)")
+                $('.form-name').val('');
+            else
+                $('.form-name').val(item.find('.col-name').html());
+            $('.form-barcode').val(item.find('.col-barcode').html());
+            $('.form-phone').val(item.find('.col-phone').html());
+            $('.form-matid').val(item.find('.col-model').data('id'));
+            if (item.find('.col-model').html() == "(No data)")
+                $('.form-model').val('');
+            else
+                $('.form-model').val(item.find('.col-model').html());
+            $('.form-brand').val(item.find('.col-brandcode').html());
+            $('.form-status').html(item.find('.col-status').html());
+            if (item.find('.col-address').html() == "(No data)")
+                $('.form-address').val('');
+            else
+                $('.form-address').val(item.find('.col-address').html());
+            $('.form-date').val(item.find('.col-purchase').html());
+            if (item.find('.col-purchase').data("id") != "") {
+                $('.form-img1').val(item.find('.col-purchase').data("id"));
+                $('.img1').css('background-image', 'url(' + item.find('.col-purchase').data("id") + ')');
+                $('.img1').addClass('js--no-default');
+            } else {
+                $('.form-img1').val('');
+                $('.img1').css('background-image', '');
+                $('.img1').removeClass('js--no-default');
+            }
+            if (item.find('.col-purchase').data("name") != "") {
+                $('.form-img2').val(item.find('.col-purchase').data("name"));
+                $('.img2').css('background-image', 'url(' + item.find('.col-purchase').data("name") + ')');
+                $('.img2').addClass('js--no-default');
+            } else {
+                $('.form-img2').val('');
+                $('.img2').css('background-image', '');
+                $('.img2').removeClass('js--no-default');
+            }
+        }
+        function initImageUpload(box) {
+            let uploadField = box.querySelector('.image-upload');
+            uploadField.addEventListener('change', getFile);
+
+            function getFile(e) {
+                let file = e.currentTarget.files[0];
+                checkType(file);
+            }
+
+            function previewImage(file) {
+                let thumb = box.querySelector('.js--image-preview'),
+                reader = new FileReader();
+
+                reader.onload = function () {
+                    thumb.style.backgroundImage = 'url(' + reader.result + ')';
+                }
+                reader.readAsDataURL(file);
+                thumb.className += ' js--no-default';
+            }
+
+            function checkType(file) {
+                let imageType = /image.*/;
+                if (!file.type.match(imageType)) {
+                    throw 'Nguyễn Trần Trung Hậu';
+                } else if (!file) {
+                    throw 'Nguyễn Đăng Khoa';
+                } else {
+                    previewImage(file);
+                }
+            }
+        }
+        // initialize box-scope
+        var boxes = document.querySelectorAll('.box');
+        for (let i = 0; i < boxes.length; i++) {
+
+            let box = boxes[i];
+            initDropEffect(box);
+            initImageUpload(box);
+        }
+        /// drop-effect
+        function initDropEffect(box) {
+            let area, drop, areaWidth, areaHeight, maxDistance, dropWidth, dropHeight, x, y;
+
+            // get clickable area for drop effect
+            area = box.querySelector('.js--image-preview');
+            area.addEventListener('click', fireRipple);
+
+            function fireRipple(e) {
+                area = e.currentTarget
+                // create drop
+                if (!drop) {
+                    drop = document.createElement('span');
+                    drop.className = 'drop';
+                    this.appendChild(drop);
+                }
+                // reset animate class
+                drop.className = 'drop';
+
+                // calculate dimensions of area (longest side)
+                areaWidth = getComputedStyle(this, null).getPropertyValue("width");
+                areaHeight = getComputedStyle(this, null).getPropertyValue("height");
+                maxDistance = Math.max(parseInt(areaWidth, 10), parseInt(areaHeight, 10));
+
+                // set drop dimensions to fill area
+                drop.style.width = maxDistance + 'px';
+                drop.style.height = maxDistance + 'px';
+
+                // calculate dimensions of drop
+                dropWidth = getComputedStyle(this, null).getPropertyValue("width");
+                dropHeight = getComputedStyle(this, null).getPropertyValue("height");
+
+                // calculate relative coordinates of click
+                // logic: click coordinates relative to page - parent's position relative to page - half of self height/width to make it controllable from the center
+                x = e.pageX - this.offsetLeft - (parseInt(dropWidth, 10) / 2);
+                y = e.pageY - this.offsetTop - (parseInt(dropHeight, 10) / 2) - 30;
+
+                // position drop and animate
+                drop.style.top = y + 'px';
+                drop.style.left = x + 'px';
+                drop.className += ' animate';
+                e.stopPropagation();
+
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+﻿@model IEnumerable<EWShop.Models.ProductSellOutReport>
+@{
+    ViewBag.Title = "List E-Warranty not transfer GSIS";
+    Layout = "~/Views/Layout/_LayoutAdminDashboard.cshtml";
+    IEnumerable<EWShop.Models.DataReturn> listMonths = (IEnumerable<EWShop.Models.DataReturn>)ViewData["MONTHS"];
+}
+@section Styles {
+    <style>
+        .center {
+            text-align: center !important;
+        }
+
+        .btn {
+            font-size: 14px !important;
+            padding: 1px 10px;
+            height: 25px;
+            border: 1px solid #fff !important;
+        }
+
+        .box {
+            margin-bottom: 10px !important;
+        }
+
+        .box-header > .box-tools {
+            top: 8px !important;
+        }
+
+        .box-body {
+            padding: 5px 5px 0;
+        }
+
+        .no-margin {
+            margin: 0 !important;
+        }
+
+        .control-label {
+            float: left;
+            margin-right: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 0;
+            padding: 2px;
+        }
+
+        .form-control {
+            float: left;
+            font-size: 14px;
+            font-weight: 500;
+            height: 25px;
+            border-radius: 3px;
+            padding: 5px 3px;
+        }
+
+        .div-select {
+            float: left;
+        }
+
+        .m-b-5 {
+            margin-bottom: 5px;
+        }
+
+        .table {
+            margin-bottom: 0 !important;
+        }
+
+            .table > tbody > tr > td {
+                border: 0 !important;
+                padding: 3px;
+            }
+        .col-label {
+            width: 80px !important;
+            text-align: right;
+            vertical-align: middle !important;
+        }
+        .dvMonth {
+            display: none;
+        }
+    </style>
+}
+<section class="content-header">
+    <h1>
+        List E-Warranty Not Transfer GSIS
+        <small>Displayed</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home page</a></li>
+        <li class="active">List EW</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header with-border">
+                    <i class="fa fa-list-alt"></i>
+                    <h3 class="box-title">List E-Warranty not transfer GSIS</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-success btn-box-tool btn-export-excel"><i class="fa fa-file-excel-o"></i> Export excel</button>
+                        <button type="button" class="btn btn-primary btn-box-tool btn-transfer"><i class="fa fa-refresh"></i> Transfer GSIS</button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row div-filter m-b-5">
+                        @using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "dvResults", OnBegin = "OnBegin", OnSuccess = "OnSuccess" }, new { @class = "form-filter" }))
+                        {
+                            @Html.ValidationSummary(true)
+                            <div class="col-md-12">
+                                <label class="control-label">Option</label>
+                                <div class="div-select" style="width: 100px; margin-right: 5px;">
+                                    <select class="form-control form-select form-option" style="width: 100%;" name="option">
+                                        <option value="0" selected="selected">Filter Date</option>
+                                        <option value="1">Filter Month</option>
+                                    </select>
+                                </div>
+                                <div class="dvDate">
+                                    <label class="control-label" title="Ngày đăng ký - Register date">Reg.Date</label>
+                                    <input type="text" class="form-control form-date" style="width: 80px;" name="frmDate" value="@DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy")" />
+                                    <label class="control-label no-margin">-</label>
+                                    <input type="text" class="form-control form-date" style="width: 80px;" name="toDate" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+                                    <label class="control-label" title="Nguồn đăng ký - Source register">No.Display</label>
+                                    <div class="div-select" style="width: 100px; margin-right: 5px;">
+                                        <select class="form-control form-select" style="width: 100%;" name="number">
+                                            <option value="10">10 records</option>
+                                            <option value="100">100 records</option>
+                                            <option value="500">500 records</option>
+                                            <option value="1000">1000 records</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="dvMonth">
+                                    <label class="control-label" title="Tháng - Month">Month</label>
+                                    <div class="div-select" style="width: 100px; margin-right: 5px;">
+                                        <select class="form-control form-select" style="width: 100%;" name="month">
+                                            @foreach (var item in listMonths)
+                                            {
+                                                <option value="@item.value">@item.text</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="border: 1px solid #367fa9 !important;"><i class="fa fa-filter"></i> Filter</button>
+                            </div>
+                        }
+                    </div>
+                    <div class="row">
+                        <div id="dvResults">
+                            @Html.Partial("~/Areas/CallCenter/Views/Shared/_PartialListEWNotTransferGSIS.cshtml", Model)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</section>
+@section Scripts {
+    <script type="text/javascript">
+        var dateFormat = "dd/mm/yy";
+        $(document).ready(function () {
+            BlockUi();
+            $('.form-date').mask('00/00/0000');
+            $('.form-date').datepicker({
+                dateFormat: dateFormat,
+                maxDate: new Date()
+            });
+            $('.form-option').on('change', function () {
+                if ($(this).val() == "0") {
+                    $('.dvMonth').hide();
+                    $('.dvDate').show();
+                } else {
+                    $('.dvMonth').show();
+                    $('.dvDate').hide();
+                }
+            });
+            $('.btn-transfer').click(function () {
+
+            });
+            loadCombobox($('.form-select'));
+            closeBlock();
+        });
+        function loadCombobox($control) {
+            $.fn.select2.amd.require(["select2/data/array", "select2/utils"], function (e, t) {
+                function a(e, t) {
+                    a.__super__.constructor.call(this, e, t)
+                }
+
+                function r(e, t) {
+                    return new RegExp(t, "i").test(e)
+                }
+                t.Extend(a, e), a.prototype.query = function (e, t) {
+                    "page" in e || (e.page = 1);
+                    var a = 10,
+                        n = this.$element.children().map(function (t, a) {
+                            return r(a.innerText, e.term) ? {
+                                id: a.value,
+                                text: a.innerText
+                            } : void 0
+                        });
+                    t({
+                        results: n.slice((e.page - 1) * a, e.page * a),
+                        pagination: {
+                            more: n.length >= e.page * a
+                        }
+                    })
+                }, $selectGroup = $control.select2({
+                    ajax: {},
+                    allowClear: false,
+                    dataAdapter: a
+                })
+            })
+        }
+        function OnBegin() {
+            BlockUi();
+        }
+        function OnSuccess() {
+            closeBlock();
+        }
+    </script>
+}

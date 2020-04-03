@@ -1,0 +1,93 @@
+﻿@model EWShop.Models.ItemResult
+
+@if (Model != null)
+{
+    if (Model.code == "1")
+    {
+        IEnumerable<EWShop.Models.ServiceRequestInfo> list = (IEnumerable<EWShop.Models.ServiceRequestInfo>)Model.data;
+        foreach (var info in list)
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 style="border-bottom: 1px solid #ddd; margin: 0; padding-top: 10px; padding-bottom: 10px;font-weight: 600;">Khách hàng</h5>
+                    <table class="table">
+                        <tr>
+                            <td title="Tên khách hàng" class="col-label">Tên KH</td>
+                            <td class="col-value">@info.CustomerName</td>
+                        </tr>
+                        <tr>
+                            <td title="Số điện thoại khách hàng" class="col-label">SĐT KH</td>
+                            <td class="col-value">@info.CustomerPhone</td>
+                        </tr>
+                        <tr>
+                            <td title="Địa chỉ khách hàng" class="col-label">Địa chỉ KH</td>
+                            <td class="col-value">@info.CustomerDetailAddress</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <h5 style="border-bottom: 1px solid #ddd; margin: 0; padding-top: 10px; padding-bottom: 10px;font-weight: 600;">Sản phẩm</h5>
+                    <table class="table">
+                        <tr>
+                            <td title="Nhãn hiệu" class="col-label">Nhãn hiệu</td>
+                            <td class="col-value">@info.Brand</td>
+                        </tr>
+                        <tr>
+                            <td title="Loại sản phẩm" class="col-label">Loại SP</td>
+                            <td class="col-value">@info.Category</td>
+                        </tr>
+                        <tr>
+                            <td title="Kiểu máy" class="col-label">Kiểu máy</td>
+                            <td class="col-value">@info.ProductModel</td>
+                        </tr>
+                        <tr>
+                            <td title="Số máy" class="col-label">Số máy</td>
+                            <td class="col-value">@info.serialNumber</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <tr>
+                            <td title="Mô tả" class="col-label">Mô tả</td>
+                            <td class="col-value">@info.Description</td>
+                        </tr>
+                        <tr>
+                            <td title="Trạng thái" class="col-label">Trạng thái</td>
+                            <td class="col-value">@info.Status</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-12">
+                    <div style="float:left;margin-right: 5px;padding: 8px;font-size: 15px;width: 20%;">Lịch sử xử lý</div>
+                    <div style="float:left;width: 77%;font-size: 15px;">
+                        <table class="table table-repair">
+                            @foreach (var repair in info.listOfRepair)
+                        {
+                                <tr>
+                                    <td>@repair.ChangedNo</td>
+                                    <td style="font-weight: 600;">@repair.ChangedStatus</td>
+                                    <td>@repair.StatusChangeDate</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="row" style="text-align:center;">
+            <p>@Model.message</p>
+        </div>
+    }
+}
+else
+{
+    <div class="row" style="text-align:center;">
+        <p>Chưa có thông tin yêu cầu bảo hành/bảo trì</p>
+    </div>
+}

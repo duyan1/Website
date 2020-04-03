@@ -1,0 +1,66 @@
+﻿@model IEnumerable<EWShop.Areas.CallCenter.Models.SMSItem>
+@if (Model != null)
+{
+    if (Model.Count() > 0)
+    {
+        int index = 1;
+        <div class="col-md-12" style="text-align: center;">
+            <table class="table table-bordered table-striped table-sms">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Sender</th>
+                        <th>Content</th>
+                        <th>SendDate</th>
+                        <th>Status</th>
+                        <th>IsCheck</th>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="col-id" data-id="@item.id">@index.ToString()</td>
+                            <td class="col-sender">@item.sender</td>
+                            <td class="col-content" title="@item.content">@item.content</td>
+                            <td>@item.regDate</td>
+                            <td class="col-status" data-id="@item.status">
+                                @if ("True".Equals(item.status))
+                                {
+                                    <p style="color:darkblue;margin:0;">Valid</p>
+                                }
+                                else
+                                {
+                                    <p style="color:red;margin:0;">InValid</p>
+                                }
+                            </td>
+                            <td class="col-check" data-id="@item.isCheck">
+                                @if ("True".Equals(item.isCheck))
+                                {
+                                    <p style="color:darkblue;margin:0;">Yes</p>
+                                }
+                                else
+                                {
+                                    <p style="color:red;margin:0;">No</p>
+                                }
+                            </td>
+                            <td class="col-comment" data-id="@item.comment" title="@item.comment">
+                                @item.comment
+                                <input type="hidden" value="@(index++)" />
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-12" style="text-align: center; padding-top: 5px;">
+            <label style="color: orangered;">NO DATA</label>
+        </div>
+    }
+}
+

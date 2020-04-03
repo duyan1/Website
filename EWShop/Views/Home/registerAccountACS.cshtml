@@ -1,0 +1,293 @@
+﻿@model EWShop.Models.ACSModel
+@{
+    ViewBag.Title = "Đăng ký tài khoản nhân viên bán máy lạnh";
+    Layout = "~/Views/Layout/_LayoutCustomerDashboard.cshtml";
+}
+@section Styles {
+<style>
+    .center-block {
+        text-align: center;
+    }
+    .container-form {
+        max-width: 1024px;
+        width: 100%;
+        margin: 0 auto;
+    }
+    .form-group {
+        float: left;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 0 10px;
+    }
+    .table {
+        width: 100%;
+        margin-bottom: 0 !important;
+    }
+    .table > tbody > tr > td {
+        padding: 4px 2px;
+        border: 0px;
+        vertical-align: middle;
+    }
+    .col-label {
+        font-size: 17px;
+        text-align: right;
+        width: 150px;
+        padding: 5px 10px!important;
+    }
+    .form-control {
+        height: calc(1.2em + .75rem + 2px);
+        padding: 7px;
+        font-size: 17px;
+    }
+    .about .about-header {
+        margin-top: 20px;
+    }
+    .about .about-header h2 {
+        font-size: 35px;
+        text-align: center;
+        font-weight: 600;
+    }
+    .h5, h5 {
+        font-size: 20px;
+    }
+    .dvCustomerInfo, .dvProductInfo {
+        float: left;
+        width: 50%;
+        padding: 5px 10px;
+    }
+    @@media only screen and (max-width : 750px) {
+        .dvCustomerInfo, .dvProductInfo {
+            width: 100%;
+            padding: 0 10px;
+        }
+    }
+</style>
+}
+<div class="breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/">
+    <span><span><a href="https://aquavietnam.com.vn/">Trang chủ</a> &gt; <span class="breadcrumb_last" aria-current="page">Đăng ký tài khoản ACS</span></span></span>
+</div>
+@if (ViewBag.Tab == "1")
+{
+    <div class="about-header">
+        <h2>THÔNG TIN ĐĂNG KÝ TÀI KHOẢN</h2>
+    </div>
+    <div class="about-image">
+        <p style="text-align:center;margin-bottom: 10px;font-size: 15px;">Chú ý: Những mục có dấu (*) là mục bắt buộc phải điền</p>
+    </div>
+    <div class="row">
+        <div style="width: 100%;float:left;">
+            @using (Html.BeginForm(null, null, FormMethod.Post))
+            {
+                @Html.ValidationSummary(true)
+                <div class="container-form">
+                    <div class="dvCustomerInfo">
+                        <div class="wrapper" style="padding: 6px 12px; font-size: 16px; border: 0;">
+                            <div class="address">
+                                <h5 style="font-weight: 600;"><i class="fa fa-tags" aria-hidden="true"></i> Thông tin người dùng</h5>
+                                <div class="row">
+                                    <table class="table">
+                                        <tr>
+                                            <td class="col-label">Họ tên<span class="required">*</span></td>
+                                            <td>
+                                                @Html.TextBoxFor(N => N.fullname, new { @class = "form-control form-fullname", @placeholder = "Nhập họ tên ...", required = "required" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-label">Tên đăng nhập<span class="required">*</span></td>
+                                            <td>
+                                                @Html.TextBoxFor(N => N.username, new { @class = "form-control form-username", @placeholder = "Nhập tên đăng nhập ...", required = "required" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-label">Mật khẩu<span class="required">*</span></td>
+                                            <td>
+                                                @Html.PasswordFor(N => N.password, new { @class = "form-control form-password", @placeholder = "Nhập mật khẩu ...", required = "required" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-label">CMND<span class="required">*</span></td>
+                                            <td>
+                                                @Html.TextBoxFor(N => N.icard, new { @class = "form-control form-icard", @placeholder = "Nhập chứng minh thư ...", required = "required" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-label">Số điện thoại<span class="required">*</span></td>
+                                            <td>
+                                                @Html.TextBoxFor(N => N.phone, new { @class = "form-control form-phone", @placeholder = "Nhập số điện thoại ...", required = "required" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-label">Email</td>
+                                            <td>
+                                                @Html.TextBoxFor(N => N.email, new { @class = "form-control form-email", @placeholder = "Nhập email ..." })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-label">Tỉnh thành<span class="required">*</span></td>
+                                            <td>
+                                                @Html.DropDownList("province", (IEnumerable<SelectListItem>)ViewBag.Provinces, new { @class = "form-control form-province" })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-label">Quận huyện<span class="required">*</span></td>
+                                            <td>
+                                                <select class="select-district form-control form-select" style="width:100%" name="district">
+                                                    <option value="0">Vui lòng chọn tỉnh/thành phố</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-label">Địa chỉ<span class="required">*</span></td>
+                                            <td>
+                                                @Html.TextBoxFor(N => N.address, new { @class = "form-control form-address", @placeholder = "Nhập địa chỉ khách hàng...", required = "required" })
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dvProductInfo">
+                        <div class="wrapper" style="padding: 6px 12px; font-size: 16px; border: 0;">
+                            <div class="address">
+                                <h5 style="font-weight: 600;"><i class="fa fa-tags" aria-hidden="true"></i> Thông tin ngân hàng</h5>
+                                <div class="row">
+                                    <table class="table">
+                                        <tr>
+                                            <td class="col-label">Ngân hàng</td>
+                                            <td>
+                                                @Html.TextBoxFor(N => N.bank, new { @class = "form-control form-bank", @placeholder = "Nhập tên ngân hàng ..." })
+                                            </td>
+                                        </tr>
+                                        <tr class="dvModel">
+                                            <td class="col-label">Chi nhánh</td>
+                                            <td>
+                                                @Html.TextBoxFor(N => N.branch, new { @class = "form-control form-branch", @placeholder = "Nhập chi nhánh ..." })
+                                                <input type="hidden" name="matId" class="form-matid" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-label">Số tài khoản</td>
+                                            <td>
+                                                @Html.TextBoxFor(N => N.account, new { @class = "form-control form-account", @placeholder = "Nhập số tài khoản..." })
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-label">Mã xác nhận<span class="required">*</span></td>
+                                            <td>
+                                                <div style="width: 40%;float:left;max-width: 100px;">
+                                                    <img src="/Home/GetCaptchaImage" class="imgCaptcha" style="width:100%;height: 35px;border: 1px solid #ddd;border-radius: 3px;" title="Captcha" />
+                                                </div>
+                                                <div style="width: 60%;float:right;">
+                                                    @Html.TextBoxFor(N => N.captcha, new { @class = "form-control form-captcha", @placeholder = "Nhập mã xác nhận...", required = "required" })
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                Sau khi đăng ký thông tin sẽ có tin nhắn gửi đến số điện thoại đã đăng ký. Vui lòng nhập thông tin code để hoàn tất đăng ký.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align:center; color: red;">
+                                                @ViewBag.Error
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align:center;">
+                                                <button type="submit" class="btn btn-primary" style="padding: 5px 10px; font-size: 16px; border: 1px solid #ddd; min-width: 110px;"><i class="fa fa-save" aria-hidden="true"></i> Đăng ký</button>
+                                                <button type="button" class="btn btn-default btn-clear" style="margin-right: 5px; padding: 5px 10px; font-size: 16px; border: 1px solid #ddd; min-width: 110px;"><i class="fa fa-refresh" aria-hidden="true"></i> Làm mới</button>
+                                                <img src="~/Libraries/dist/img/loading.gif" class="btn btn-default btn-loading" style="width: 100px; display:none; padding: 5px 10px;" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+else if(ViewBag.Tab == "2")
+{
+    <div class="about-header">
+        <h2>THÔNG TIN ĐĂNG KÝ ĐÃ ĐƯỢC GHI NHẬN</h2>
+    </div>
+    <div class="about-image">
+        <p style="text-align:center;margin-bottom: 10px;font-size: 15px;">Vui lòng nhập mã xác nhận đã gửi qua số điện thoại @ViewBag.Mobile đã đăng ký</p>
+    </div>
+    using (Html.BeginForm("SendOTP", "Home", FormMethod.Post))
+    {
+        <div class="row">
+            <div style="width: 100%;">
+                <div style="width: 100%;text-align: center;max-width: 300px;margin: 0 auto;">
+                    <input type="hidden" name="mobile" value="@ViewBag.Mobile" />
+                    <input type="text" class="form-control" placeholder="Mã xác nhận..." style="width: 150px; float:left; margin-right: 5px;height: 40px;padding: 4px;text-align:center;" name="otp" required />
+                    <button type="submit" class="btn btn-primary" style="height: 40px;padding: 5px 15px;font-size: 15px;float:left;"><i class="fa fa-paper-plane" aria-hidden="true"></i> Gửi xác nhận</button>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="about-header">
+        <h2>ĐĂNG KÝ HOÀN TẤT</h2>
+    </div>
+    <div class="about-image">
+        <p style="text-align:center;margin-bottom: 10px;font-size: 15px;">Tài khoản đã được đăng ký thành công. Vui lòng nhấn vào <a href="@Url.Action("/")">đây</a> để đăng nhập vào hệ thống </p>
+    </div>
+}
+
+@section Scripts {
+<script type="text/javascript">
+    var urlloadDistrict = '@Url.Action("loadListDistrict", "Home")';
+    $(document).ready(function () {
+        if('@ViewBag.Tab' == "1")
+        {
+            loadListDistrict($('.form-province').val());
+            $('.form-province').on('change', function () {
+                loadListDistrict($(this).val());
+            });
+        }
+        $('.btn-clear').click(function () {
+            clearData();
+        });
+    });
+    function clearData() {
+        $('.form-fullname').val('');
+        $('.form-username').val('');
+        $('.form-password').val('');
+        $('.form-icard').val('');
+        $('.form-phone').val('');
+        $('.form-email').val('');
+        $('.form-address').val('');
+
+        $('.form-bank').val('');
+        $('.form-branch').val('');
+        $('.form-account').val('');
+
+        $('.form-captcha').val('');
+    }
+    function loadListDistrict(provinceId) {
+        $.ajax({
+            type: "GET",
+            url: urlloadDistrict + '?provinceId=' + provinceId,
+            success: function (data) {
+                var html = '';
+                $.each(data, function (key, value) {
+                    html += '<option value="' + value.value + '">' + value.text + '</option>';
+                });
+                $('.select-district').html(html);
+            }, error: function (e) {
+                alert(e);
+            }, complete: function () {
+
+            }
+        });
+    }
+</script>
+
+}

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<EWShop.Models.ProductSellOutReport>
+@if (Model != null)
+{
+    if (Model.Count() > 0)
+    {
+        int index = 1;
+        <div class="col-md-12" style="text-align: center;">
+            <table class="table table-bordered table-striped table-ewarranties">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>CardNo</th>
+                        <th>Barcode</th>
+                        <th>Model</th>
+                        <th>POD</th>
+                        <th>Cus.Name</th>
+                        <th>Cus.Phone</th>
+                        <th>ShopName</th>
+                        <th>Source</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="col-ew" data-id="@item.eWCardId">@index.ToString()</td>
+                            <td>@item.eWCardNo</td>
+                            <td>@item.barcode</td>
+                            <td>@item.model</td>
+                            <td>@item.POD</td>
+                            <td>@item.cusName</td>
+                            <td>@item.cusPhone</td>
+                            <td>@item.shopName</td>
+                            <td>@item.channel</td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-12" style="text-align: center; padding-top: 5px;">
+            <label style="color: orangered;">NO DATA</label>
+        </div>
+    }
+}
+
+
